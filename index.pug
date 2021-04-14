@@ -1,0 +1,525 @@
+doctype html
+html
+	head
+		link(rel="stylesheet" href="style.css")
+	div.sheet-main
+
+		// Tabs
+		img(src="https://raw.githubusercontent.com/rleong/AltremCharacterSheet/main/Initials_Signature.png" alt="Property of Russell Leong" style="width:45px;height:45px;")
+		input(type="radio" name="attr_tab" value="0" title="Everything" checked).sheet-tab-button.sheet-tab-button-all
+		span.sheet-tab-label &nbsp;View All&nbsp;
+		input(type="radio" name="attr_tab" value="1" title="No1").sheet-tab-button.sheet-tab-button1
+		span.sheet-tab-label &nbsp;Combat&nbsp;
+		input(type="radio" name="attr_tab" value="2" title="No2").sheet-tab-button.sheet-tab-button2
+		span.sheet-tab-label &nbsp;Stats&nbsp;
+		input(type="radio" name="attr_tab" value="3" title="No3").sheet-tab-button.sheet-tab-button3
+		span.sheet-tab-label &nbsp;Abilities&nbsp;
+		input(type="radio" name="attr_tab" value="4" title="No4").sheet-tab-button.sheet-tab-button4
+		span.sheet-tab-label &nbsp;Spells&nbsp;
+		input(type="radio" name="attr_tab" value="5" title="No5").sheet-tab-button.sheet-tab-button5
+		span.sheet-tab-label &nbsp;Strings&nbsp;
+		input(type="radio" name="attr_tab" value="6" title="No6").sheet-tab-button.sheet-tab-button6
+		span.sheet-tab-label &nbsp;Character Details&nbsp;
+		input(type="radio" name="attr_tab" value="7" title="No7").sheet-tab-button.sheet-tab-button7
+		span.sheet-tab-label &nbsp;Inventory&nbsp;
+		input(type="radio" name="attr_tab" value="8" title="No8").sheet-tab-button.sheet-tab-button8
+		span.sheet-tab-label &nbsp;Notebook&nbsp;
+
+		// Header
+		hr
+		div.sheet-header.sheet-div-center
+			div.sheet-header-block
+				div.sheet-undertext Player Name
+				input(type="text" name="attr_player_name" style="width:130px;")
+			div.sheet-header-block
+				div.sheet-undertext Character Name
+				input(type="text" name="attr_char_name" style="width:130px;")
+			div.sheet-header-block
+				div.sheet-undertext Race
+				input(type="text" name="attr_race" style="width:130px;")
+			div.sheet-header-block
+				div.sheet-undertext.sheet-th-vert Total Level
+				input(type="number" name="attr_lvl" value="1" min="1" step="1" max="20").sheet-numbox
+			div.sheet-header-block
+				div.sheet-undertext.sheet-th-vert Proficiency Bonus
+				p(style="display:inline-block;") +
+				input(type="text" name="attr_prof" value="(1 + ceil((@{lvl})/4))" disabled).sheet-numbox.sheet-sm-text
+
+		// Body
+		div.sheet-header-bottom-border
+
+		// Tab 1
+		div.sheet-tabbed-pane.sheet-tab.sheet-tab1
+
+		// Tab 2
+		div.sheet-tabbed-pane.sheet-tab.sheet-tab2
+			div.sheet-header.sheet-div-center
+				div.sheet-header-block
+					div.sheet-undertext.sheet-th-vert Size
+					select(name="attr_size").sheet-numbox.sheet-width-auto
+						option(value="Tiny") Tiny
+						option(value="Small") Small
+						option(value="Medium") Medium
+						option(value="Large") Large
+						option(value="Huge") Huge
+						option(value="Gargantuan") Gargantuan
+				div.sheet-header-block
+					div.sheet-undertext.sheet-th-vert Walking Speed
+					input(type="number" name="attr_walk_speed" min="0" value="0").sheet-numbox
+				div.sheet-header-block
+					div.sheet-undertext.sheet-th-vert Climbing Speed
+					input(type="number" name="attr_climb_speed" min="0" value="0").sheet-numbox
+				div.sheet-header-block
+					div.sheet-undertext.sheet-th-vert Crawling Speed
+					input(type="number" name="attr_crawl_speed" min="0" value="0").sheet-numbox
+				div.sheet-header-block
+					div.sheet-undertext.sheet-th-vert Flying Speed
+					input(type="number" name="attr_fly_speed" min="0" value="0").sheet-numbox
+				div.sheet-header-block
+					div.sheet-undertext.sheet-th-vert Swimming Speed
+					input(type="number" name="attr_swim_speed" min="0" value="0").sheet-numbox
+			hr
+			div.sheet-grid-container
+				div.sheet-grid-item
+					div.sheet-section-title-bar Attributes
+					table.sheet-subsection-table
+						tr
+							th Attribute
+							th.sheet-th-pad.sheet-th-vert Attribute Score
+							th.sheet-th-pad.sheet-th-vert Attribute Modifier
+							th.sheet-th-vert Saving Throw
+							th
+						tr
+							td.sheet-td-vert
+								div.sheet-big-bold STR
+								div.sheet-undertext.sheet-text-align-center Strength
+							td.sheet-td-vert
+								input(type="number" name="attr_str" min="0" step="1" value="0").sheet-numbox
+							td.sheet-td-vert
+								input(type="text" name="attr_str_mod" value="(floor((@{str}-10)/2))" disabled).sheet-numbox.sheet-sm-text 
+							td.sheet-td-vert
+								input(type="checkbox" name="attr_str_save_prof" value="@{prof}")
+							td.sheet-td-vert
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{str_mod}) ?{Saving Throw|No, |Yes,+ (@{prof})}" name="roll_str").sheet-roll-button
+						tr
+							td.sheet-td-vert
+								div.sheet-big-bold DEX
+								div.sheet-undertext.sheet-text-align-center Dexterity
+							td.sheet-td-vert
+								input(type="number" name="attr_dex" min="0" step="1" value="0").sheet-numbox
+							td.sheet-td-vert
+								input(type="text" name="attr_dex_mod" value="(floor((@{dex}-10)/2))" disabled).sheet-numbox.sheet-sm-text 
+							td.sheet-td-vert
+								input(type="checkbox" name="attr_dex_save_prof" value="@{prof}")
+							td.sheet-td-vert
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{dex_mod}) ?{Saving Throw|No, |Yes,+ (@{prof})}" name="roll_dex").sheet-roll-button
+						tr
+							td.sheet-td-vert
+								div.sheet-big-bold CON
+								div.sheet-undertext.sheet-text-align-center Constitution
+							td.sheet-td-vert
+								input(type="number" name="attr_con" min="0" step="1" value="0").sheet-numbox
+							td.sheet-td-vert
+								input(type="text" name="attr_con_mod" value="(floor((@{con}-10)/2))" disabled).sheet-numbox.sheet-sm-text 
+							td.sheet-td-vert
+								input(type="checkbox" name="attr_con_save_prof" value="@{prof}")
+							td.sheet-td-vert
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{con_mod}) ?{Saving Throw|No, |Yes,+ (@{prof})}" name="roll_con").sheet-roll-button
+						tr
+							td.sheet-td-vert
+								div.sheet-big-bold INT
+								div.sheet-undertext.sheet-text-align-center Intelligence
+							td.sheet-td-vert
+								input(type="number" name="attr_int" min="0" step="1" value="0").sheet-numbox
+							td.sheet-td-vert
+								input(type="text" name="attr_int_mod" value="(floor((@{int}-10)/2))" disabled).sheet-numbox.sheet-sm-text 
+							td.sheet-td-vert
+								input(type="checkbox" name="attr_int_save_prof" value="@{prof}")
+							td.sheet-td-vert
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{int_mod}) ?{Saving Throw|No, |Yes,+ (@{prof})}" name="roll_int").sheet-roll-button
+						tr
+							td.sheet-td-vert
+								div.sheet-big-bold WIL
+								div.sheet-undertext.sheet-text-align-center Willpower
+							td.sheet-td-vert
+								input(type="number" name="attr_wil" min="0" step="1" value="0").sheet-numbox
+							td.sheet-td-vert
+								input(type="text" name="attr_wil_mod" value="(floor((@{wil}-10)/2))" disabled).sheet-numbox.sheet-sm-text 
+							td.sheet-td-vert
+								input(type="checkbox" name="attr_wil_save_prof" value="@{prof}")
+							td.sheet-td-vert
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{wil_mod}) ?{Saving Throw|No, |Yes,+ (@{prof})}" name="roll_wil").sheet-roll-button
+						tr
+							td.sheet-td-vert
+								div.sheet-big-bold CHA
+								div.sheet-undertext.sheet-text-align-center Charisma
+							td.sheet-td-vert
+								input(type="number" name="attr_cha" min="0" step="1" value="0").sheet-numbox
+							td.sheet-td-vert
+								input(type="text" name="attr_cha_mod" value="(floor((@{cha}-10)/2))" disabled).sheet-numbox.sheet-sm-text 
+							td.sheet-td-vert
+								input(type="checkbox" name="attr_cha_save_prof" value="@{prof}")
+							td.sheet-td-vert
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{cha_mod}) ?{Saving Throw|No, |Yes,+ (@{prof})}" name="roll_cha").sheet-roll-button
+
+				div.sheet-grid-item-center
+					div.sheet-section-title-bar Skills
+					table.sheet-subsection-table
+						tr
+							th Skill
+							th.sheet-th-pad Proficiency
+							th Bonus
+							th
+						tr
+							td Agility
+							td
+								select(name="attr_agility_prof" style="width:auto;").sheet-numbox
+									option(value="0") None
+									option(value="floor(@{prof} / 2)") ½ Proficient
+									option(value="@{prof}") Proficient
+									option(value="(2*@{prof})") Expertise
+							td +
+								input(type="text" name="attr_agility" value="@{agility_prof}" disabled).sheet-numbox.sheet-sm-text 
+							td
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{agility_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_agility").sheet-roll-button
+						tr
+							td Arcana
+							td
+								select(name="attr_arcana_prof" style="width:auto;").sheet-numbox
+									option(value="0") None
+									option(value="floor(@{prof} / 2)") ½ Proficient
+									option(value="@{prof}") Proficient
+									option(value="(2*@{prof})") Expertise
+							td +
+								input(type="text" name="attr_arcana" value="@{arcana_prof}" disabled).sheet-numbox.sheet-sm-text 
+							td
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{arcana_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_arcana").sheet-roll-button
+						tr
+							td Athletics
+							td
+								select(name="attr_athletics_prof" style="width:auto;").sheet-numbox
+									option(value="0") None
+									option(value="floor(@{prof} / 2)") ½ Proficient
+									option(value="@{prof}") Proficient
+									option(value="(2*@{prof})") Expertise
+							td +
+								input(type="text" name="attr_athletics" value="@{athletics_prof}" disabled).sheet-numbox.sheet-sm-text 
+							td
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{athletics_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_athletics").sheet-roll-button
+						tr
+							td Deception
+							td
+								select(name="attr_deception_prof" style="width:auto;").sheet-numbox
+									option(value="0") None
+									option(value="floor(@{prof} / 2)") ½ Proficient
+									option(value="@{prof}") Proficient
+									option(value="(2*@{prof})") Expertise
+							td +
+								input(type="text" name="attr_deception" value="@{deception_prof}" disabled).sheet-numbox.sheet-sm-text 
+							td
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{deception_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_deception").sheet-roll-button
+						tr
+							td History
+							td
+								select(name="attr_history_prof" style="width:auto;").sheet-numbox
+									option(value="0") None
+									option(value="floor(@{prof} / 2)") ½ Proficient
+									option(value="@{prof}") Proficient
+									option(value="(2*@{prof})") Expertise
+							td +
+								input(type="text" name="attr_history" value="@{history_prof}" disabled).sheet-numbox.sheet-sm-text 
+							td
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{history_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_history").sheet-roll-button
+						tr
+							td Insight
+							td
+								select(name="attr_insight_prof" style="width:auto;").sheet-numbox
+									option(value="0") None
+									option(value="floor(@{prof} / 2)") ½ Proficient
+									option(value="@{prof}") Proficient
+									option(value="(2*@{prof})") Expertise
+							td +
+								input(type="text" name="attr_insight" value="@{insight_prof}" disabled).sheet-numbox.sheet-sm-text 
+							td
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{insight_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_insight").sheet-roll-button
+						tr
+							td Intimidation
+							td
+								select(name="attr_intimidation_prof" style="width:auto;").sheet-numbox
+									option(value="0") None
+									option(value="floor(@{prof} / 2)") ½ Proficient
+									option(value="@{prof}") Proficient
+									option(value="(2*@{prof})") Expertise
+							td +
+								input(type="text" name="attr_intimidation" value="@{intimidation_prof}" disabled).sheet-numbox.sheet-sm-text 
+							td
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{intimidation_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_intimidation").sheet-roll-button
+						tr
+							td Investigation
+							td
+								select(name="attr_investigation_prof" style="width:auto;").sheet-numbox
+									option(value="0") None
+									option(value="floor(@{prof} / 2)") ½ Proficient
+									option(value="@{prof}") Proficient
+									option(value="(2*@{prof})") Expertise
+							td +
+								input(type="text" name="attr_investigation" value="@{investigation_prof}" disabled).sheet-numbox.sheet-sm-text 
+							td
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{investigation_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_investigation").sheet-roll-button
+						tr
+							td Nature
+							td
+								select(name="attr_nature_prof" style="width:auto;").sheet-numbox
+									option(value="0") None
+									option(value="floor(@{prof} / 2)") ½ Proficient
+									option(value="@{prof}") Proficient
+									option(value="(2*@{prof})") Expertise
+							td +
+								input(type="text" name="attr_nature" value="@{nature_prof}" disabled).sheet-numbox.sheet-sm-text 
+							td
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{nature_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_nature").sheet-roll-button
+						tr
+							td Perception
+							td
+								select(name="attr_perception_prof" style="width:auto;").sheet-numbox
+									option(value="0") None
+									option(value="floor(@{prof} / 2)") ½ Proficient
+									option(value="@{prof}") Proficient
+									option(value="(2*@{prof})") Expertise
+							td +
+								input(type="text" name="attr_perception" value="@{perception_prof}" disabled).sheet-numbox.sheet-sm-text 
+							td
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{perception_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_perception").sheet-roll-button
+						tr
+							td Performance
+							td
+								select(name="attr_performance_prof" style="width:auto;").sheet-numbox
+									option(value="0") None
+									option(value="floor(@{prof} / 2)") ½ Proficient
+									option(value="@{prof}") Proficient
+									option(value="(2*@{prof})") Expertise
+							td +
+								input(type="text" name="attr_performance" value="@{performance_prof}" disabled).sheet-numbox.sheet-sm-text 
+							td
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{performance_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_performance").sheet-roll-button
+						tr
+							td Persuasion
+							td
+								select(name="attr_persuasion_prof" style="width:auto;").sheet-numbox
+									option(value="0") None
+									option(value="floor(@{prof} / 2)") ½ Proficient
+									option(value="@{prof}") Proficient
+									option(value="(2*@{prof})") Expertise
+							td +
+								input(type="text" name="attr_persuasion" value="@{persuasion_prof}" disabled).sheet-numbox.sheet-sm-text 
+							td
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{persuasion_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_persuasion").sheet-roll-button
+						tr
+							td Science
+							td
+								select(name="attr_science_prof" style="width:auto;").sheet-numbox
+									option(value="0") None
+									option(value="floor(@{prof} / 2)") ½ Proficient
+									option(value="@{prof}") Proficient
+									option(value="(2*@{prof})") Expertise
+							td +
+								input(type="text" name="attr_science" value="@{science_prof}" disabled).sheet-numbox.sheet-sm-text 
+							td
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{science_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_science").sheet-roll-button
+						tr
+							td Sleight
+							td
+								select(name="attr_sleight_prof" style="width:auto;").sheet-numbox
+									option(value="0") None
+									option(value="floor(@{prof} / 2)") ½ Proficient
+									option(value="@{prof}") Proficient
+									option(value="(2*@{prof})") Expertise
+							td +
+								input(type="text" name="attr_sleight" value="@{sleight_prof}" disabled).sheet-numbox.sheet-sm-text 
+							td
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{sleight_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_sleight").sheet-roll-button
+						tr
+							td Survival
+							td
+								select(name="attr_survival_prof" style="width:auto;").sheet-numbox
+									option(value="0") None
+									option(value="floor(@{prof} / 2)") ½ Proficient
+									option(value="@{prof}") Proficient
+									option(value="(2*@{prof})") Expertise
+							td +
+								input(type="text" name="attr_survival" value="@{survival_prof}" disabled).sheet-numbox.sheet-sm-text 
+							td
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{survival_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_survival").sheet-roll-button
+						tr
+							td Theology
+							td
+								select(name="attr_theology_prof" style="width:auto;").sheet-numbox
+									option(value="0") None
+									option(value="floor(@{prof} / 2)") ½ Proficient
+									option(value="@{prof}") Proficient
+									option(value="(2*@{prof})") Expertise
+							td +
+								input(type="text" name="attr_theology" value="@{theology_prof}" disabled).sheet-numbox.sheet-sm-text 
+							td
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{theology_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_theology").sheet-roll-button
+
+				div.sheet-grid-item-right
+					div.sheet-section-title-bar Class
+					table.sheet-subsection-table
+						tr
+							th Class
+							th Level
+							th Archetype
+						tr
+							td Artificer
+							td
+								input(type="number" name="attr_artificer_level" value="0" min="0" max="20" step="1").sheet-numbox
+							td
+								select(name="attr_artificer_archetype").sheet-numbox.sheet-width-all
+									option(value="") -----
+									option(value="TBD") TBD
+						tr
+							td Augmentor
+							td
+								input(type="number" name="attr_augmentor_level" value="0" min="0" max="20" step="1").sheet-numbox
+							td
+								select(name="attr_augmentor_archetype").sheet-numbox.sheet-width-all
+									option(value="") -----
+									option(value="TBD") TBD
+						tr
+							td Cultivator
+							td
+								input(type="number" name="attr_cultivator_level" value="0" min="0" max="20" step="1").sheet-numbox
+							td
+								select(name="attr_cultivator_archetype").sheet-numbox.sheet-width-all
+									option(value="") -----
+									option(value="TBD") TBD
+						tr
+							td Martialist
+							td
+								input(type="number" name="attr_martialist_level" value="0" min="0" max="20" step="1").sheet-numbox
+							td
+								select(name="attr_martialist_archetype").sheet-numbox.sheet-width-all
+									option(value="") -----
+									option(value="TBD") TBD
+						tr
+							td Occultist
+							td
+								input(type="number" name="attr_occultist_level" value="0" min="0" max="20" step="1").sheet-numbox
+							td
+								select(name="attr_occultist_archetype").sheet-numbox.sheet-width-all
+									option(value="") -----
+									option(value="TBD") TBD
+						tr
+							td Schemer
+							td
+								input(type="number" name="attr_schemer_level" value="0" min="0" max="20" step="1").sheet-numbox
+							td
+								select(name="attr_schemer_archetype").sheet-numbox.sheet-width-all
+									option(value="") -----
+									option(value="TBD") TBD
+						tr
+							td Shifter
+							td
+								input(type="number" name="attr_shifter_level" value="0" min="0" max="20" step="1").sheet-numbox
+							td
+								select(name="attr_shifter_archetype").sheet-numbox.sheet-width-all
+									option(value="") -----
+									option(value="TBD") TBD
+						tr
+							td Sorcerer
+							td
+								input(type="number" name="attr_sorcerer_level" value="0" min="0" max="20" step="1").sheet-numbox
+							td
+								select(name="attr_sorcerer_archetype").sheet-numbox.sheet-width-all
+									option(value="") -----
+									option(value="Wild Soul") Wild Soul
+						tr
+							td Summoner
+							td
+								input(type="number" name="attr_summoner_level" value="0" min="0" max="20" step="1").sheet-numbox
+							td
+								select(name="attr_summoner_archetype").sheet-numbox.sheet-width-all
+									option(value="") -----
+									option(value="Beast Master") Beast Master
+									option(value="Cryptic Caller") Cryptic Caller
+									option(value="Flesh Stitcher") Flesh Stitcher
+									option(value="Golem Smith") Golem Smith
+									option(value="Grave Commander") Grave Commander
+									option(value="Life Animator") Life Animator
+									option(value="Phyto Whisperer") Phyto Whisperer
+									option(value="Soul Splitter") Soul Splitter
+						tr
+							td Theurgist
+							td
+								input(type="number" name="attr_theurgist_level" value="0" min="0" max="20" step="1").sheet-numbox
+							td
+								select(name="attr_theurgist_archetype").sheet-numbox.sheet-width-all
+									option(value="") -----
+									option(value="TBD") TBD
+						tr
+							td Vanguard
+							td
+								input(type="number" name="attr_vanguard_level" value="0" min="0" max="20" step="1").sheet-numbox
+							td
+								select(name="attr_vanguard_archetype").sheet-numbox.sheet-width-all
+									option(value="") -----
+									option(value="TBD") TBD
+						tr
+							td Visionary
+							td
+								input(type="number" name="attr_visionary_level" value="0" min="0" max="20" step="1").sheet-numbox
+							td
+								select(name="attr_visionary_archetype").sheet-numbox.sheet-width-all
+									option(value="") -----
+									option(value="Allurist") Allurist
+									option(value="Battledancer") Battledancer
+									option(value="Chantress") Chantress
+									option(value="Chromamancer") Chromamancer
+									option(value="Fablewright") Fablewright
+									option(value="Maestro") Maestro
+									option(value="Mindsculptor") Mindsculptor
+									option(value="Vates") Vates
+									option(value="Wordsmith") Wordsmith
+						tr
+							td Votarient
+							td
+								input(type="number" name="attr_votarient_level" value="0" min="0" max="20" step="1").sheet-numbox
+							td
+								select(name="attr_votarient_archetype").sheet-numbox.sheet-width-all
+									option(value="") -----
+									option(value="TBD") TBD
+						tr
+							td Warden
+							td
+								input(type="number" name="attr_warden_level" value="0" min="0" max="20" step="1").sheet-numbox
+							td
+								select(name="attr_warden_archetype").sheet-numbox.sheet-width-all
+									option(value="") -----
+									option(value="TBD") TBD
+						tr
+							td Wizard
+							td
+								input(type="number" name="attr_wizard_level" value="0" min="0" max="20" step="1").sheet-numbox
+							td
+								select(name="attr_wizard_archetype").sheet-numbox.sheet-width-all
+									option(value="") -----
+									option(value="TBD") TBD
+
+		// Tab 3
+		div.sheet-tabbed-pane.sheet-tab.sheet-tab3
+
+		// Tab 4
+		div.sheet-tabbed-pane.sheet-tab.sheet-tab4
+
+		// Tab 5
+		div.sheet-tabbed-pane.sheet-tab.sheet-tab5
+
+		// Tab 6
+		div.sheet-tabbed-pane.sheet-tab.sheet-tab6
+
+		// Tab 7
+		div.sheet-tabbed-pane.sheet-tab.sheet-tab7
+
+		// Tab 8
+		div.sheet-tabbed-pane.sheet-tab.sheet-tab8

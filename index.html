@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <div class="sheet-main">
+    <!-- Tabs--><img src="https://raw.githubusercontent.com/rleong/AltremCharacterSheet/main/Initials_Signature.png" alt="Property of Russell Leong" style="width:45px;height:45px;">
+    <input class="sheet-tab-button sheet-tab-button-all" type="radio" name="attr_tab" value="0" title="Everything" checked><span class="sheet-tab-label">&nbsp;View All&nbsp;</span>
+    <input class="sheet-tab-button sheet-tab-button1" type="radio" name="attr_tab" value="1" title="No1"><span class="sheet-tab-label">&nbsp;Combat&nbsp;</span>
+    <input class="sheet-tab-button sheet-tab-button2" type="radio" name="attr_tab" value="2" title="No2"><span class="sheet-tab-label">&nbsp;Stats&nbsp;</span>
+    <input class="sheet-tab-button sheet-tab-button3" type="radio" name="attr_tab" value="3" title="No3"><span class="sheet-tab-label">&nbsp;Abilities&nbsp;</span>
+    <input class="sheet-tab-button sheet-tab-button4" type="radio" name="attr_tab" value="4" title="No4"><span class="sheet-tab-label">&nbsp;Spells&nbsp;</span>
+    <input class="sheet-tab-button sheet-tab-button5" type="radio" name="attr_tab" value="5" title="No5"><span class="sheet-tab-label">&nbsp;Strings&nbsp;</span>
+    <input class="sheet-tab-button sheet-tab-button6" type="radio" name="attr_tab" value="6" title="No6"><span class="sheet-tab-label">&nbsp;Character Details&nbsp;</span>
+    <input class="sheet-tab-button sheet-tab-button7" type="radio" name="attr_tab" value="7" title="No7"><span class="sheet-tab-label">&nbsp;Inventory&nbsp;</span>
+    <input class="sheet-tab-button sheet-tab-button8" type="radio" name="attr_tab" value="8" title="No8"><span class="sheet-tab-label">&nbsp;Notebook&nbsp;</span>
+    <!-- Header-->
+    <hr>
+    <div class="sheet-header sheet-div-center">
+      <div class="sheet-header-block">
+        <div class="sheet-undertext">Player Name</div>
+        <input type="text" name="attr_player_name" style="width:130px;">
+      </div>
+      <div class="sheet-header-block">
+        <div class="sheet-undertext">Character Name</div>
+        <input type="text" name="attr_char_name" style="width:130px;">
+      </div>
+      <div class="sheet-header-block">
+        <div class="sheet-undertext">Race</div>
+        <input type="text" name="attr_race" style="width:130px;">
+      </div>
+      <div class="sheet-header-block">
+        <div class="sheet-undertext sheet-th-vert">Total Level</div>
+        <input class="sheet-numbox" type="number" name="attr_lvl" value="1" min="1" step="1" max="20">
+      </div>
+      <div class="sheet-header-block">
+        <div class="sheet-undertext sheet-th-vert">Proficiency Bonus</div>
+        <p style="display:inline-block;">+</p>
+        <input class="sheet-numbox sheet-sm-text" type="text" name="attr_prof" value="(1 + ceil((@{lvl})/4))" disabled>
+      </div>
+    </div>
+    <!-- Body-->
+    <div class="sheet-header-bottom-border"></div>
+    <!-- Tab 1-->
+    <div class="sheet-tabbed-pane sheet-tab sheet-tab1"></div>
+    <!-- Tab 2-->
+    <div class="sheet-tabbed-pane sheet-tab sheet-tab2">
+      <div class="sheet-header sheet-div-center">
+        <div class="sheet-header-block">
+          <div class="sheet-undertext sheet-th-vert">Size</div>
+          <select class="sheet-numbox sheet-width-auto" name="attr_size">
+            <option value="Tiny">Tiny</option>
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large">Large</option>
+            <option value="Huge">Huge</option>
+            <option value="Gargantuan">Gargantuan</option>
+          </select>
+        </div>
+        <div class="sheet-header-block">
+          <div class="sheet-undertext sheet-th-vert">Walking Speed</div>
+          <input class="sheet-numbox" type="number" name="attr_walk_speed" min="0" value="0">
+        </div>
+        <div class="sheet-header-block">
+          <div class="sheet-undertext sheet-th-vert">Climbing Speed</div>
+          <input class="sheet-numbox" type="number" name="attr_climb_speed" min="0" value="0">
+        </div>
+        <div class="sheet-header-block">
+          <div class="sheet-undertext sheet-th-vert">Crawling Speed</div>
+          <input class="sheet-numbox" type="number" name="attr_crawl_speed" min="0" value="0">
+        </div>
+        <div class="sheet-header-block">
+          <div class="sheet-undertext sheet-th-vert">Flying Speed</div>
+          <input class="sheet-numbox" type="number" name="attr_fly_speed" min="0" value="0">
+        </div>
+        <div class="sheet-header-block">
+          <div class="sheet-undertext sheet-th-vert">Swimming Speed</div>
+          <input class="sheet-numbox" type="number" name="attr_swim_speed" min="0" value="0">
+        </div>
+      </div>
+      <hr>
+      <div class="sheet-grid-container">
+        <div class="sheet-grid-item">
+          <div class="sheet-section-title-bar">Attributes</div>
+          <table class="sheet-subsection-table">
+            <tr>
+              <th>Attribute</th>
+              <th class="sheet-th-pad sheet-th-vert">Attribute Score</th>
+              <th class="sheet-th-pad sheet-th-vert">Attribute Modifier</th>
+              <th class="sheet-th-vert">Saving Throw</th>
+              <th></th>
+            </tr>
+            <tr>
+              <td class="sheet-td-vert">
+                <div class="sheet-big-bold">STR</div>
+                <div class="sheet-undertext sheet-text-align-center">Strength</div>
+              </td>
+              <td class="sheet-td-vert">
+                <input class="sheet-numbox" type="number" name="attr_str" min="0" step="1" value="0">
+              </td>
+              <td class="sheet-td-vert">
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_str_mod" value="(floor((@{str}-10)/2))" disabled>
+              </td>
+              <td class="sheet-td-vert">
+                <input type="checkbox" name="attr_str_save_prof" value="@{prof}">
+              </td>
+              <td class="sheet-td-vert">
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{str_mod}) ?{Saving Throw|No, |Yes,+ (@{prof})}" name="roll_str"></button>
+              </td>
+            </tr>
+            <tr>
+              <td class="sheet-td-vert">
+                <div class="sheet-big-bold">DEX</div>
+                <div class="sheet-undertext sheet-text-align-center">Dexterity</div>
+              </td>
+              <td class="sheet-td-vert">
+                <input class="sheet-numbox" type="number" name="attr_dex" min="0" step="1" value="0">
+              </td>
+              <td class="sheet-td-vert">
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_dex_mod" value="(floor((@{dex}-10)/2))" disabled>
+              </td>
+              <td class="sheet-td-vert">
+                <input type="checkbox" name="attr_dex_save_prof" value="@{prof}">
+              </td>
+              <td class="sheet-td-vert">
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{dex_mod}) ?{Saving Throw|No, |Yes,+ (@{prof})}" name="roll_dex"></button>
+              </td>
+            </tr>
+            <tr>
+              <td class="sheet-td-vert">
+                <div class="sheet-big-bold">CON</div>
+                <div class="sheet-undertext sheet-text-align-center">Constitution</div>
+              </td>
+              <td class="sheet-td-vert">
+                <input class="sheet-numbox" type="number" name="attr_con" min="0" step="1" value="0">
+              </td>
+              <td class="sheet-td-vert">
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_con_mod" value="(floor((@{con}-10)/2))" disabled>
+              </td>
+              <td class="sheet-td-vert">
+                <input type="checkbox" name="attr_con_save_prof" value="@{prof}">
+              </td>
+              <td class="sheet-td-vert">
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{con_mod}) ?{Saving Throw|No, |Yes,+ (@{prof})}" name="roll_con"></button>
+              </td>
+            </tr>
+            <tr>
+              <td class="sheet-td-vert">
+                <div class="sheet-big-bold">INT</div>
+                <div class="sheet-undertext sheet-text-align-center">Intelligence</div>
+              </td>
+              <td class="sheet-td-vert">
+                <input class="sheet-numbox" type="number" name="attr_int" min="0" step="1" value="0">
+              </td>
+              <td class="sheet-td-vert">
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_int_mod" value="(floor((@{int}-10)/2))" disabled>
+              </td>
+              <td class="sheet-td-vert">
+                <input type="checkbox" name="attr_int_save_prof" value="@{prof}">
+              </td>
+              <td class="sheet-td-vert">
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{int_mod}) ?{Saving Throw|No, |Yes,+ (@{prof})}" name="roll_int"></button>
+              </td>
+            </tr>
+            <tr>
+              <td class="sheet-td-vert">
+                <div class="sheet-big-bold">WIL</div>
+                <div class="sheet-undertext sheet-text-align-center">Willpower</div>
+              </td>
+              <td class="sheet-td-vert">
+                <input class="sheet-numbox" type="number" name="attr_wil" min="0" step="1" value="0">
+              </td>
+              <td class="sheet-td-vert">
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_wil_mod" value="(floor((@{wil}-10)/2))" disabled>
+              </td>
+              <td class="sheet-td-vert">
+                <input type="checkbox" name="attr_wil_save_prof" value="@{prof}">
+              </td>
+              <td class="sheet-td-vert">
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{wil_mod}) ?{Saving Throw|No, |Yes,+ (@{prof})}" name="roll_wil"></button>
+              </td>
+            </tr>
+            <tr>
+              <td class="sheet-td-vert">
+                <div class="sheet-big-bold">CHA</div>
+                <div class="sheet-undertext sheet-text-align-center">Charisma</div>
+              </td>
+              <td class="sheet-td-vert">
+                <input class="sheet-numbox" type="number" name="attr_cha" min="0" step="1" value="0">
+              </td>
+              <td class="sheet-td-vert">
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_cha_mod" value="(floor((@{cha}-10)/2))" disabled>
+              </td>
+              <td class="sheet-td-vert">
+                <input type="checkbox" name="attr_cha_save_prof" value="@{prof}">
+              </td>
+              <td class="sheet-td-vert">
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{cha_mod}) ?{Saving Throw|No, |Yes,+ (@{prof})}" name="roll_cha"></button>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="sheet-grid-item-center">
+          <div class="sheet-section-title-bar">Skills</div>
+          <table class="sheet-subsection-table">
+            <tr>
+              <th>Skill</th>
+              <th class="sheet-th-pad">Proficiency</th>
+              <th>Bonus</th>
+              <th></th>
+            </tr>
+            <tr>
+              <td>Agility</td>
+              <td>
+                <select class="sheet-numbox" name="attr_agility_prof" style="width:auto;">
+                  <option value="0">None</option>
+                  <option value="floor(@{prof} / 2)">½ Proficient</option>
+                  <option value="@{prof}">Proficient</option>
+                  <option value="(2*@{prof})">Expertise</option>
+                </select>
+              </td>
+              <td>+
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_agility" value="@{agility_prof}" disabled>
+              </td>
+              <td>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{agility_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_agility"></button>
+              </td>
+            </tr>
+            <tr>
+              <td>Arcana</td>
+              <td>
+                <select class="sheet-numbox" name="attr_arcana_prof" style="width:auto;">
+                  <option value="0">None</option>
+                  <option value="floor(@{prof} / 2)">½ Proficient</option>
+                  <option value="@{prof}">Proficient</option>
+                  <option value="(2*@{prof})">Expertise</option>
+                </select>
+              </td>
+              <td>+
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_arcana" value="@{arcana_prof}" disabled>
+              </td>
+              <td>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{arcana_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_arcana"></button>
+              </td>
+            </tr>
+            <tr>
+              <td>Athletics</td>
+              <td>
+                <select class="sheet-numbox" name="attr_athletics_prof" style="width:auto;">
+                  <option value="0">None</option>
+                  <option value="floor(@{prof} / 2)">½ Proficient</option>
+                  <option value="@{prof}">Proficient</option>
+                  <option value="(2*@{prof})">Expertise</option>
+                </select>
+              </td>
+              <td>+
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_athletics" value="@{athletics_prof}" disabled>
+              </td>
+              <td>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{athletics_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_athletics"></button>
+              </td>
+            </tr>
+            <tr>
+              <td>Deception</td>
+              <td>
+                <select class="sheet-numbox" name="attr_deception_prof" style="width:auto;">
+                  <option value="0">None</option>
+                  <option value="floor(@{prof} / 2)">½ Proficient</option>
+                  <option value="@{prof}">Proficient</option>
+                  <option value="(2*@{prof})">Expertise</option>
+                </select>
+              </td>
+              <td>+
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_deception" value="@{deception_prof}" disabled>
+              </td>
+              <td>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{deception_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_deception"></button>
+              </td>
+            </tr>
+            <tr>
+              <td>History</td>
+              <td>
+                <select class="sheet-numbox" name="attr_history_prof" style="width:auto;">
+                  <option value="0">None</option>
+                  <option value="floor(@{prof} / 2)">½ Proficient</option>
+                  <option value="@{prof}">Proficient</option>
+                  <option value="(2*@{prof})">Expertise</option>
+                </select>
+              </td>
+              <td>+
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_history" value="@{history_prof}" disabled>
+              </td>
+              <td>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{history_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_history"></button>
+              </td>
+            </tr>
+            <tr>
+              <td>Insight</td>
+              <td>
+                <select class="sheet-numbox" name="attr_insight_prof" style="width:auto;">
+                  <option value="0">None</option>
+                  <option value="floor(@{prof} / 2)">½ Proficient</option>
+                  <option value="@{prof}">Proficient</option>
+                  <option value="(2*@{prof})">Expertise</option>
+                </select>
+              </td>
+              <td>+
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_insight" value="@{insight_prof}" disabled>
+              </td>
+              <td>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{insight_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_insight"></button>
+              </td>
+            </tr>
+            <tr>
+              <td>Intimidation</td>
+              <td>
+                <select class="sheet-numbox" name="attr_intimidation_prof" style="width:auto;">
+                  <option value="0">None</option>
+                  <option value="floor(@{prof} / 2)">½ Proficient</option>
+                  <option value="@{prof}">Proficient</option>
+                  <option value="(2*@{prof})">Expertise</option>
+                </select>
+              </td>
+              <td>+
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_intimidation" value="@{intimidation_prof}" disabled>
+              </td>
+              <td>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{intimidation_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_intimidation"></button>
+              </td>
+            </tr>
+            <tr>
+              <td>Investigation</td>
+              <td>
+                <select class="sheet-numbox" name="attr_investigation_prof" style="width:auto;">
+                  <option value="0">None</option>
+                  <option value="floor(@{prof} / 2)">½ Proficient</option>
+                  <option value="@{prof}">Proficient</option>
+                  <option value="(2*@{prof})">Expertise</option>
+                </select>
+              </td>
+              <td>+
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_investigation" value="@{investigation_prof}" disabled>
+              </td>
+              <td>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{investigation_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_investigation"></button>
+              </td>
+            </tr>
+            <tr>
+              <td>Nature</td>
+              <td>
+                <select class="sheet-numbox" name="attr_nature_prof" style="width:auto;">
+                  <option value="0">None</option>
+                  <option value="floor(@{prof} / 2)">½ Proficient</option>
+                  <option value="@{prof}">Proficient</option>
+                  <option value="(2*@{prof})">Expertise</option>
+                </select>
+              </td>
+              <td>+
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_nature" value="@{nature_prof}" disabled>
+              </td>
+              <td>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{nature_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_nature"></button>
+              </td>
+            </tr>
+            <tr>
+              <td>Perception</td>
+              <td>
+                <select class="sheet-numbox" name="attr_perception_prof" style="width:auto;">
+                  <option value="0">None</option>
+                  <option value="floor(@{prof} / 2)">½ Proficient</option>
+                  <option value="@{prof}">Proficient</option>
+                  <option value="(2*@{prof})">Expertise</option>
+                </select>
+              </td>
+              <td>+
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_perception" value="@{perception_prof}" disabled>
+              </td>
+              <td>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{perception_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_perception"></button>
+              </td>
+            </tr>
+            <tr>
+              <td>Performance</td>
+              <td>
+                <select class="sheet-numbox" name="attr_performance_prof" style="width:auto;">
+                  <option value="0">None</option>
+                  <option value="floor(@{prof} / 2)">½ Proficient</option>
+                  <option value="@{prof}">Proficient</option>
+                  <option value="(2*@{prof})">Expertise</option>
+                </select>
+              </td>
+              <td>+
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_performance" value="@{performance_prof}" disabled>
+              </td>
+              <td>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{performance_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_performance"></button>
+              </td>
+            </tr>
+            <tr>
+              <td>Persuasion</td>
+              <td>
+                <select class="sheet-numbox" name="attr_persuasion_prof" style="width:auto;">
+                  <option value="0">None</option>
+                  <option value="floor(@{prof} / 2)">½ Proficient</option>
+                  <option value="@{prof}">Proficient</option>
+                  <option value="(2*@{prof})">Expertise</option>
+                </select>
+              </td>
+              <td>+
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_persuasion" value="@{persuasion_prof}" disabled>
+              </td>
+              <td>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{persuasion_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_persuasion"></button>
+              </td>
+            </tr>
+            <tr>
+              <td>Science</td>
+              <td>
+                <select class="sheet-numbox" name="attr_science_prof" style="width:auto;">
+                  <option value="0">None</option>
+                  <option value="floor(@{prof} / 2)">½ Proficient</option>
+                  <option value="@{prof}">Proficient</option>
+                  <option value="(2*@{prof})">Expertise</option>
+                </select>
+              </td>
+              <td>+
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_science" value="@{science_prof}" disabled>
+              </td>
+              <td>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{science_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_science"></button>
+              </td>
+            </tr>
+            <tr>
+              <td>Sleight</td>
+              <td>
+                <select class="sheet-numbox" name="attr_sleight_prof" style="width:auto;">
+                  <option value="0">None</option>
+                  <option value="floor(@{prof} / 2)">½ Proficient</option>
+                  <option value="@{prof}">Proficient</option>
+                  <option value="(2*@{prof})">Expertise</option>
+                </select>
+              </td>
+              <td>+
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_sleight" value="@{sleight_prof}" disabled>
+              </td>
+              <td>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{sleight_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_sleight"></button>
+              </td>
+            </tr>
+            <tr>
+              <td>Survival</td>
+              <td>
+                <select class="sheet-numbox" name="attr_survival_prof" style="width:auto;">
+                  <option value="0">None</option>
+                  <option value="floor(@{prof} / 2)">½ Proficient</option>
+                  <option value="@{prof}">Proficient</option>
+                  <option value="(2*@{prof})">Expertise</option>
+                </select>
+              </td>
+              <td>+
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_survival" value="@{survival_prof}" disabled>
+              </td>
+              <td>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{survival_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_survival"></button>
+              </td>
+            </tr>
+            <tr>
+              <td>Theology</td>
+              <td>
+                <select class="sheet-numbox" name="attr_theology_prof" style="width:auto;">
+                  <option value="0">None</option>
+                  <option value="floor(@{prof} / 2)">½ Proficient</option>
+                  <option value="@{prof}">Proficient</option>
+                  <option value="(2*@{prof})">Expertise</option>
+                </select>
+              </td>
+              <td>+
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_theology" value="@{theology_prof}" disabled>
+              </td>
+              <td>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{theology_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_theology"></button>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="sheet-grid-item-right">
+          <div class="sheet-section-title-bar">Class</div>
+          <table class="sheet-subsection-table">
+            <tr>
+              <th>Class</th>
+              <th>Level</th>
+              <th>Archetype</th>
+            </tr>
+            <tr>
+              <td>Artificer</td>
+              <td>
+                <input class="sheet-numbox" type="number" name="attr_artificer_level" value="0" min="0" max="20" step="1">
+              </td>
+              <td>
+                <select class="sheet-numbox sheet-width-all" name="attr_artificer_archetype">
+                  <option value="">-----</option>
+                  <option value="TBD">TBD</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Augmentor</td>
+              <td>
+                <input class="sheet-numbox" type="number" name="attr_augmentor_level" value="0" min="0" max="20" step="1">
+              </td>
+              <td>
+                <select class="sheet-numbox sheet-width-all" name="attr_augmentor_archetype">
+                  <option value="">-----</option>
+                  <option value="TBD">TBD</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Cultivator</td>
+              <td>
+                <input class="sheet-numbox" type="number" name="attr_cultivator_level" value="0" min="0" max="20" step="1">
+              </td>
+              <td>
+                <select class="sheet-numbox sheet-width-all" name="attr_cultivator_archetype">
+                  <option value="">-----</option>
+                  <option value="TBD">TBD</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Martialist</td>
+              <td>
+                <input class="sheet-numbox" type="number" name="attr_martialist_level" value="0" min="0" max="20" step="1">
+              </td>
+              <td>
+                <select class="sheet-numbox sheet-width-all" name="attr_martialist_archetype">
+                  <option value="">-----</option>
+                  <option value="TBD">TBD</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Occultist</td>
+              <td>
+                <input class="sheet-numbox" type="number" name="attr_occultist_level" value="0" min="0" max="20" step="1">
+              </td>
+              <td>
+                <select class="sheet-numbox sheet-width-all" name="attr_occultist_archetype">
+                  <option value="">-----</option>
+                  <option value="TBD">TBD</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Schemer</td>
+              <td>
+                <input class="sheet-numbox" type="number" name="attr_schemer_level" value="0" min="0" max="20" step="1">
+              </td>
+              <td>
+                <select class="sheet-numbox sheet-width-all" name="attr_schemer_archetype">
+                  <option value="">-----</option>
+                  <option value="TBD">TBD</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Shifter</td>
+              <td>
+                <input class="sheet-numbox" type="number" name="attr_shifter_level" value="0" min="0" max="20" step="1">
+              </td>
+              <td>
+                <select class="sheet-numbox sheet-width-all" name="attr_shifter_archetype">
+                  <option value="">-----</option>
+                  <option value="TBD">TBD</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Sorcerer</td>
+              <td>
+                <input class="sheet-numbox" type="number" name="attr_sorcerer_level" value="0" min="0" max="20" step="1">
+              </td>
+              <td>
+                <select class="sheet-numbox sheet-width-all" name="attr_sorcerer_archetype">
+                  <option value="">-----</option>
+                  <option value="Wild Soul">Wild Soul</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Summoner</td>
+              <td>
+                <input class="sheet-numbox" type="number" name="attr_summoner_level" value="0" min="0" max="20" step="1">
+              </td>
+              <td>
+                <select class="sheet-numbox sheet-width-all" name="attr_summoner_archetype">
+                  <option value="">-----</option>
+                  <option value="Beast Master">Beast Master</option>
+                  <option value="Cryptic Caller">Cryptic Caller</option>
+                  <option value="Flesh Stitcher">Flesh Stitcher</option>
+                  <option value="Golem Smith">Golem Smith</option>
+                  <option value="Grave Commander">Grave Commander</option>
+                  <option value="Life Animator">Life Animator</option>
+                  <option value="Phyto Whisperer">Phyto Whisperer</option>
+                  <option value="Soul Splitter">Soul Splitter</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Theurgist</td>
+              <td>
+                <input class="sheet-numbox" type="number" name="attr_theurgist_level" value="0" min="0" max="20" step="1">
+              </td>
+              <td>
+                <select class="sheet-numbox sheet-width-all" name="attr_theurgist_archetype">
+                  <option value="">-----</option>
+                  <option value="TBD">TBD</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Vanguard</td>
+              <td>
+                <input class="sheet-numbox" type="number" name="attr_vanguard_level" value="0" min="0" max="20" step="1">
+              </td>
+              <td>
+                <select class="sheet-numbox sheet-width-all" name="attr_vanguard_archetype">
+                  <option value="">-----</option>
+                  <option value="TBD">TBD</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Visionary</td>
+              <td>
+                <input class="sheet-numbox" type="number" name="attr_visionary_level" value="0" min="0" max="20" step="1">
+              </td>
+              <td>
+                <select class="sheet-numbox sheet-width-all" name="attr_visionary_archetype">
+                  <option value="">-----</option>
+                  <option value="Allurist">Allurist</option>
+                  <option value="Battledancer">Battledancer</option>
+                  <option value="Chantress">Chantress</option>
+                  <option value="Chromamancer">Chromamancer</option>
+                  <option value="Fablewright">Fablewright</option>
+                  <option value="Maestro">Maestro</option>
+                  <option value="Mindsculptor">Mindsculptor</option>
+                  <option value="Vates">Vates</option>
+                  <option value="Wordsmith">Wordsmith</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Votarient</td>
+              <td>
+                <input class="sheet-numbox" type="number" name="attr_votarient_level" value="0" min="0" max="20" step="1">
+              </td>
+              <td>
+                <select class="sheet-numbox sheet-width-all" name="attr_votarient_archetype">
+                  <option value="">-----</option>
+                  <option value="TBD">TBD</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Warden</td>
+              <td>
+                <input class="sheet-numbox" type="number" name="attr_warden_level" value="0" min="0" max="20" step="1">
+              </td>
+              <td>
+                <select class="sheet-numbox sheet-width-all" name="attr_warden_archetype">
+                  <option value="">-----</option>
+                  <option value="TBD">TBD</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Wizard</td>
+              <td>
+                <input class="sheet-numbox" type="number" name="attr_wizard_level" value="0" min="0" max="20" step="1">
+              </td>
+              <td>
+                <select class="sheet-numbox sheet-width-all" name="attr_wizard_archetype">
+                  <option value="">-----</option>
+                  <option value="TBD">TBD</option>
+                </select>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- Tab 3-->
+    <div class="sheet-tabbed-pane sheet-tab sheet-tab3"></div>
+    <!-- Tab 4-->
+    <div class="sheet-tabbed-pane sheet-tab sheet-tab4"></div>
+    <!-- Tab 5-->
+    <div class="sheet-tabbed-pane sheet-tab sheet-tab5"></div>
+    <!-- Tab 6-->
+    <div class="sheet-tabbed-pane sheet-tab sheet-tab6"></div>
+    <!-- Tab 7-->
+    <div class="sheet-tabbed-pane sheet-tab sheet-tab7"></div>
+    <!-- Tab 8-->
+    <div class="sheet-tabbed-pane sheet-tab sheet-tab8"></div>
+  </div>
+</html>
