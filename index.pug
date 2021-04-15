@@ -23,6 +23,8 @@ html
 		input(type="radio" name="attr_tab" value="7" title="No7").sheet-tab-button.sheet-tab-button7
 		span.sheet-tab-label &nbsp;Inventory&nbsp;
 		input(type="radio" name="attr_tab" value="8" title="No8").sheet-tab-button.sheet-tab-button8
+		span.sheet-tab-label &nbsp;Companion&nbsp;
+		input(type="radio" name="attr_tab" value="9" title="No9").sheet-tab-button.sheet-tab-button9
 		span.sheet-tab-label &nbsp;Notebook&nbsp;
 
 		// Header
@@ -38,31 +40,385 @@ html
 				div.sheet-undertext Race
 				input(type="text" name="attr_race" style="width:130px;")
 			div.sheet-header-block
+				div.sheet-undertext Innate Modifier
+				select(name="attr_innate_mod" style="width:auto;")
+					option(value="@{str_mod}") Strength
+					option(value="@{dex_mod}") Dexterity
+					option(value="@{con_mod}") Constitution
+					option(value="@{int_mod}") Intellect
+					option(value="@{wil_mod}") Willpower
+					option(value="@{cha_mod}") Charisma
+			div.sheet-header-block
 				div.sheet-undertext.sheet-th-vert Total Level
 				input(type="number" name="attr_lvl" value="1" min="1" step="1" max="20").sheet-numbox
 			div.sheet-header-block
 				div.sheet-undertext.sheet-th-vert Proficiency Bonus
 				p(style="display:inline-block;") +
-				input(type="text" name="attr_prof" value="(1 + ceil((@{lvl})/4))" disabled).sheet-numbox.sheet-sm-text
+				input(type="text" name="attr_prof" value="([[1 + [[ceil((@{lvl})/4))]]]]" disabled).sheet-numbox.sheet-sm-text
 
 		// Body
 		div.sheet-header-bottom-border
 
-		// Tab 1
+		// Combat
 		div.sheet-tabbed-pane.sheet-tab.sheet-tab1
+			br
+			div.sheet-sub-header Combat
+			div.sheet-grid-container
+				div(style="width: 400px;").sheet-grid-item-left
+					div.sheet-header
+						div(style="border-bottom: none;").sheet-subsection-nontable-row
+							div.sheet-inline
+								div.sheet-undertext &nbsp;
+								div(style="font-weight: bold; padding-right: 50px;").sheet-lg-vert Aura Durability:
+							div.sheet-inline
+								div.sheet-undertext.sheet-th-vert Max Durability
+								input(type="number" name="attr_max_aura" min="0" value="0" style="width:50px").sheet-numbox
+							div.sheet-inline
+								div.sheet-undertext.sheet-th-vert Current Durability
+								input(type="number" name="attr_cur_aura" min="0" value="0" style="width:50px").sheet-numbox
+							div.sheet-inline
+								div.sheet-undertext.sheet-th-vert Temporary Aura
+								input(type="number" name="attr_temp_aura" min="0" value="0" style="width:50px").sheet-numbox
+					div.sheet-header
+						div(style="border-bottom: none;").sheet-subsection-nontable-row
+							div.sheet-inline
+								div.sheet-undertext &nbsp;
+								div(style="font-weight: bold; padding-right: 5px;") Initiative:
+							div.sheet-inline
+								div.sheet-undertext.sheet-th-vert Initiative Modifier
+								input(type="number" name="attr_initiative_mod" min="0" value="0" style="width:50px").sheet-numbox
+							div.sheet-inline
+								div.sheet-undertext.sheet-th-vert Roll Initiative
+								button(type="roll" value="/roll 1d20 + [[@{initiative_mod}]] &{tracker}" name="roll_initiative").sheet-roll-button
+					div.sheet-header
+						div(style="border-bottom: none;").sheet-subsection-nontable-row
+							div.sheet-inline
+								div.sheet-undertext &nbsp;
+								div(style="font-weight: bold; padding-right: 20px;").sheet-lg-vert Armor Class:
+							div.sheet-inline
+								div.sheet-undertext &nbsp;
+								input(type="text" name="attr_ac" value="[[@{armor_ac} + @{armor_attribute} + @{armor_bonus}]]" disabled).sheet-numbox.sheet-sm-text.sheet-inline
+							div.sheet-inline
+								div.sheet-undertext &nbsp;
+								p =
+							div.sheet-inline
+								div.sheet-undertext.sheet-text-align-center Armor
+								input(type="number" name="attr_armor_ac" style="width: 60px;" min="10" value="10" step="1")
+							div.sheet-inline
+								div.sheet-undertext &nbsp;
+								p +
+							div.sheet-inline
+								div.sheet-undertext.sheet-text-align-center Attribute
+								select(name="attr_armor_attribute" style="width: 4.5em;").sheet-numbox
+									option(value="@{str_mod}") STR
+									option(value="@{dex_mod}") DEX
+									option(value="@{con_mod}") CON
+									option(value="@{int_mod}") INT
+									option(value="@{wil_mod}") WIL
+									option(value="@{cha_mod}") CHA
+							div.sheet-inline
+								div.sheet-undertext &nbsp;
+								p +
+							div.sheet-inline
+								div.sheet-undertext.sheet-text-align-center Bonus
+								input(type="number" name="attr_armor_bonus" style="width: 60px;" min="0" value="0" step="1")
+				div(style="width: 300px;").sheet-grid-item-right
+					div.sheet-header
+						div(style="border-bottom: none;").sheet-subsection-nontable-row
+							div.sheet-inline
+								div.sheet-undertext &nbsp;
+								div(style="font-weight: bold; padding-right: 50px;").sheet-lg-vert Aura Reserve:
+							div.sheet-inline
+								div.sheet-undertext d4
+								input(type="number" name="attr_recharge_d4" min="0" value="0").sheet-numbox
+								button(type="roll" value="/roll 1d4 + [[@{con_mod}]]" name="roll_recharge_d4").sheet-roll-button
+							div.sheet-inline
+								div.sheet-undertext d6
+								input(type="number" name="attr_recharge_d6" min="0" value="0").sheet-numbox
+								button(type="roll" value="/roll 1d6 + [[@{con_mod}]]" name="roll_recharge_d6").sheet-roll-button
+						div(style="border-bottom: none;").sheet-subsection-nontable-row
+							div.sheet-inline
+								div.sheet-undertext d8
+								input(type="number" name="attr_recharge_d8" min="0" value="0").sheet-numbox
+								button(type="roll" value="/roll 1d8 + [[@{con_mod}]]" name="roll_recharge_d8").sheet-roll-button
+							div.sheet-inline
+								div.sheet-undertext d10
+								input(type="number" name="attr_recharge_d10" min="0" value="0").sheet-numbox
+								button(type="roll" value="/roll 1d10 + [[@{con_mod}]]" name="roll_recharge_d10").sheet-roll-button
+							div.sheet-inline
+								div.sheet-undertext d12
+								input(type="number" name="attr_recharge_d12" min="0" value="0").sheet-numbox
+								button(type="roll" value="/roll 1d12 + [[@{con_mod}]]" name="roll_recharge_d12").sheet-roll-button
+					div.sheet-header
+						div(style="font-weight: bold; padding-right: 50px;").sheet-lg-vert Currently Donned:
+						div(style="border-bottom: none;").sheet-subsection-nontable-row
+							div.sheet-inline
+								div.sheet-undertext Equipped Armor:
+								input(type="text" name="attr_equiped_armor" style="width:120px;")
+							div.sheet-inline
+								div.sheet-undertext Equipped Shield:
+								input(type="text" name="attr_equiped_shield" style="width:120px;")
+			hr
+			div.sheet-grid-container
+				div(style="width: 380px;").sheet-grid-item-left
+					div.sheet-sub-header-small Defense
+					div.sheet-header
+						div
+							table.sheet-subsection-table
+								tr
+									th.sheet-undertext.sheet-th-vert Damage Modifier
+									th.sheet-undertext.sheet-th-vert Type
+									th.sheet-undertext.sheet-th-vert Subset
+									th.sheet-undertext.sheet-th-vert Modifier
+								tr
+									td
+										div(style="padding-right: 120px;")
+									td
+										div(style="padding-right: 55px;")
+									td
+										div(style="padding-right: 85px;")
+									td
+							fieldset(style="padding-right: 20px;").repeating_defenses
+								select(name="attr_defense_mod" style="width: auto;")
+									option(value="Resistance") Resistance
+									option(value="Vulnerability") Vulnerability
+									option(value="Invulnerability") Invulnerability
+									option(value="Reduction") Reduction
+									option(value="Susceptibility") Susceptibility
+								select(name="attr_defense_mod_dmg_type" style="width: auto;")
+									option(value="Physical") Physical
+									option(value="Energy") Energy
+									option(value="Mental") Mental
+									option(value="Miasma") Miasma
+								input(type="text" name="attr_defense_mod_dmg_subset" style="width: 60px;")
+								input(type="number" name="attr_defense_mod_val" value="0" min="0" step="1")
 
-		// Tab 2
+					hr
+					div.sheet-sub-header-small Damage Dice
+					div.sheet-header
+						div
+							fieldset(style="padding-right: 20px;").repeating_damages
+								div(style="border-bottom: none;").sheet-subsection-nontable-row
+									div
+										div.sheet-inline
+											div.sheet-undertext Name
+											input(type="text" name="attr_dmg_name" style="width: 100px;")
+										div.sheet-inline
+											div.sheet-undertext Damage Type
+											select(name="attr_dmg_type" style="width: auto;")
+												option(value="") ----
+												option(value="Physical") Physical
+												option(value="Energy") Energy
+												option(value="Mental") Mental
+												option(value="Miasma") Miasma
+										div.sheet-inline
+											div.sheet-undertext Subset Type
+											input(type="text" name="attr_dmg_subset" style="width: 100px;")
+									div
+										div.sheet-inline
+											div.sheet-undertext Dice #
+											input(type="number" name="attr_dmg_num" style="width: 40px;" value="0" min="0" step="1")
+										div.sheet-inline
+											div.sheet-undertext Die #
+											select(name="attr_dmg_die" style="width: auto;")
+												option(value="") --
+												option(value="d4") d4
+												option(value="d6") d6
+												option(value="d8") d8
+												option(value="d10") d10
+												option(value="d12") d12
+										div.sheet-inline
+											div.sheet-undertext Attribute
+											select(name="attr_dmg_attribute" style="width: auto;").sheet-numbox
+												option(value="0") ---
+												option(value="@{str_mod}") STR
+												option(value="@{dex_mod}") DEX
+												option(value="@{con_mod}") CON
+												option(value="@{int_mod}") INT
+												option(value="@{wil_mod}") WIL
+												option(value="@{cha_mod}") CHA
+										div.sheet-inline
+											div.sheet-undertext Misc. Bonus
+											input(type="number" name="attr_dmg_misc_bonus" style="width: 40px;" value="0" min="0" step="1")
+										div.sheet-inline
+											div.sheet-undertext &nbsp;
+											button(type="roll" value="/roll @{dmg_num}@{dmg_die} + @{dmg_attribute} + @{dmg_misc_bonus} of @{dmg_type} (@{dmg_subset}) damage." name="roll_damage").sheet-roll-button
+
+				div(style="width: 440px;").sheet-grid-item-right
+					div.sheet-sub-header-small Attacks
+					div.sheet-header
+						div
+							fieldset.repeating_attacks
+								div(style="border-bottom: none;").sheet-subsection-nontable-row
+									div.sheet-inline
+										div.sheet-undertext Name
+										input(type="text" name="attr_atk_wep" style="width: 130px;")
+									div.sheet-inline
+										div.sheet-undertext &nbsp;
+										p +
+									div.sheet-inline
+										div.sheet-undertext Mod.&nbsp;
+										input(type="text" name="attr_atk_bonus" value="@{atk_attribute}+@{atk_prof}+@{atk_misc_prof}" style="width: 20px;" disabled)
+									div.sheet-inline
+										div.sheet-undertext Attribute
+										select(name="attr_atk_attribute" style="width: auto;").sheet-numbox
+											option(value="@{str_mod}") STR
+											option(value="@{dex_mod}") DEX
+											option(value="@{con_mod}") CON
+											option(value="@{int_mod}") INT
+											option(value="@{wil_mod}") WIL
+											option(value="@{cha_mod}") CHA
+									div.sheet-inline
+										div.sheet-undertext Proficient
+										select(name="attr_atk_prof" style="width: auto;").sheet-numbox
+											option(value="0") No
+												option(value="2") Yes
+									div.sheet-inline
+										div.sheet-undertext Misc. Bonus
+										input(type="number" name="attr_atk_misc_prof" style="width: 40px;" value="0" min="0" step="1")
+									div.sheet-inline
+										div.sheet-undertext &nbsp;
+										button(type="roll" value="/roll ?{d20 Roll|Normal,1d20 |With Advantage,2d20dl1 |With Disadvantage,2d20dh1} + [[@{atk_bonus}]]" name="roll_attack").sheet-roll-button
+								div(style="border-bottom: none;").sheet-subsection-nontable-row
+									div.sheet-undertext Properties
+									textarea(type="text" name="attr_atk_prop" style="width: 100%; height: 30%;").sheet-paragraph-box
+			
+			hr
+			div.sheet-grid-container
+				div(style="width: 600px; margin: auto; padding-left: 120px;").sheet-grid-item
+					div.sheet-sub-header-small Spell Slots
+					div.sheet-header
+						div(style="border-bottom: none;").sheet-subsection-nontable-row
+							div(style="padding-right: 10px;").sheet-inline
+								div.sheet-undertext.sheet-md-vert Tier 1 Current
+								input(type="number" name="attr_spell_slot_1_curr" style="width: 40px;" min="0" max="5" value="0")
+							div(style="padding-right: 10px;").sheet-inline
+								div.sheet-undertext.sheet-md-vert Tier 2 Current
+								input(type="number" name="attr_spell_slot_2_curr" style="width: 40px;" min="0" max="5" value="0")
+							div(style="padding-right: 10px;").sheet-inline
+								div.sheet-undertext.sheet-md-vert Tier 3 Current
+								input(type="number" name="attr_spell_slot_3_curr" style="width: 40px;" min="0" max="4" value="0")
+							div(style="padding-right: 10px;").sheet-inline
+								div.sheet-undertext.sheet-md-vert Tier 4 Current
+								input(type="number" name="attr_spell_slot_4_curr" style="width: 40px;" min="0" max="4" value="0")
+							div(style="padding-right: 10px;").sheet-inline
+								div.sheet-undertext.sheet-md-vert Tier 5 Current
+								input(type="number" name="attr_spell_slot_5_curr" style="width: 40px;" min="0" max="3" value="0")
+							div(style="padding-right: 10px;").sheet-inline
+								div.sheet-undertext.sheet-md-vert Tier 6 Current
+								input(type="number" name="attr_spell_slot_6_curr" style="width: 40px;" min="0" max="3" value="0")
+							div(style="padding-right: 10px;").sheet-inline
+								div.sheet-undertext.sheet-md-vert Tier 7 Current
+								input(type="number" name="attr_spell_slot_7_curr" style="width: 40px;" min="0" max="2" value="0")
+							div(style="padding-right: 10px;").sheet-inline
+								div.sheet-undertext.sheet-md-vert Tier 8 Current
+								input(type="number" name="attr_spell_slot_8_curr" style="width: 40px;" min="0" max="2" value="0")
+							div(style="padding-right: 10px;").sheet-inline
+								div.sheet-undertext.sheet-md-vert Tier 9 Current
+								input(type="number" name="attr_spell_slot_9_curr" style="width: 40px;" min="0" max="1" value="0")
+							div(style="padding-right: 10px;").sheet-inline
+								div.sheet-undertext.sheet-md-vert Tier 10 Current
+								input(type="number" name="attr_spell_slot_10_curr" style="width: 40px;" min="0" max="1" value="0")
+					div.sheet-header
+						div(style="border-bottom: none;").sheet-subsection-nontable-row
+							div(style="padding-right: 10px;").sheet-inline
+								div.sheet-undertext.sheet-md-vert Tier 1 Maximum
+								input(type="number" name="attr_spell_slot_1_max" style="width: 40px;" min="0" max="5" value="0")
+							div(style="padding-right: 10px;").sheet-inline
+								div.sheet-undertext.sheet-md-vert Tier 2 Maximum
+								input(type="number" name="attr_spell_slot_2_max" style="width: 40px;" min="0" max="5" value="0")
+							div(style="padding-right: 10px;").sheet-inline
+								div.sheet-undertext.sheet-md-vert Tier 3 Maximum
+								input(type="number" name="attr_spell_slot_3_max" style="width: 40px;" min="0" max="4" value="0")
+							div(style="padding-right: 10px;").sheet-inline
+								div.sheet-undertext.sheet-md-vert Tier 4 Maximum
+								input(type="number" name="attr_spell_slot_4_max" style="width: 40px;" min="0" max="4" value="0")
+							div(style="padding-right: 10px;").sheet-inline
+								div.sheet-undertext.sheet-md-vert Tier 5 Maximum
+								input(type="number" name="attr_spell_slot_5_max" style="width: 40px;" min="0" max="3" value="0")
+							div(style="padding-right: 10px;").sheet-inline
+								div.sheet-undertext.sheet-md-vert Tier 6 Maximum
+								input(type="number" name="attr_spell_slot_6_max" style="width: 40px;" min="0" max="3" value="0")
+							div(style="padding-right: 10px;").sheet-inline
+								div.sheet-undertext.sheet-md-vert Tier 7 Maximum
+								input(type="number" name="attr_spell_slot_7_max" style="width: 40px;" min="0" max="2" value="0")
+							div(style="padding-right: 10px;").sheet-inline
+								div.sheet-undertext.sheet-md-vert Tier 8 Maximum
+								input(type="number" name="attr_spell_slot_8_max" style="width: 40px;" min="0" max="2" value="0")
+							div(style="padding-right: 10px;").sheet-inline
+								div.sheet-undertext.sheet-md-vert Tier 9 Maximum
+								input(type="number" name="attr_spell_slot_9_max" style="width: 40px;" min="0" max="1" value="0")
+							div(style="padding-right: 10px;").sheet-inline
+								div.sheet-undertext.sheet-md-vert Tier 10 Maximum
+								input(type="number" name="attr_spell_slot_10_max" style="width: 40px;" min="0" max="1" value="0")
+
+			hr
+			div.sheet-grid-container
+				div(style="width: auto;").sheet-grid-item-left
+					div.sheet-sub-header-small Ammunition
+					div.sheet-header
+						div
+							fieldset(style="padding-right: 20px;").repeating_ammo
+								div(style="border-bottom: none;").sheet-subsection-nontable-row
+									div.sheet-inline
+										div.sheet-undertext.sheet-th-vert Ammunition Name
+										input(type="text" name="attr_ammo_name" style="width: 110px;")
+									div.sheet-inline
+										div.sheet-undertext.sheet-th-vert Current Amount
+										input(type="number" name="attr_ammo_cur_num" style="width: 50px;" value="0" min="0" step="1")
+									div.sheet-inline
+										div.sheet-undertext.sheet-th-vert Max Amount
+										input(type="number" name="attr_ammo_max_num" style="width: 50px;" value="0" min="0" step="1")
+
+				div(style="width: auto;").sheet-grid-item-center
+					div.sheet-sub-header-small Class Resources
+					div.sheet-header
+						div
+							fieldset(style="padding-right: 20px;").repeating_class_resource
+								div(style="border-bottom: none;").sheet-subsection-nontable-row
+									div.sheet-inline
+										div.sheet-undertext.sheet-th-vert Resource Name
+										input(type="text" name="attr_clsrs_name" style="width: 110px;")
+									div.sheet-inline
+										div.sheet-undertext.sheet-th-vert Current Amount
+										input(type="number" name="attr_clsrs_cur_num" style="width: 50px;" value="0" min="0" step="1")
+									div.sheet-inline
+										div.sheet-undertext.sheet-th-vert Max Amount
+										input(type="number" name="attr_clsrs_max_num" style="width: 50px;" value="0" min="0" step="1")
+
+				div(style="width: auto;").sheet-grid-item-right
+					div.sheet-sub-header-small Other Resources
+					div.sheet-header
+						div
+							fieldset(style="padding-right: 20px;").repeating_other_resource
+								div(style="border-bottom: none;").sheet-subsection-nontable-row
+									div.sheet-inline
+										div.sheet-undertext.sheet-th-vert Resource Name
+										input(type="text" name="attr_othrrs_name" style="width: 110px;")
+									div.sheet-inline
+										div.sheet-undertext.sheet-th-vert Current Amount
+										input(type="number" name="attr_othrrs_cur_num" style="width: 50px;" value="0" min="0" step="1")
+									div.sheet-inline
+										div.sheet-undertext.sheet-th-vert Max Amount
+										input(type="number" name="attr_othrrs_max_num" style="width: 50px;" value="0" min="0" step="1")
+
+			br
+			div(style="border-bottom: 3px solid; border-color: #e8e8e8;")
+
+		// Stats
 		div.sheet-tabbed-pane.sheet-tab.sheet-tab2
-			div.sheet-header.sheet-div-center
-				div.sheet-header-block
+			br
+			div.sheet-sub-header Character Stats
+			div(style="margin: auto; padding-left: 40px;").sheet-header
+				div(style="border-right: 1px solid; border-color: #e8e8e8;").sheet-header-block
 					div.sheet-undertext.sheet-th-vert Size
 					select(name="attr_size").sheet-numbox.sheet-width-auto
-						option(value="Tiny") Tiny
-						option(value="Small") Small
-						option(value="Medium") Medium
-						option(value="Large") Large
-						option(value="Huge") Huge
-						option(value="Gargantuan") Gargantuan
+						option(value="1") Tiny
+						option(value="3") Small
+						option(value="6") Medium
+						option(value="12") Large
+						option(value="24") Huge
+						option(value="36") Gargantuan
 				div.sheet-header-block
 					div.sheet-undertext.sheet-th-vert Walking Speed
 					input(type="number" name="attr_walk_speed" min="0" value="0").sheet-numbox
@@ -75,12 +431,102 @@ html
 				div.sheet-header-block
 					div.sheet-undertext.sheet-th-vert Flying Speed
 					input(type="number" name="attr_fly_speed" min="0" value="0").sheet-numbox
-				div.sheet-header-block
+				div(style="border-right: 1px solid; border-color: #e8e8e8; padding-right: 9px;").sheet-header-block
 					div.sheet-undertext.sheet-th-vert Swimming Speed
 					input(type="number" name="attr_swim_speed" min="0" value="0").sheet-numbox
+				div.sheet-header-block
+					div.sheet-undertext.sheet-th-vert Exhaustion Level
+					input(type="number" name="attr_exhaustion" min="0" value="0" max="6").sheet-numbox
+				div(style="border-right: 1px solid; border-color: #e8e8e8; padding-right: 9px;").sheet-header-block
+					div.sheet-undertext.sheet-th-vert Fatigue Level
+					input(type="number" name="attr_fatigue" min="0" value="0" max="6").sheet-numbox
+				div.sheet-header-block
+					div.sheet-undertext.sheet-th-vert Passive Insight
+					input(type="text" name="attr_passive_insight" value="10 + @{int_mod} + @{insight_prof} + @{passive_insight_bonus}" disabled).sheet-numbox
+				div.sheet-header-block
+					div.sheet-undertext.sheet-th-vert Passive Investigation
+					input(type="text" name="attr_passive_investigation" value="10 + @{int_mod} + @{investigation_prof} + @{passive_investigation_bonus}" disabled).sheet-numbox
+				div.sheet-header-block
+					div.sheet-undertext.sheet-th-vert Passive Perception
+					input(type="text" name="attr_passive_perception" value="10 + @{int_mod} + @{perception_prof} + @{passive_perception_bonus}" disabled).sheet-numbox
+			
+			div.sheet-sub-header Conditions
+			div.sheet-header
+				table.sheet-vert-aligned-table
+						tr
+							td
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Blinded
+								input(type="checkbox" name="attr_blinded")
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Charmed
+								input(type="checkbox" name="attr_charmed")
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Dead
+								input(type="checkbox" name="attr_dead")
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Deafened
+								input(type="checkbox" name="attr_deafened")
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Depleted
+								input(type="checkbox" name="attr_depleted")
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Dying
+								input(type="checkbox" name="attr_dying")
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Encumbered
+								input(type="checkbox" name="attr_encumbered")
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Frightened
+								input(type="checkbox" name="attr_frightened")
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Grappled
+								input(type="checkbox" name="attr_grappled")
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Incapacitated
+								input(type="checkbox" name="attr_incapacitated")
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Inebriated
+								input(type="checkbox" name="attr_inebriated")
+						tr
+							td
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Insane
+								input(type="checkbox" name="attr_insane")
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Mad
+								input(type="checkbox" name="attr_mad")
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Muted
+								input(type="checkbox" name="attr_muted")
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Paralyzed
+								input(type="checkbox" name="attr_paralyzed")
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Petrified
+								input(type="checkbox" name="attr_petrified")
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Poisoned
+								input(type="checkbox" name="attr_poisoned")
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Prone
+								input(type="checkbox" name="attr_prone")
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Restrained
+								input(type="checkbox" name="attr_restrained")
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Stunned
+								input(type="checkbox" name="attr_stunned")
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Taunted
+								input(type="checkbox" name="attr_taunted")
+							td.sheet-col-td
+								div(style="padding-right: 8px; padding-left: 8px;").sheet-undertext Unconscious
+								input(type="checkbox" name="attr_unconscious")
+
 			hr
 			div.sheet-grid-container
-				div.sheet-grid-item
+				div.sheet-grid-item-left
 					div.sheet-section-title-bar Attributes
 					table.sheet-subsection-table
 						tr
@@ -96,7 +542,7 @@ html
 							td.sheet-td-vert
 								input(type="number" name="attr_str" min="0" step="1" value="0").sheet-numbox
 							td.sheet-td-vert
-								input(type="text" name="attr_str_mod" value="(floor((@{str}-10)/2))" disabled).sheet-numbox.sheet-sm-text 
+								input(type="text" name="attr_str_mod" value="[[(floor((@{str}-10)/2))]]" disabled).sheet-numbox.sheet-sm-text 
 							td.sheet-td-vert
 								input(type="checkbox" name="attr_str_save_prof" value="@{prof}")
 							td.sheet-td-vert
@@ -108,7 +554,7 @@ html
 							td.sheet-td-vert
 								input(type="number" name="attr_dex" min="0" step="1" value="0").sheet-numbox
 							td.sheet-td-vert
-								input(type="text" name="attr_dex_mod" value="(floor((@{dex}-10)/2))" disabled).sheet-numbox.sheet-sm-text 
+								input(type="text" name="attr_dex_mod" value="[[(floor((@{dex}-10)/2))]]" disabled).sheet-numbox.sheet-sm-text 
 							td.sheet-td-vert
 								input(type="checkbox" name="attr_dex_save_prof" value="@{prof}")
 							td.sheet-td-vert
@@ -120,7 +566,7 @@ html
 							td.sheet-td-vert
 								input(type="number" name="attr_con" min="0" step="1" value="0").sheet-numbox
 							td.sheet-td-vert
-								input(type="text" name="attr_con_mod" value="(floor((@{con}-10)/2))" disabled).sheet-numbox.sheet-sm-text 
+								input(type="text" name="attr_con_mod" value="[[(floor((@{con}-10)/2))]]" disabled).sheet-numbox.sheet-sm-text 
 							td.sheet-td-vert
 								input(type="checkbox" name="attr_con_save_prof" value="@{prof}")
 							td.sheet-td-vert
@@ -128,11 +574,11 @@ html
 						tr
 							td.sheet-td-vert
 								div.sheet-big-bold INT
-								div.sheet-undertext.sheet-text-align-center Intelligence
+								div.sheet-undertext.sheet-text-align-center Intellect
 							td.sheet-td-vert
 								input(type="number" name="attr_int" min="0" step="1" value="0").sheet-numbox
 							td.sheet-td-vert
-								input(type="text" name="attr_int_mod" value="(floor((@{int}-10)/2))" disabled).sheet-numbox.sheet-sm-text 
+								input(type="text" name="attr_int_mod" value="[[(floor((@{int}-10)/2))]]" disabled).sheet-numbox.sheet-sm-text 
 							td.sheet-td-vert
 								input(type="checkbox" name="attr_int_save_prof" value="@{prof}")
 							td.sheet-td-vert
@@ -144,7 +590,7 @@ html
 							td.sheet-td-vert
 								input(type="number" name="attr_wil" min="0" step="1" value="0").sheet-numbox
 							td.sheet-td-vert
-								input(type="text" name="attr_wil_mod" value="(floor((@{wil}-10)/2))" disabled).sheet-numbox.sheet-sm-text 
+								input(type="text" name="attr_wil_mod" value="[[(floor((@{wil}-10)/2))]]" disabled).sheet-numbox.sheet-sm-text 
 							td.sheet-td-vert
 								input(type="checkbox" name="attr_wil_save_prof" value="@{prof}")
 							td.sheet-td-vert
@@ -156,11 +602,15 @@ html
 							td.sheet-td-vert
 								input(type="number" name="attr_cha" min="0" step="1" value="0").sheet-numbox
 							td.sheet-td-vert
-								input(type="text" name="attr_cha_mod" value="(floor((@{cha}-10)/2))" disabled).sheet-numbox.sheet-sm-text 
+								input(type="text" name="attr_cha_mod" value="[[(floor((@{cha}-10)/2))]]" disabled).sheet-numbox.sheet-sm-text 
 							td.sheet-td-vert
 								input(type="checkbox" name="attr_cha_save_prof" value="@{prof}")
 							td.sheet-td-vert
 								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{cha_mod}) ?{Saving Throw|No, |Yes,+ (@{prof})}" name="roll_cha").sheet-roll-button
+					hr
+					div(style="width: 250px;").sheet-section-title-bar Languages
+					fieldset.repeating_languages
+						input(type="text" name="attr_language" style="width: 250px;")
 
 				div.sheet-grid-item-center
 					div.sheet-section-title-bar Skills
@@ -175,13 +625,13 @@ html
 							td
 								select(name="attr_agility_prof" style="width:auto;").sheet-numbox
 									option(value="0") None
-									option(value="floor(@{prof} / 2)") ½ Proficient
+									option(value="(floor(@{prof}/2))") ½ Proficient
 									option(value="@{prof}") Proficient
-									option(value="(2*@{prof})") Expertise
+									option(value="([[2*@{prof}]])") Expertise
 							td +
 								input(type="text" name="attr_agility" value="@{agility_prof}" disabled).sheet-numbox.sheet-sm-text 
 							td
-								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{agility_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_agility").sheet-roll-button
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{agility_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_agility").sheet-roll-button
 						tr
 							td Arcana
 							td
@@ -189,11 +639,11 @@ html
 									option(value="0") None
 									option(value="floor(@{prof} / 2)") ½ Proficient
 									option(value="@{prof}") Proficient
-									option(value="(2*@{prof})") Expertise
+									option(value="([[2*@{prof}]])") Expertise
 							td +
 								input(type="text" name="attr_arcana" value="@{arcana_prof}" disabled).sheet-numbox.sheet-sm-text 
 							td
-								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{arcana_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_arcana").sheet-roll-button
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{arcana_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_arcana").sheet-roll-button
 						tr
 							td Athletics
 							td
@@ -201,11 +651,11 @@ html
 									option(value="0") None
 									option(value="floor(@{prof} / 2)") ½ Proficient
 									option(value="@{prof}") Proficient
-									option(value="(2*@{prof})") Expertise
+									option(value="([[2*@{prof}]])") Expertise
 							td +
 								input(type="text" name="attr_athletics" value="@{athletics_prof}" disabled).sheet-numbox.sheet-sm-text 
 							td
-								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{athletics_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_athletics").sheet-roll-button
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{athletics_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_athletics").sheet-roll-button
 						tr
 							td Deception
 							td
@@ -213,11 +663,11 @@ html
 									option(value="0") None
 									option(value="floor(@{prof} / 2)") ½ Proficient
 									option(value="@{prof}") Proficient
-									option(value="(2*@{prof})") Expertise
+									option(value="([[2*@{prof}]])") Expertise
 							td +
 								input(type="text" name="attr_deception" value="@{deception_prof}" disabled).sheet-numbox.sheet-sm-text 
 							td
-								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{deception_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_deception").sheet-roll-button
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{deception_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_deception").sheet-roll-button
 						tr
 							td History
 							td
@@ -225,11 +675,11 @@ html
 									option(value="0") None
 									option(value="floor(@{prof} / 2)") ½ Proficient
 									option(value="@{prof}") Proficient
-									option(value="(2*@{prof})") Expertise
+									option(value="([[2*@{prof}]])") Expertise
 							td +
 								input(type="text" name="attr_history" value="@{history_prof}" disabled).sheet-numbox.sheet-sm-text 
 							td
-								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{history_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_history").sheet-roll-button
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{history_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_history").sheet-roll-button
 						tr
 							td Insight
 							td
@@ -237,11 +687,11 @@ html
 									option(value="0") None
 									option(value="floor(@{prof} / 2)") ½ Proficient
 									option(value="@{prof}") Proficient
-									option(value="(2*@{prof})") Expertise
+									option(value="([[2*@{prof}]])") Expertise
 							td +
 								input(type="text" name="attr_insight" value="@{insight_prof}" disabled).sheet-numbox.sheet-sm-text 
 							td
-								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{insight_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_insight").sheet-roll-button
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{insight_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_insight").sheet-roll-button
 						tr
 							td Intimidation
 							td
@@ -249,11 +699,11 @@ html
 									option(value="0") None
 									option(value="floor(@{prof} / 2)") ½ Proficient
 									option(value="@{prof}") Proficient
-									option(value="(2*@{prof})") Expertise
+									option(value="([[2*@{prof}]])") Expertise
 							td +
 								input(type="text" name="attr_intimidation" value="@{intimidation_prof}" disabled).sheet-numbox.sheet-sm-text 
 							td
-								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{intimidation_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_intimidation").sheet-roll-button
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{intimidation_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_intimidation").sheet-roll-button
 						tr
 							td Investigation
 							td
@@ -261,11 +711,11 @@ html
 									option(value="0") None
 									option(value="floor(@{prof} / 2)") ½ Proficient
 									option(value="@{prof}") Proficient
-									option(value="(2*@{prof})") Expertise
+									option(value="([[2*@{prof}]])") Expertise
 							td +
 								input(type="text" name="attr_investigation" value="@{investigation_prof}" disabled).sheet-numbox.sheet-sm-text 
 							td
-								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{investigation_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_investigation").sheet-roll-button
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{investigation_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_investigation").sheet-roll-button
 						tr
 							td Nature
 							td
@@ -273,11 +723,11 @@ html
 									option(value="0") None
 									option(value="floor(@{prof} / 2)") ½ Proficient
 									option(value="@{prof}") Proficient
-									option(value="(2*@{prof})") Expertise
+									option(value="([[2*@{prof}]])") Expertise
 							td +
 								input(type="text" name="attr_nature" value="@{nature_prof}" disabled).sheet-numbox.sheet-sm-text 
 							td
-								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{nature_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_nature").sheet-roll-button
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{nature_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_nature").sheet-roll-button
 						tr
 							td Perception
 							td
@@ -285,11 +735,11 @@ html
 									option(value="0") None
 									option(value="floor(@{prof} / 2)") ½ Proficient
 									option(value="@{prof}") Proficient
-									option(value="(2*@{prof})") Expertise
+									option(value="([[2*@{prof}]])") Expertise
 							td +
 								input(type="text" name="attr_perception" value="@{perception_prof}" disabled).sheet-numbox.sheet-sm-text 
 							td
-								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{perception_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_perception").sheet-roll-button
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{perception_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_perception").sheet-roll-button
 						tr
 							td Performance
 							td
@@ -297,11 +747,11 @@ html
 									option(value="0") None
 									option(value="floor(@{prof} / 2)") ½ Proficient
 									option(value="@{prof}") Proficient
-									option(value="(2*@{prof})") Expertise
+									option(value="([[2*@{prof}]])") Expertise
 							td +
 								input(type="text" name="attr_performance" value="@{performance_prof}" disabled).sheet-numbox.sheet-sm-text 
 							td
-								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{performance_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_performance").sheet-roll-button
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{performance_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_performance").sheet-roll-button
 						tr
 							td Persuasion
 							td
@@ -309,11 +759,11 @@ html
 									option(value="0") None
 									option(value="floor(@{prof} / 2)") ½ Proficient
 									option(value="@{prof}") Proficient
-									option(value="(2*@{prof})") Expertise
+									option(value="([[2*@{prof}]])") Expertise
 							td +
 								input(type="text" name="attr_persuasion" value="@{persuasion_prof}" disabled).sheet-numbox.sheet-sm-text 
 							td
-								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{persuasion_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_persuasion").sheet-roll-button
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{persuasion_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_persuasion").sheet-roll-button
 						tr
 							td Science
 							td
@@ -321,11 +771,11 @@ html
 									option(value="0") None
 									option(value="floor(@{prof} / 2)") ½ Proficient
 									option(value="@{prof}") Proficient
-									option(value="(2*@{prof})") Expertise
+									option(value="([[2*@{prof}]])") Expertise
 							td +
 								input(type="text" name="attr_science" value="@{science_prof}" disabled).sheet-numbox.sheet-sm-text 
 							td
-								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{science_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_science").sheet-roll-button
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{science_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_science").sheet-roll-button
 						tr
 							td Sleight
 							td
@@ -333,11 +783,11 @@ html
 									option(value="0") None
 									option(value="floor(@{prof} / 2)") ½ Proficient
 									option(value="@{prof}") Proficient
-									option(value="(2*@{prof})") Expertise
+									option(value="([[2*@{prof}]])") Expertise
 							td +
 								input(type="text" name="attr_sleight" value="@{sleight_prof}" disabled).sheet-numbox.sheet-sm-text 
 							td
-								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{sleight_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_sleight").sheet-roll-button
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{sleight_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_sleight").sheet-roll-button
 						tr
 							td Survival
 							td
@@ -345,11 +795,11 @@ html
 									option(value="0") None
 									option(value="floor(@{prof} / 2)") ½ Proficient
 									option(value="@{prof}") Proficient
-									option(value="(2*@{prof})") Expertise
+									option(value="([[2*@{prof}]])") Expertise
 							td +
 								input(type="text" name="attr_survival" value="@{survival_prof}" disabled).sheet-numbox.sheet-sm-text 
 							td
-								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{survival_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_survival").sheet-roll-button
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{survival_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_survival").sheet-roll-button
 						tr
 							td Theology
 							td
@@ -357,169 +807,618 @@ html
 									option(value="0") None
 									option(value="floor(@{prof} / 2)") ½ Proficient
 									option(value="@{prof}") Proficient
-									option(value="(2*@{prof})") Expertise
+									option(value="([[2*@{prof}]])") Expertise
 							td +
 								input(type="text" name="attr_theology" value="@{theology_prof}" disabled).sheet-numbox.sheet-sm-text 
 							td
-								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{theology_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_theology").sheet-roll-button
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{theology_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_theology").sheet-roll-button
+				
+					hr
+					div(style="padding-left: 20px; font-weight: bold; font-size: 16pt;") Passive Skill Modifier
+					div(style="padding-left: 40px;")
+						table.sheet-subsection-table
+							tr
+								th Passive Skill
+								th Modifier
+							tr
+								td Passive Insight
+								td
+									input(type="number" name="attr_passive_insight_bonus" min="0" step="1" value="0").sheet-numbox
+							tr
+								td Passive Investigation
+								td
+									input(type="number" name="attr_passive_investigation_bonus" min="0" step="1" value="0").sheet-numbox
+							tr
+								td Passive Perception
+								td
+									input(type="number" name="attr_passive_perception_bonus" min="0" step="1" value="0").sheet-numbox
 
 				div.sheet-grid-item-right
+					div(style="padding-bottom: 25px;")
+						div.sheet-section-title-bar Equipment
+						table.sheet-subsection-table
+							tr
+								th.sheet-th-pad Equipment
+								th Proficiency
+							tr
+								td.sheet-td-vert Simple Melee Weapon
+								td
+									input(type="checkbox" name="attr_simple_melee_prof")
+							tr
+								td.sheet-td-vert Simple Ranged Weapon
+								td
+									input(type="checkbox" name="attr_simple_ranged_prof")
+							tr
+								td.sheet-td-vert Martial Melee Weapon
+								td
+									input(type="checkbox" name="attr_martial_melee_prof")
+							tr
+								td.sheet-td-vert Martial Ranged Weapon
+								td
+									input(type="checkbox" name="attr_martial_ranged_prof")
+							tr
+								td.sheet-td-vert Improvised Weapon
+								td
+									input(type="checkbox" name="attr_improvised_prof")
+							tr
+								td.sheet-td-vert Firearms
+								td
+									input(type="checkbox" name="attr_firearms_prof")
+							tr
+								td.sheet-td-vert Light Armor
+								td
+									input(type="checkbox" name="attr_light_armor_prof")
+							tr
+								td.sheet-td-vert Medium Armor
+								td
+									input(type="checkbox" name="attr_med_armor_prof")
+							tr
+								td.sheet-td-vert Heavy Armor
+								td
+									input(type="checkbox" name="attr_heavy_armor_prof")
+							tr
+								td.sheet-td-vert Shields
+								td
+									input(type="checkbox" name="attr_shields_prof")
+							tr
+								td.sheet-td-vert
+									input(type="text" name="attr_other_prof" style="width: 120px;")
+								td
+									input(type="checkbox" name="attr_other_prof_prof")
+
+					hr
+					div(style="width: 250px;").sheet-section-title-bar Tools
+					fieldset.repeating_tools
+						input(type="text" name="attr_tool" style="width: 160px;")
+						select(name="attr_tool_prof" style="width:auto;").sheet-numbox
+								option(value="@{prof}") Proficient
+								option(value="([[2*@{prof}]])") Expertise
+
+			hr
+			div.sheet-grid-container
+				div.sheet-grid-item-left
 					div.sheet-section-title-bar Class
-					table.sheet-subsection-table
-						tr
-							th Class
-							th Level
-							th Archetype
-						tr
-							td Artificer
-							td
-								input(type="number" name="attr_artificer_level" value="0" min="0" max="20" step="1").sheet-numbox
-							td
-								select(name="attr_artificer_archetype").sheet-numbox.sheet-width-all
-									option(value="") -----
-									option(value="TBD") TBD
-						tr
-							td Augmentor
-							td
-								input(type="number" name="attr_augmentor_level" value="0" min="0" max="20" step="1").sheet-numbox
-							td
-								select(name="attr_augmentor_archetype").sheet-numbox.sheet-width-all
-									option(value="") -----
-									option(value="TBD") TBD
-						tr
-							td Cultivator
-							td
-								input(type="number" name="attr_cultivator_level" value="0" min="0" max="20" step="1").sheet-numbox
-							td
-								select(name="attr_cultivator_archetype").sheet-numbox.sheet-width-all
-									option(value="") -----
-									option(value="TBD") TBD
-						tr
-							td Martialist
-							td
-								input(type="number" name="attr_martialist_level" value="0" min="0" max="20" step="1").sheet-numbox
-							td
-								select(name="attr_martialist_archetype").sheet-numbox.sheet-width-all
-									option(value="") -----
-									option(value="TBD") TBD
-						tr
-							td Occultist
-							td
-								input(type="number" name="attr_occultist_level" value="0" min="0" max="20" step="1").sheet-numbox
-							td
-								select(name="attr_occultist_archetype").sheet-numbox.sheet-width-all
-									option(value="") -----
-									option(value="TBD") TBD
-						tr
-							td Schemer
-							td
-								input(type="number" name="attr_schemer_level" value="0" min="0" max="20" step="1").sheet-numbox
-							td
-								select(name="attr_schemer_archetype").sheet-numbox.sheet-width-all
-									option(value="") -----
-									option(value="TBD") TBD
-						tr
-							td Shifter
-							td
-								input(type="number" name="attr_shifter_level" value="0" min="0" max="20" step="1").sheet-numbox
-							td
-								select(name="attr_shifter_archetype").sheet-numbox.sheet-width-all
-									option(value="") -----
-									option(value="TBD") TBD
-						tr
-							td Sorcerer
-							td
-								input(type="number" name="attr_sorcerer_level" value="0" min="0" max="20" step="1").sheet-numbox
-							td
-								select(name="attr_sorcerer_archetype").sheet-numbox.sheet-width-all
-									option(value="") -----
-									option(value="Wild Soul") Wild Soul
-						tr
-							td Summoner
-							td
-								input(type="number" name="attr_summoner_level" value="0" min="0" max="20" step="1").sheet-numbox
-							td
-								select(name="attr_summoner_archetype").sheet-numbox.sheet-width-all
-									option(value="") -----
-									option(value="Beast Master") Beast Master
-									option(value="Cryptic Caller") Cryptic Caller
-									option(value="Flesh Stitcher") Flesh Stitcher
-									option(value="Golem Smith") Golem Smith
-									option(value="Grave Commander") Grave Commander
-									option(value="Life Animator") Life Animator
-									option(value="Phyto Whisperer") Phyto Whisperer
-									option(value="Soul Splitter") Soul Splitter
-						tr
-							td Theurgist
-							td
-								input(type="number" name="attr_theurgist_level" value="0" min="0" max="20" step="1").sheet-numbox
-							td
-								select(name="attr_theurgist_archetype").sheet-numbox.sheet-width-all
-									option(value="") -----
-									option(value="TBD") TBD
-						tr
-							td Vanguard
-							td
-								input(type="number" name="attr_vanguard_level" value="0" min="0" max="20" step="1").sheet-numbox
-							td
-								select(name="attr_vanguard_archetype").sheet-numbox.sheet-width-all
-									option(value="") -----
-									option(value="TBD") TBD
-						tr
-							td Visionary
-							td
-								input(type="number" name="attr_visionary_level" value="0" min="0" max="20" step="1").sheet-numbox
-							td
-								select(name="attr_visionary_archetype").sheet-numbox.sheet-width-all
-									option(value="") -----
-									option(value="Allurist") Allurist
-									option(value="Battledancer") Battledancer
-									option(value="Chantress") Chantress
-									option(value="Chromamancer") Chromamancer
-									option(value="Fablewright") Fablewright
-									option(value="Maestro") Maestro
-									option(value="Mindsculptor") Mindsculptor
-									option(value="Vates") Vates
-									option(value="Wordsmith") Wordsmith
-						tr
-							td Votarient
-							td
-								input(type="number" name="attr_votarient_level" value="0" min="0" max="20" step="1").sheet-numbox
-							td
-								select(name="attr_votarient_archetype").sheet-numbox.sheet-width-all
-									option(value="") -----
-									option(value="TBD") TBD
-						tr
-							td Warden
-							td
-								input(type="number" name="attr_warden_level" value="0" min="0" max="20" step="1").sheet-numbox
-							td
-								select(name="attr_warden_archetype").sheet-numbox.sheet-width-all
-									option(value="") -----
-									option(value="TBD") TBD
-						tr
-							td Wizard
-							td
-								input(type="number" name="attr_wizard_level" value="0" min="0" max="20" step="1").sheet-numbox
-							td
-								select(name="attr_wizard_archetype").sheet-numbox.sheet-width-all
-									option(value="") -----
-									option(value="TBD") TBD
+					div
+						table.sheet-subsection-table
+							tr
+								th Class
+								th Level
+								th Archetype and Tier Level
+							tr
+								td Artificer
+								td
+									input(type="number" name="attr_artificer_level" value="0" min="0" max="20" step="1").sheet-numbox
+								td
+									div(style="width: 280px;")
+										fieldset.repeating_artificer_archetype
+											div.sheet-inline
+												input(type="text" name="attr_artificer_archetype" style="width: 230px;")
+											div.sheet-inline
+												input(type="number" name="attr_artificer_archetype_tier" value="0" min="0" max="5" step="1")
+							tr
+								td Augmentor
+								td
+									input(type="number" name="attr_augmentor_level" value="0" min="0" max="20" step="1").sheet-numbox
+								td
+									div(style="width: 280px;")
+										fieldset.repeating_augmentor_archetype
+											div.sheet-inline
+												input(type="text" name="attr_augmentor_archetype" style="width: 230px;")
+											div.sheet-inline
+												input(type="number" name="attr_augmentor_archetype_tier" value="0" min="0" max="5" step="1")
+							tr
+								td Cultivator
+								td
+									input(type="number" name="attr_cultivator_level" value="0" min="0" max="20" step="1").sheet-numbox
+								td
+									div(style="width: 280px;")
+										fieldset.repeating_cultivator_archetype
+											div.sheet-inline
+												input(type="text" name="attr_cultivator_archetype" style="width: 230px;")
+											div.sheet-inline
+												input(type="number" name="attr_cultivator_archetype_tier" value="0" min="0" max="5" step="1")
+							tr
+								td Martialist
+								td
+									input(type="number" name="attr_martialist_level" value="0" min="0" max="20" step="1").sheet-numbox
+								td
+									div(style="width: 280px;")
+										fieldset.repeating_martialist_archetype
+											div.sheet-inline
+												input(type="text" name="attr_martialist_archetype" style="width: 230px;")
+											div.sheet-inline
+												input(type="number" name="attr_martialist_archetype_tier" value="0" min="0" max="5" step="1")
+							tr
+								td Occultist
+								td
+									input(type="number" name="attr_occultist_level" value="0" min="0" max="20" step="1").sheet-numbox
+								td
+									div(style="width: 280px;")
+										fieldset.repeating_occultist_archetype
+											div.sheet-inline
+												input(type="text" name="attr_occultist_archetype" style="width: 230px;")
+											div.sheet-inline
+												input(type="number" name="attr_occultist_archetype_tier" value="0" min="0" max="5" step="1")
+							tr
+								td Schemer
+								td
+									input(type="number" name="attr_schemer_level" value="0" min="0" max="20" step="1").sheet-numbox
+								td
+									div(style="width: 280px;")
+										fieldset.repeating_schemer_archetype
+											div.sheet-inline
+												input(type="text" name="attr_schemer_archetype" style="width: 230px;")
+											div.sheet-inline
+												input(type="number" name="attr_schemer_archetype_tier" value="0" min="0" max="5" step="1")
+							tr
+								td Shifter
+								td
+									input(type="number" name="attr_shifter_level" value="0" min="0" max="20" step="1").sheet-numbox
+								td
+									div(style="width: 280px;")
+										fieldset.repeating_shifter_archetype
+											div.sheet-inline
+												input(type="text" name="attr_shifter_archetype" style="width: 230px;")
+											div.sheet-inline
+												input(type="number" name="attr_shifter_archetype_tier" value="0" min="0" max="5" step="1")
+							tr
+								td Sorcerer
+								td
+									input(type="number" name="attr_sorcerer_level" value="0" min="0" max="20" step="1").sheet-numbox
+								td
+									div(style="width: 280px;")
+										fieldset.repeating_sorcerer_archetype
+											div.sheet-inline
+												input(type="text" name="attr_sorcerer_archetype" style="width: 230px;")
+											div.sheet-inline
+												input(type="number" name="attr_sorcerer_archetype_tier" value="0" min="0" max="5" step="1")
+							tr
+								td Summoner
+								td
+									input(type="number" name="attr_summoner_level" value="0" min="0" max="20" step="1").sheet-numbox
+								td
+									div(style="width: 280px;")
+										fieldset.repeating_summoner_archetype
+											div.sheet-inline
+												input(type="text" name="attr_summoner_archetype" style="width: 230px;")
+											div.sheet-inline
+												input(type="number" name="attr_summoner_archetype_tier" value="0" min="0" max="5" step="1")
+							tr
+								td Theurgist
+								td
+									input(type="number" name="attr_theurgist_level" value="0" min="0" max="20" step="1").sheet-numbox
+								td
+									div(style="width: 280px;")
+										fieldset.repeating_theurgist_archetype
+											div.sheet-inline
+												input(type="text" name="attr_theurgist_archetype" style="width: 230px;")
+											div.sheet-inline
+												input(type="number" name="attr_theurgist_archetype_tier" value="0" min="0" max="5" step="1")
+							tr
+								td Vanguard
+								td
+									input(type="number" name="attr_vanguard_level" value="0" min="0" max="20" step="1").sheet-numbox
+								td
+									div(style="width: 280px;")
+										fieldset.repeating_vanguard_archetype
+											div.sheet-inline
+												input(type="text" name="attr_vanguard_archetype" style="width: 230px;")
+											div.sheet-inline
+												input(type="number" name="attr_vanguard_archetype_tier" value="0" min="0" max="5" step="1")
+							tr
+								td Visionary
+								td
+									input(type="number" name="attr_visionary_level" value="0" min="0" max="20" step="1").sheet-numbox
+								td
+									div(style="width: 280px;")
+										fieldset.repeating_visionary_archetype
+											div.sheet-inline
+												input(type="text" name="attr_visionary_archetype" style="width: 230px;")
+											div.sheet-inline
+												input(type="number" name="attr_visionary_archetype_tier" value="0" min="0" max="5" step="1")
+							tr
+								td Votarient
+								td
+									input(type="number" name="attr_votarient_level" value="0" min="0" max="20" step="1").sheet-numbox
+								td
+									div(style="width: 280px;")
+										fieldset.repeating_votarient_archetype
+											div.sheet-inline
+												input(type="text" name="attr_votarient_archetype" style="width: 230px;")
+											div.sheet-inline
+												input(type="number" name="attr_votarient_archetype_tier" value="0" min="0" max="5" step="1")
+							tr
+								td Warden
+								td
+									input(type="number" name="attr_warden_level" value="0" min="0" max="20" step="1").sheet-numbox
+								td
+									div(style="width: 280px;")
+										fieldset.repeating_warden_archetype
+											div.sheet-inline
+												input(type="text" name="attr_warden_archetype" style="width: 230px;")
+											div.sheet-inline
+												input(type="number" name="attr_warden_archetype_tier" value="0" min="0" max="5" step="1")
+							tr
+								td Wizard
+								td
+									input(type="number" name="attr_wizard_level" value="0" min="0" max="20" step="1").sheet-numbox
+								td
+									div(style="width: 280px;")
+										fieldset.repeating_wizard_archetype
+											div.sheet-inline
+												input(type="text" name="attr_wizard_archetype" style="width: 230px;")
+											div.sheet-inline
+												input(type="number" name="attr_wizard_archetype_tier" value="0" min="0" max="5" step="1")
+				
+				div(style="border-left: 3px solid; border-color: #e8e8e8; width: 350px;").sheet-grid-item-right
+					div.sheet-section-title-bar Lasting Injuries
+					div
+						table.sheet-subsection-table
+							tr
+								th.sheet-th-vert Body Part
+								th.sheet-th-vert Remedial Effect
+								th.sheet-th-vert Permanent Effect
+							tr
+								td
+									div(style="padding-right: 210px;")
+								td
+									div(style="padding-right: 70px;")
+								td
+						div(style="width: 330px;")
+							fieldset.repeating_injury
+								div.sheet-inline
+									input(type="text" name="attr_body_part" style="width: 220px;")
+								div(style="padding-left: 25px; padding-right: 50px;").sheet-inline
+									input(type="checkbox" name="attr_remedial")
+								div.sheet-inline
+									input(type="checkbox" name="attr_permanent")
+			br
+			br
+			div(style="border-bottom: 3px solid; border-color: #e8e8e8;")
 
-		// Tab 3
+		// Abilities
 		div.sheet-tabbed-pane.sheet-tab.sheet-tab3
+			br
+			div.sheet-sub-header Abilities
+			div
+				div.sheet-sub-header-small-left Racial Abilities
+				fieldset.repeating_racial_abilities
+					div(style="border-bottom: none;").sheet-subsection-nontable-row
+						div.sheet-inline
+							div.sheet-undertext Ability Name
+							input(type="text" name="attr_racial_ability_name" style="width: 200px;")
+						div.sheet-inline
+							div.sheet-undertext &nbsp;
+							div.sheet-undertext &nbsp;
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Current Uses
+							input(type="number" name="attr_racial_ability_curr" style="width: 50px;" min="0" step="1" value="0")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Max Uses
+							input(type="number" name="attr_racial_ability_max" style="width: 50px;" min="0" step="1" value="0")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Short Rest Recharge?
+							input(type="checkbox" name="attr_racial_ability_sr_recharge")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Long Rest Recharge?
+							input(type="checkbox" name="attr_racial_ability_lr_recharge")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Send to Chat
+							button(type="roll" value="&{template:feature} {{title=@{racial_ability_name}}} {{desc=@{racial_ability_desc}}}" name="roll_racial_ability").sheet-roll-button
+					div(style="border-bottom: none;").sheet-subsection-nontable-row
+						div.sheet-undertext Description
+						textarea(type="text" name="attr_racial_ability_desc" style="width: 100%; height: 50%;").sheet-paragraph-box
 
-		// Tab 4
+				hr
+				div.sheet-sub-header-small-left Traits
+				fieldset.repeating_racial_abilities
+					div(style="border-bottom: none;").sheet-subsection-nontable-row
+						div.sheet-inline
+							div.sheet-undertext Trait Name
+							input(type="text" name="attr_trait_name" style="width: 200px;")
+						div.sheet-inline
+							div.sheet-undertext &nbsp;
+							div.sheet-undertext &nbsp;
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Current Uses
+							input(type="number" name="attr_trait_curr" style="width: 50px;" min="0" step="1" value="0")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Max Uses
+							input(type="number" name="attr_trait_max" style="width: 50px;" min="0" step="1" value="0")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Short Rest Recharge?
+							input(type="checkbox" name="attr_trait_sr_recharge")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Long Rest Recharge?
+							input(type="checkbox" name="attr_trait_lr_recharge")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Send to Chat
+							button(type="roll" value="&{template:feature} {{title=@{trait_name}}} {{desc=@{trait_desc}}}" name="roll_trait").sheet-roll-button
+					div(style="border-bottom: none;").sheet-subsection-nontable-row
+						div.sheet-undertext Description
+						textarea(type="text" name="attr_trait_desc" style="width: 100%; height: 50%;").sheet-paragraph-box
+
+				hr
+				div.sheet-sub-header-small-left Feats
+				fieldset.repeating_racial_abilities
+					div(style="border-bottom: none;").sheet-subsection-nontable-row
+						div.sheet-inline
+							div.sheet-undertext Feat Name
+							input(type="text" name="attr_feat_name" style="width: 200px;")
+						div.sheet-inline
+							div.sheet-undertext &nbsp;
+							div.sheet-undertext &nbsp;
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Current Uses
+							input(type="number" name="attr_feat_curr" style="width: 50px;" min="0" step="1" value="0")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Max Uses
+							input(type="number" name="attr_feat_max" style="width: 50px;" min="0" step="1" value="0")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Short Rest Recharge?
+							input(type="checkbox" name="attr_feat_sr_recharge")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Long Rest Recharge?
+							input(type="checkbox" name="attr_feat_lr_recharge")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Send to Chat
+							button(type="roll" value="&{template:feature} {{title=@{feat_name}}} {{desc=@{feat_desc}}}" name="roll_feature").sheet-roll-button
+					div(style="border-bottom: none;").sheet-subsection-nontable-row
+						div.sheet-undertext Description
+						textarea(type="text" name="attr_feat_desc" style="width: 100%; height: 50%;").sheet-paragraph-box
+
+				hr
+				div.sheet-sub-header-small-left Class Features
+				fieldset.repeating_racial_abilities
+					div(style="border-bottom: none;").sheet-subsection-nontable-row
+						div.sheet-inline
+							div.sheet-undertext Feature Name
+							input(type="text" name="attr_class_feat_name" style="width: 200px;")
+						div.sheet-inline
+							div.sheet-undertext &nbsp;
+							div.sheet-undertext &nbsp;
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Current Uses
+							input(type="number" name="attr_class_feat_curr" style="width: 50px;" min="0" step="1" value="0")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Max Uses
+							input(type="number" name="attr_class_feat_max" style="width: 50px;" min="0" step="1" value="0")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Short Rest Recharge?
+							input(type="checkbox" name="attr_class_feat_sr_recharge")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Long Rest Recharge?
+							input(type="checkbox" name="attr_class_feat_lr_recharge")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Send to Chat
+							button(type="roll" value="&{template:feature} {{title=@{class_feat_name}}} {{desc=@{class_feat_desc}}}" name="roll_class_feature").sheet-roll-button
+					div(style="border-bottom: none;").sheet-subsection-nontable-row
+						div.sheet-undertext Description
+						textarea(type="text" name="attr_class_feat_desc" style="width: 100%; height: 50%;").sheet-paragraph-box
+
+				hr
+				div.sheet-sub-header-small-left Other Features
+				fieldset.repeating_racial_abilities
+					div(style="border-bottom: none;").sheet-subsection-nontable-row
+						div.sheet-inline
+							div.sheet-undertext Feature Name
+							input(type="text" name="attr_other_feat_name" style="width: 200px;")
+						div.sheet-inline
+							div.sheet-undertext &nbsp;
+							div.sheet-undertext &nbsp;
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Current Uses
+							input(type="number" name="attr_other_feat_curr" style="width: 50px;" min="0" step="1" value="0")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Max Uses
+							input(type="number" name="attr_other_feat_max" style="width: 50px;" min="0" step="1" value="0")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Short Rest Recharge?
+							input(type="checkbox" name="attr_other_feat_sr_recharge")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Long Rest Recharge?
+							input(type="checkbox" name="attr_other_feat_lr_recharge")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Send to Chat
+							button(type="roll" value="&{template:feature} {{title=@{other_feat_name}}} {{desc=@{other_feat_desc}}}" name="roll_other_feature").sheet-roll-button
+					div(style="border-bottom: none;").sheet-subsection-nontable-row
+						div.sheet-undertext Description
+						textarea(type="text" name="attr_other_feat_desc" style="width: 100%; height: 50%;").sheet-paragraph-box
+
+			br
+			div(style="border-bottom: 3px solid; border-color: #e8e8e8;")
+
+		// Spells
 		div.sheet-tabbed-pane.sheet-tab.sheet-tab4
+			br
+			br
+			div(style="border-bottom: 3px solid; border-color: #e8e8e8;")
 
-		// Tab 5
+		// Strings
 		div.sheet-tabbed-pane.sheet-tab.sheet-tab5
+			br
+			div.sheet-sub-header Strings
+			div
+				div.sheet-sub-header-small-left Relationships
+				fieldset.repeating_relationships
+					div(style="border-bottom: none;").sheet-subsection-nontable-row
+						div.sheet-inline
+							div.sheet-undertext Person
+							input(type="text" name="attr_relationship" style="width: 200px;")
+						div.sheet-inline
+							div.sheet-undertext &nbsp;
+							div.sheet-undertext &nbsp;
+						div.sheet-inline
+							div.sheet-undertext Importance
+							select(name="attr_relationship_importance" style="width: auto;")
+								option(value="1") Minor
+								option(value="3") Major
+								option(value="5") Defining
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Roll
+							button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} ?{Situation|Positive,+ (@{relationship_importance}), |Negative,- (@{relationship_importance})} ?{Attribute|None,+ 0, |Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})} ?{Skill|None,+ 0, |Persuasion,+ (@{persuasion_prof}), |Deception,+ (@{deception_prof}), |Intimidation,+ (@{intimidation_prof}), |Insight,+ (@{insight_prof}), |Performance,+ (@{performance_prof})}" name="roll_relationship").sheet-roll-button
+					div(style="border-bottom: none;").sheet-subsection-nontable-row
+						div.sheet-undertext Description
+						textarea(type="text" name="attr_relationship_desc" style="width: 100%; height: 50%;").sheet-paragraph-box
+			hr
+			div
+				div.sheet-sub-header-small-left Principles
+				fieldset.repeating_principles
+					div(style="border-bottom: none;").sheet-subsection-nontable-row
+						div.sheet-inline
+							div.sheet-undertext Principle
+							input(type="text" name="attr_principle" style="width: 200px;")
+						div.sheet-inline
+							div.sheet-undertext &nbsp;
+							div.sheet-undertext &nbsp;
+						div.sheet-inline
+							div.sheet-undertext Importance
+							select(name="attr_principle_importance" style="width: auto;")
+								option(value="1") Minor
+								option(value="3") Major
+								option(value="5") Defining
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Roll
+							button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} ?{Situation|Positive,+ (@{principle_importance}), |Negative,- (@{principle_importance})} ?{Attribute|None,+ 0, |Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})} ?{Skill|None,+ 0, |Persuasion,+ (@{persuasion_prof}), |Deception,+ (@{deception_prof}), |Intimidation,+ (@{intimidation_prof}), |Insight,+ (@{insight_prof}), |Performance,+ (@{performance_prof})}" name="roll_principle").sheet-roll-button
+					div(style="border-bottom: none;").sheet-subsection-nontable-row
+						div.sheet-undertext Description
+						textarea(type="text" name="attr_principle_desc" style="width: 100%; height: 50%;").sheet-paragraph-box
 
-		// Tab 6
+			hr
+			div
+				div.sheet-sub-header-small-left Reputation
+				fieldset.repeating_reputation
+					div.sheet-header
+						div(style="border-bottom: none;").sheet-subsection-nontable-row
+							div.sheet-inline
+								div.sheet-undertext Faction
+								input(type="text" name="attr_faction_name" style="width:100px")
+							div.sheet-inline
+								div.sheet-undertext Reputation
+								input(type="number" name="attr_faction_reputation" min="0" value="0" step="1" style="width:50px").sheet-numbox
+							div.sheet-inline
+								div.sheet-undertext Modifier
+								input(type="text" name="attr_faction_mod" value="[[(floor((@{faction_reputation}-10)/2))]]" disabled).sheet-numbox
+							div.sheet-inline
+								div.sheet-undertext Roll
+								button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} ?{Situation|Positive,+ (@{faction_mod}), |Negative,- (@{faction_mod})} ?{Attribute|None,+ 0, |Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})} ?{Skill|None,+ 0, |Persuasion,+ (@{persuasion_prof}), |Deception,+ (@{deception_prof}), |Intimidation,+ (@{intimidation_prof}), |Insight,+ (@{insight_prof}), |Performance,+ (@{performance_prof}), |Arcana,+ (@{arcana_prof}), |History,+ (@{history_prof}), |Investigation,+ (@{investigation_prof}), |Nature,+ (@{nature_prof}), |Perception,+ (@{perception_prof}), |Science,+ (@{science_prof}), |Survival,+ (@{survival_prof}), |Theology,+ (@{theology_prof})}" name="roll_reputation").sheet-roll-button
+			br
+			div(style="border-bottom: 3px solid; border-color: #e8e8e8;")
+
+		// Character Details
 		div.sheet-tabbed-pane.sheet-tab.sheet-tab6
+			br
+			div.sheet-sub-header Character Details
+			div
+				div.sheet-sub-header-small-left Appearance
+				div(style="border-bottom: none;").sheet-subsection-nontable-row
+					div.sheet-inline
+						div.sheet-undertext Aura Color
+						input(type="text" name="attr_aura_color" style="width:100px")
+					div.sheet-inline
+						div.sheet-undertext Aura Scent
+						input(type="text" name="attr_aura_scent" style="width:100px")
+					div.sheet-inline
+						div.sheet-undertext Hair Color
+						input(type="text" name="attr_hair_color" style="width:100px")
+					div.sheet-inline
+						div.sheet-undertext Eye Color
+						input(type="text" name="attr_eye_color" style="width:100px")
+					div.sheet-inline
+						div.sheet-undertext Height
+						input(type="text" name="attr_char_height" style="width:50px")
+					div.sheet-inline
+						div.sheet-undertext Weight
+						input(type="text" name="attr_char_weight" style="width:50px")
+			div
+				div.sheet-sub-header-small-left Description
+				textarea(type="text" name="attr_appearance_description" style="width: 100%; height: 200px; overflow: auto;").sheet-paragraph-box
+			div
+				div.sheet-sub-header-small-left Background
+				textarea(type="text" name="attr_background" style="width: 100%; height: 200px; overflow: auto;").sheet-paragraph-box
+			div
+				div.sheet-sub-header-small-left Culture
+				textarea(type="text" name="attr_culture" style="width: 100%; height: 200px; overflow: auto;").sheet-paragraph-box
+			div
+				div.sheet-sub-header-small-left Other Details
+				textarea(type="text" name="attr_background" style="width: 100%; height: 200px; overflow: auto;").sheet-paragraph-box
+			div
+				div.sheet-sub-header-small-left Backstory
+				textarea(type="text" name="attr_backstory" style="width: 100%; height: 500px; overflow: auto;").sheet-paragraph-box
 
-		// Tab 7
+			br
+			div(style="border-bottom: 3px solid; border-color: #e8e8e8;")
+
+		// Inventory
 		div.sheet-tabbed-pane.sheet-tab.sheet-tab7
+			br
+			br
+			div(style="border-bottom: 3px solid; border-color: #e8e8e8;")
 
-		// Tab 8
+		// Companion
 		div.sheet-tabbed-pane.sheet-tab.sheet-tab8
+			br
+			br
+			div(style="border-bottom: 3px solid; border-color: #e8e8e8;")
+
+		// Notebook
+		div.sheet-tabbed-pane.sheet-tab.sheet-tab9
+			br
+			div.sheet-sub-header Notes
+			div
+				div.sheet-sub-header-small-left General Notes
+				textarea(type="text" name="attr_notes" style="width: 100%; height: 500px; overflow: auto;").sheet-paragraph-box
+			div
+				div.sheet-sub-header-small-left Sendable Notes
+				fieldset.repeating_notes
+					div(style="border-bottom: none;").sheet-subsection-nontable-row
+						div.sheet-inline
+							div.sheet-undertext Title
+							input(type="text" name="attr_notes_title" style="width: 200px;")
+						div.sheet-inline
+							div.sheet-undertext &nbsp;
+							div.sheet-undertext &nbsp;
+						div.sheet-inline
+							div.sheet-undertext Subtitle
+							input(type="text" name="attr_notes_subtitle" style="width: 200px;")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Send to Chat
+							button(type="roll" value="&{template:feature} {{title=@{notes_title}}} {{subtitle=@{notes_subtitle}}} {{desc=@{notes_desc}}}" name="roll_notes").sheet-roll-button
+					div(style="border-bottom: none;").sheet-subsection-nontable-row
+						div.sheet-undertext Notes
+						textarea(type="text" name="attr_notes_desc" style="width: 100%; height: 50%;").sheet-paragraph-box
+
+			br
+			div(style="border-bottom: 3px solid; border-color: #e8e8e8;")
+
+rolltemplate.sheet-rolltemplate-feature
+	div(class="sheet-color-{{color}}").sheet-container
+		div.sheet-header
+			|{{#title}}<div class="sheet-title">{{title}}</div>{{/title}}
+			|{{#subtitle}}<div class="sheet-subtitle">{{subtitle}}</div>{{/subtitle}}
+		div.sheet-content
+			|{{#allprops() title subtitle desc color}}
+			div.sheet-key {{key}}
+			div.sheet-value {{value}}
+			|{{/allprops() title subtitle desc color}}
+			|{{#desc}}<div class="sheet-desc">{{desc}}</div>{{/desc}}

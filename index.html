@@ -13,7 +13,8 @@
     <input class="sheet-tab-button sheet-tab-button5" type="radio" name="attr_tab" value="5" title="No5"><span class="sheet-tab-label">&nbsp;Strings&nbsp;</span>
     <input class="sheet-tab-button sheet-tab-button6" type="radio" name="attr_tab" value="6" title="No6"><span class="sheet-tab-label">&nbsp;Character Details&nbsp;</span>
     <input class="sheet-tab-button sheet-tab-button7" type="radio" name="attr_tab" value="7" title="No7"><span class="sheet-tab-label">&nbsp;Inventory&nbsp;</span>
-    <input class="sheet-tab-button sheet-tab-button8" type="radio" name="attr_tab" value="8" title="No8"><span class="sheet-tab-label">&nbsp;Notebook&nbsp;</span>
+    <input class="sheet-tab-button sheet-tab-button8" type="radio" name="attr_tab" value="8" title="No8"><span class="sheet-tab-label">&nbsp;Companion&nbsp;</span>
+    <input class="sheet-tab-button sheet-tab-button9" type="radio" name="attr_tab" value="9" title="No9"><span class="sheet-tab-label">&nbsp;Notebook&nbsp;</span>
     <!-- Header-->
     <hr>
     <div class="sheet-header sheet-div-center">
@@ -30,31 +31,513 @@
         <input type="text" name="attr_race" style="width:130px;">
       </div>
       <div class="sheet-header-block">
+        <div class="sheet-undertext">Innate Modifier</div>
+        <select name="attr_innate_mod" style="width:auto;">
+          <option value="@{str_mod}">Strength</option>
+          <option value="@{dex_mod}">Dexterity</option>
+          <option value="@{con_mod}">Constitution</option>
+          <option value="@{int_mod}">Intellect</option>
+          <option value="@{wil_mod}">Willpower</option>
+          <option value="@{cha_mod}">Charisma</option>
+        </select>
+      </div>
+      <div class="sheet-header-block">
         <div class="sheet-undertext sheet-th-vert">Total Level</div>
         <input class="sheet-numbox" type="number" name="attr_lvl" value="1" min="1" step="1" max="20">
       </div>
       <div class="sheet-header-block">
         <div class="sheet-undertext sheet-th-vert">Proficiency Bonus</div>
         <p style="display:inline-block;">+</p>
-        <input class="sheet-numbox sheet-sm-text" type="text" name="attr_prof" value="(1 + ceil((@{lvl})/4))" disabled>
+        <input class="sheet-numbox sheet-sm-text" type="text" name="attr_prof" value="([[1 + [[ceil((@{lvl})/4))]]]]" disabled>
       </div>
     </div>
     <!-- Body-->
     <div class="sheet-header-bottom-border"></div>
-    <!-- Tab 1-->
-    <div class="sheet-tabbed-pane sheet-tab sheet-tab1"></div>
-    <!-- Tab 2-->
-    <div class="sheet-tabbed-pane sheet-tab sheet-tab2">
-      <div class="sheet-header sheet-div-center">
-        <div class="sheet-header-block">
+    <!-- Combat-->
+    <div class="sheet-tabbed-pane sheet-tab sheet-tab1"><br>
+      <div class="sheet-sub-header">Combat</div>
+      <div class="sheet-grid-container">
+        <div class="sheet-grid-item-left" style="width: 400px;">
+          <div class="sheet-header">
+            <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+              <div class="sheet-inline">
+                <div class="sheet-undertext">&nbsp;</div>
+                <div class="sheet-lg-vert" style="font-weight: bold; padding-right: 50px;">Aura Durability:</div>
+              </div>
+              <div class="sheet-inline">
+                <div class="sheet-undertext sheet-th-vert">Max Durability</div>
+                <input class="sheet-numbox" type="number" name="attr_max_aura" min="0" value="0" style="width:50px">
+              </div>
+              <div class="sheet-inline">
+                <div class="sheet-undertext sheet-th-vert">Current Durability</div>
+                <input class="sheet-numbox" type="number" name="attr_cur_aura" min="0" value="0" style="width:50px">
+              </div>
+              <div class="sheet-inline">
+                <div class="sheet-undertext sheet-th-vert">Temporary Aura</div>
+                <input class="sheet-numbox" type="number" name="attr_temp_aura" min="0" value="0" style="width:50px">
+              </div>
+            </div>
+          </div>
+          <div class="sheet-header">
+            <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+              <div class="sheet-inline">
+                <div class="sheet-undertext">&nbsp;</div>
+                <div style="font-weight: bold; padding-right: 5px;">Initiative:</div>
+              </div>
+              <div class="sheet-inline">
+                <div class="sheet-undertext sheet-th-vert">Initiative Modifier</div>
+                <input class="sheet-numbox" type="number" name="attr_initiative_mod" min="0" value="0" style="width:50px">
+              </div>
+              <div class="sheet-inline">
+                <div class="sheet-undertext sheet-th-vert">Roll Initiative</div>
+                <button class="sheet-roll-button" type="roll" value="/roll 1d20 + [[@{initiative_mod}]] &amp;{tracker}" name="roll_initiative"></button>
+              </div>
+            </div>
+          </div>
+          <div class="sheet-header">
+            <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+              <div class="sheet-inline">
+                <div class="sheet-undertext">&nbsp;</div>
+                <div class="sheet-lg-vert" style="font-weight: bold; padding-right: 20px;">Armor Class:</div>
+              </div>
+              <div class="sheet-inline">
+                <div class="sheet-undertext">&nbsp;</div>
+                <input class="sheet-numbox sheet-sm-text sheet-inline" type="text" name="attr_ac" value="[[@{armor_ac} + @{armor_attribute} + @{armor_bonus}]]" disabled>
+              </div>
+              <div class="sheet-inline">
+                <div class="sheet-undertext">&nbsp;</div>
+                <p>=</p>
+              </div>
+              <div class="sheet-inline">
+                <div class="sheet-undertext sheet-text-align-center">Armor</div>
+                <input type="number" name="attr_armor_ac" style="width: 60px;" min="10" value="10" step="1">
+              </div>
+              <div class="sheet-inline">
+                <div class="sheet-undertext">&nbsp;</div>
+                <p>+</p>
+              </div>
+              <div class="sheet-inline">
+                <div class="sheet-undertext sheet-text-align-center">Attribute</div>
+                <select class="sheet-numbox" name="attr_armor_attribute" style="width: 4.5em;">
+                  <option value="@{str_mod}">STR</option>
+                  <option value="@{dex_mod}">DEX</option>
+                  <option value="@{con_mod}">CON</option>
+                  <option value="@{int_mod}">INT</option>
+                  <option value="@{wil_mod}">WIL</option>
+                  <option value="@{cha_mod}">CHA</option>
+                </select>
+              </div>
+              <div class="sheet-inline">
+                <div class="sheet-undertext">&nbsp;</div>
+                <p>+</p>
+              </div>
+              <div class="sheet-inline">
+                <div class="sheet-undertext sheet-text-align-center">Bonus</div>
+                <input type="number" name="attr_armor_bonus" style="width: 60px;" min="0" value="0" step="1">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sheet-grid-item-right" style="width: 300px;">
+          <div class="sheet-header">
+            <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+              <div class="sheet-inline">
+                <div class="sheet-undertext">&nbsp;</div>
+                <div class="sheet-lg-vert" style="font-weight: bold; padding-right: 50px;">Aura Reserve:</div>
+              </div>
+              <div class="sheet-inline">
+                <div class="sheet-undertext">d4</div>
+                <input class="sheet-numbox" type="number" name="attr_recharge_d4" min="0" value="0">
+                <button class="sheet-roll-button" type="roll" value="/roll 1d4 + [[@{con_mod}]]" name="roll_recharge_d4"></button>
+              </div>
+              <div class="sheet-inline">
+                <div class="sheet-undertext">d6</div>
+                <input class="sheet-numbox" type="number" name="attr_recharge_d6" min="0" value="0">
+                <button class="sheet-roll-button" type="roll" value="/roll 1d6 + [[@{con_mod}]]" name="roll_recharge_d6"></button>
+              </div>
+            </div>
+            <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+              <div class="sheet-inline">
+                <div class="sheet-undertext">d8</div>
+                <input class="sheet-numbox" type="number" name="attr_recharge_d8" min="0" value="0">
+                <button class="sheet-roll-button" type="roll" value="/roll 1d8 + [[@{con_mod}]]" name="roll_recharge_d8"></button>
+              </div>
+              <div class="sheet-inline">
+                <div class="sheet-undertext">d10</div>
+                <input class="sheet-numbox" type="number" name="attr_recharge_d10" min="0" value="0">
+                <button class="sheet-roll-button" type="roll" value="/roll 1d10 + [[@{con_mod}]]" name="roll_recharge_d10"></button>
+              </div>
+              <div class="sheet-inline">
+                <div class="sheet-undertext">d12</div>
+                <input class="sheet-numbox" type="number" name="attr_recharge_d12" min="0" value="0">
+                <button class="sheet-roll-button" type="roll" value="/roll 1d12 + [[@{con_mod}]]" name="roll_recharge_d12"></button>
+              </div>
+            </div>
+          </div>
+          <div class="sheet-header">
+            <div class="sheet-lg-vert" style="font-weight: bold; padding-right: 50px;">Currently Donned:</div>
+            <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+              <div class="sheet-inline">
+                <div class="sheet-undertext">Equipped Armor:</div>
+                <input type="text" name="attr_equiped_armor" style="width:120px;">
+              </div>
+              <div class="sheet-inline">
+                <div class="sheet-undertext">Equipped Shield:</div>
+                <input type="text" name="attr_equiped_shield" style="width:120px;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="sheet-grid-container">
+        <div class="sheet-grid-item-left" style="width: 380px;">
+          <div class="sheet-sub-header-small">Defense</div>
+          <div class="sheet-header">
+            <div>
+              <table class="sheet-subsection-table">
+                <tr>
+                  <th class="sheet-undertext sheet-th-vert">Damage Modifier</th>
+                  <th class="sheet-undertext sheet-th-vert">Type</th>
+                  <th class="sheet-undertext sheet-th-vert">Subset</th>
+                  <th class="sheet-undertext sheet-th-vert">Modifier</th>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="padding-right: 120px;"></div>
+                  </td>
+                  <td>
+                    <div style="padding-right: 55px;"></div>
+                  </td>
+                  <td>
+                    <div style="padding-right: 85px;"></div>
+                  </td>
+                  <td></td>
+                </tr>
+              </table>
+              <fieldset class="repeating_defenses" style="padding-right: 20px;">
+                <select name="attr_defense_mod" style="width: auto;">
+                  <option value="Resistance">Resistance</option>
+                  <option value="Vulnerability">Vulnerability</option>
+                  <option value="Invulnerability">Invulnerability</option>
+                  <option value="Reduction">Reduction</option>
+                  <option value="Susceptibility">Susceptibility</option>
+                </select>
+                <select name="attr_defense_mod_dmg_type" style="width: auto;">
+                  <option value="Physical">Physical</option>
+                  <option value="Energy">Energy</option>
+                  <option value="Mental">Mental</option>
+                  <option value="Miasma">Miasma</option>
+                </select>
+                <input type="text" name="attr_defense_mod_dmg_subset" style="width: 60px;">
+                <input type="number" name="attr_defense_mod_val" value="0" min="0" step="1">
+              </fieldset>
+            </div>
+          </div>
+          <hr>
+          <div class="sheet-sub-header-small">Damage Dice</div>
+          <div class="sheet-header">
+            <div>
+              <fieldset class="repeating_damages" style="padding-right: 20px;">
+                <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+                  <div>
+                    <div class="sheet-inline">
+                      <div class="sheet-undertext">Name</div>
+                      <input type="text" name="attr_dmg_name" style="width: 100px;">
+                    </div>
+                    <div class="sheet-inline">
+                      <div class="sheet-undertext">Damage Type</div>
+                      <select name="attr_dmg_type" style="width: auto;">
+                        <option value="">----</option>
+                        <option value="Physical">Physical</option>
+                        <option value="Energy">Energy</option>
+                        <option value="Mental">Mental</option>
+                        <option value="Miasma">Miasma</option>
+                      </select>
+                    </div>
+                    <div class="sheet-inline">
+                      <div class="sheet-undertext">Subset Type</div>
+                      <input type="text" name="attr_dmg_subset" style="width: 100px;">
+                    </div>
+                  </div>
+                  <div>
+                    <div class="sheet-inline">
+                      <div class="sheet-undertext">Dice #</div>
+                      <input type="number" name="attr_dmg_num" style="width: 40px;" value="0" min="0" step="1">
+                    </div>
+                    <div class="sheet-inline">
+                      <div class="sheet-undertext">Die #</div>
+                      <select name="attr_dmg_die" style="width: auto;">
+                        <option value="">--</option>
+                        <option value="d4">d4</option>
+                        <option value="d6">d6</option>
+                        <option value="d8">d8</option>
+                        <option value="d10">d10</option>
+                        <option value="d12">d12</option>
+                      </select>
+                    </div>
+                    <div class="sheet-inline">
+                      <div class="sheet-undertext">Attribute</div>
+                      <select class="sheet-numbox" name="attr_dmg_attribute" style="width: auto;">
+                        <option value="0">---</option>
+                        <option value="@{str_mod}">STR</option>
+                        <option value="@{dex_mod}">DEX</option>
+                        <option value="@{con_mod}">CON</option>
+                        <option value="@{int_mod}">INT</option>
+                        <option value="@{wil_mod}">WIL</option>
+                        <option value="@{cha_mod}">CHA</option>
+                      </select>
+                    </div>
+                    <div class="sheet-inline">
+                      <div class="sheet-undertext">Misc. Bonus</div>
+                      <input type="number" name="attr_dmg_misc_bonus" style="width: 40px;" value="0" min="0" step="1">
+                    </div>
+                    <div class="sheet-inline">
+                      <div class="sheet-undertext">&nbsp;</div>
+                      <button class="sheet-roll-button" type="roll" value="/roll @{dmg_num}@{dmg_die} + @{dmg_attribute} + @{dmg_misc_bonus} of @{dmg_type} (@{dmg_subset}) damage." name="roll_damage"></button>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+        <div class="sheet-grid-item-right" style="width: 440px;">
+          <div class="sheet-sub-header-small">Attacks</div>
+          <div class="sheet-header">
+            <div>
+              <fieldset class="repeating_attacks">
+                <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+                  <div class="sheet-inline">
+                    <div class="sheet-undertext">Name</div>
+                    <input type="text" name="attr_atk_wep" style="width: 130px;">
+                  </div>
+                  <div class="sheet-inline">
+                    <div class="sheet-undertext">&nbsp;</div>
+                    <p>+</p>
+                  </div>
+                  <div class="sheet-inline">
+                    <div class="sheet-undertext">Mod.&nbsp;</div>
+                    <input type="text" name="attr_atk_bonus" value="@{atk_attribute}+@{atk_prof}+@{atk_misc_prof}" style="width: 20px;" disabled>
+                  </div>
+                  <div class="sheet-inline">
+                    <div class="sheet-undertext">Attribute</div>
+                    <select class="sheet-numbox" name="attr_atk_attribute" style="width: auto;">
+                      <option value="@{str_mod}">STR</option>
+                      <option value="@{dex_mod}">DEX</option>
+                      <option value="@{con_mod}">CON</option>
+                      <option value="@{int_mod}">INT</option>
+                      <option value="@{wil_mod}">WIL</option>
+                      <option value="@{cha_mod}">CHA</option>
+                    </select>
+                  </div>
+                  <div class="sheet-inline">
+                    <div class="sheet-undertext">Proficient</div>
+                    <select class="sheet-numbox" name="attr_atk_prof" style="width: auto;">
+                      <option value="0">No
+                        <option value="2">Yes</option>
+                      </option>
+                    </select>
+                  </div>
+                  <div class="sheet-inline">
+                    <div class="sheet-undertext">Misc. Bonus</div>
+                    <input type="number" name="attr_atk_misc_prof" style="width: 40px;" value="0" min="0" step="1">
+                  </div>
+                  <div class="sheet-inline">
+                    <div class="sheet-undertext">&nbsp;</div>
+                    <button class="sheet-roll-button" type="roll" value="/roll ?{d20 Roll|Normal,1d20 |With Advantage,2d20dl1 |With Disadvantage,2d20dh1} + [[@{atk_bonus}]]" name="roll_attack"></button>
+                  </div>
+                </div>
+                <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+                  <div class="sheet-undertext">Properties</div>
+                  <textarea class="sheet-paragraph-box" type="text" name="attr_atk_prop" style="width: 100%; height: 30%;"></textarea>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="sheet-grid-container">
+        <div class="sheet-grid-item" style="width: 600px; margin: auto; padding-left: 120px;">
+          <div class="sheet-sub-header-small">Spell Slots</div>
+          <div class="sheet-header">
+            <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+              <div class="sheet-inline" style="padding-right: 10px;">
+                <div class="sheet-undertext sheet-md-vert">Tier 1 Current</div>
+                <input type="number" name="attr_spell_slot_1_curr" style="width: 40px;" min="0" max="5" value="0">
+              </div>
+              <div class="sheet-inline" style="padding-right: 10px;">
+                <div class="sheet-undertext sheet-md-vert">Tier 2 Current</div>
+                <input type="number" name="attr_spell_slot_2_curr" style="width: 40px;" min="0" max="5" value="0">
+              </div>
+              <div class="sheet-inline" style="padding-right: 10px;">
+                <div class="sheet-undertext sheet-md-vert">Tier 3 Current</div>
+                <input type="number" name="attr_spell_slot_3_curr" style="width: 40px;" min="0" max="4" value="0">
+              </div>
+              <div class="sheet-inline" style="padding-right: 10px;">
+                <div class="sheet-undertext sheet-md-vert">Tier 4 Current</div>
+                <input type="number" name="attr_spell_slot_4_curr" style="width: 40px;" min="0" max="4" value="0">
+              </div>
+              <div class="sheet-inline" style="padding-right: 10px;">
+                <div class="sheet-undertext sheet-md-vert">Tier 5 Current</div>
+                <input type="number" name="attr_spell_slot_5_curr" style="width: 40px;" min="0" max="3" value="0">
+              </div>
+              <div class="sheet-inline" style="padding-right: 10px;">
+                <div class="sheet-undertext sheet-md-vert">Tier 6 Current</div>
+                <input type="number" name="attr_spell_slot_6_curr" style="width: 40px;" min="0" max="3" value="0">
+              </div>
+              <div class="sheet-inline" style="padding-right: 10px;">
+                <div class="sheet-undertext sheet-md-vert">Tier 7 Current</div>
+                <input type="number" name="attr_spell_slot_7_curr" style="width: 40px;" min="0" max="2" value="0">
+              </div>
+              <div class="sheet-inline" style="padding-right: 10px;">
+                <div class="sheet-undertext sheet-md-vert">Tier 8 Current</div>
+                <input type="number" name="attr_spell_slot_8_curr" style="width: 40px;" min="0" max="2" value="0">
+              </div>
+              <div class="sheet-inline" style="padding-right: 10px;">
+                <div class="sheet-undertext sheet-md-vert">Tier 9 Current</div>
+                <input type="number" name="attr_spell_slot_9_curr" style="width: 40px;" min="0" max="1" value="0">
+              </div>
+              <div class="sheet-inline" style="padding-right: 10px;">
+                <div class="sheet-undertext sheet-md-vert">Tier 10 Current</div>
+                <input type="number" name="attr_spell_slot_10_curr" style="width: 40px;" min="0" max="1" value="0">
+              </div>
+            </div>
+          </div>
+          <div class="sheet-header">
+            <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+              <div class="sheet-inline" style="padding-right: 10px;">
+                <div class="sheet-undertext sheet-md-vert">Tier 1 Maximum</div>
+                <input type="number" name="attr_spell_slot_1_max" style="width: 40px;" min="0" max="5" value="0">
+              </div>
+              <div class="sheet-inline" style="padding-right: 10px;">
+                <div class="sheet-undertext sheet-md-vert">Tier 2 Maximum</div>
+                <input type="number" name="attr_spell_slot_2_max" style="width: 40px;" min="0" max="5" value="0">
+              </div>
+              <div class="sheet-inline" style="padding-right: 10px;">
+                <div class="sheet-undertext sheet-md-vert">Tier 3 Maximum</div>
+                <input type="number" name="attr_spell_slot_3_max" style="width: 40px;" min="0" max="4" value="0">
+              </div>
+              <div class="sheet-inline" style="padding-right: 10px;">
+                <div class="sheet-undertext sheet-md-vert">Tier 4 Maximum</div>
+                <input type="number" name="attr_spell_slot_4_max" style="width: 40px;" min="0" max="4" value="0">
+              </div>
+              <div class="sheet-inline" style="padding-right: 10px;">
+                <div class="sheet-undertext sheet-md-vert">Tier 5 Maximum</div>
+                <input type="number" name="attr_spell_slot_5_max" style="width: 40px;" min="0" max="3" value="0">
+              </div>
+              <div class="sheet-inline" style="padding-right: 10px;">
+                <div class="sheet-undertext sheet-md-vert">Tier 6 Maximum</div>
+                <input type="number" name="attr_spell_slot_6_max" style="width: 40px;" min="0" max="3" value="0">
+              </div>
+              <div class="sheet-inline" style="padding-right: 10px;">
+                <div class="sheet-undertext sheet-md-vert">Tier 7 Maximum</div>
+                <input type="number" name="attr_spell_slot_7_max" style="width: 40px;" min="0" max="2" value="0">
+              </div>
+              <div class="sheet-inline" style="padding-right: 10px;">
+                <div class="sheet-undertext sheet-md-vert">Tier 8 Maximum</div>
+                <input type="number" name="attr_spell_slot_8_max" style="width: 40px;" min="0" max="2" value="0">
+              </div>
+              <div class="sheet-inline" style="padding-right: 10px;">
+                <div class="sheet-undertext sheet-md-vert">Tier 9 Maximum</div>
+                <input type="number" name="attr_spell_slot_9_max" style="width: 40px;" min="0" max="1" value="0">
+              </div>
+              <div class="sheet-inline" style="padding-right: 10px;">
+                <div class="sheet-undertext sheet-md-vert">Tier 10 Maximum</div>
+                <input type="number" name="attr_spell_slot_10_max" style="width: 40px;" min="0" max="1" value="0">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="sheet-grid-container">
+        <div class="sheet-grid-item-left" style="width: auto;">
+          <div class="sheet-sub-header-small">Ammunition</div>
+          <div class="sheet-header">
+            <div>
+              <fieldset class="repeating_ammo" style="padding-right: 20px;">
+                <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+                  <div class="sheet-inline">
+                    <div class="sheet-undertext sheet-th-vert">Ammunition Name</div>
+                    <input type="text" name="attr_ammo_name" style="width: 110px;">
+                  </div>
+                  <div class="sheet-inline">
+                    <div class="sheet-undertext sheet-th-vert">Current Amount</div>
+                    <input type="number" name="attr_ammo_cur_num" style="width: 50px;" value="0" min="0" step="1">
+                  </div>
+                  <div class="sheet-inline">
+                    <div class="sheet-undertext sheet-th-vert">Max Amount</div>
+                    <input type="number" name="attr_ammo_max_num" style="width: 50px;" value="0" min="0" step="1">
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+        <div class="sheet-grid-item-center" style="width: auto;">
+          <div class="sheet-sub-header-small">Class Resources</div>
+          <div class="sheet-header">
+            <div>
+              <fieldset class="repeating_class_resource" style="padding-right: 20px;">
+                <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+                  <div class="sheet-inline">
+                    <div class="sheet-undertext sheet-th-vert">Resource Name</div>
+                    <input type="text" name="attr_clsrs_name" style="width: 110px;">
+                  </div>
+                  <div class="sheet-inline">
+                    <div class="sheet-undertext sheet-th-vert">Current Amount</div>
+                    <input type="number" name="attr_clsrs_cur_num" style="width: 50px;" value="0" min="0" step="1">
+                  </div>
+                  <div class="sheet-inline">
+                    <div class="sheet-undertext sheet-th-vert">Max Amount</div>
+                    <input type="number" name="attr_clsrs_max_num" style="width: 50px;" value="0" min="0" step="1">
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+        <div class="sheet-grid-item-right" style="width: auto;">
+          <div class="sheet-sub-header-small">Other Resources</div>
+          <div class="sheet-header">
+            <div>
+              <fieldset class="repeating_other_resource" style="padding-right: 20px;">
+                <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+                  <div class="sheet-inline">
+                    <div class="sheet-undertext sheet-th-vert">Resource Name</div>
+                    <input type="text" name="attr_othrrs_name" style="width: 110px;">
+                  </div>
+                  <div class="sheet-inline">
+                    <div class="sheet-undertext sheet-th-vert">Current Amount</div>
+                    <input type="number" name="attr_othrrs_cur_num" style="width: 50px;" value="0" min="0" step="1">
+                  </div>
+                  <div class="sheet-inline">
+                    <div class="sheet-undertext sheet-th-vert">Max Amount</div>
+                    <input type="number" name="attr_othrrs_max_num" style="width: 50px;" value="0" min="0" step="1">
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div><br>
+      <div style="border-bottom: 3px solid; border-color: #e8e8e8;"></div>
+    </div>
+    <!-- Stats-->
+    <div class="sheet-tabbed-pane sheet-tab sheet-tab2"><br>
+      <div class="sheet-sub-header">Character Stats</div>
+      <div class="sheet-header" style="margin: auto; padding-left: 40px;">
+        <div class="sheet-header-block" style="border-right: 1px solid; border-color: #e8e8e8;">
           <div class="sheet-undertext sheet-th-vert">Size</div>
           <select class="sheet-numbox sheet-width-auto" name="attr_size">
-            <option value="Tiny">Tiny</option>
-            <option value="Small">Small</option>
-            <option value="Medium">Medium</option>
-            <option value="Large">Large</option>
-            <option value="Huge">Huge</option>
-            <option value="Gargantuan">Gargantuan</option>
+            <option value="1">Tiny</option>
+            <option value="3">Small</option>
+            <option value="6">Medium</option>
+            <option value="12">Large</option>
+            <option value="24">Huge</option>
+            <option value="36">Gargantuan</option>
           </select>
         </div>
         <div class="sheet-header-block">
@@ -73,14 +556,133 @@
           <div class="sheet-undertext sheet-th-vert">Flying Speed</div>
           <input class="sheet-numbox" type="number" name="attr_fly_speed" min="0" value="0">
         </div>
-        <div class="sheet-header-block">
+        <div class="sheet-header-block" style="border-right: 1px solid; border-color: #e8e8e8; padding-right: 9px;">
           <div class="sheet-undertext sheet-th-vert">Swimming Speed</div>
           <input class="sheet-numbox" type="number" name="attr_swim_speed" min="0" value="0">
         </div>
+        <div class="sheet-header-block">
+          <div class="sheet-undertext sheet-th-vert">Exhaustion Level</div>
+          <input class="sheet-numbox" type="number" name="attr_exhaustion" min="0" value="0" max="6">
+        </div>
+        <div class="sheet-header-block" style="border-right: 1px solid; border-color: #e8e8e8; padding-right: 9px;">
+          <div class="sheet-undertext sheet-th-vert">Fatigue Level</div>
+          <input class="sheet-numbox" type="number" name="attr_fatigue" min="0" value="0" max="6">
+        </div>
+        <div class="sheet-header-block">
+          <div class="sheet-undertext sheet-th-vert">Passive Insight</div>
+          <input class="sheet-numbox" type="text" name="attr_passive_insight" value="10 + @{int_mod} + @{insight_prof} + @{passive_insight_bonus}" disabled>
+        </div>
+        <div class="sheet-header-block">
+          <div class="sheet-undertext sheet-th-vert">Passive Investigation</div>
+          <input class="sheet-numbox" type="text" name="attr_passive_investigation" value="10 + @{int_mod} + @{investigation_prof} + @{passive_investigation_bonus}" disabled>
+        </div>
+        <div class="sheet-header-block">
+          <div class="sheet-undertext sheet-th-vert">Passive Perception</div>
+          <input class="sheet-numbox" type="text" name="attr_passive_perception" value="10 + @{int_mod} + @{perception_prof} + @{passive_perception_bonus}" disabled>
+        </div>
+      </div>
+      <div class="sheet-sub-header">Conditions</div>
+      <div class="sheet-header">
+        <table class="sheet-vert-aligned-table">
+          <tr>
+            <td></td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Blinded</div>
+              <input type="checkbox" name="attr_blinded">
+            </td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Charmed</div>
+              <input type="checkbox" name="attr_charmed">
+            </td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Dead</div>
+              <input type="checkbox" name="attr_dead">
+            </td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Deafened</div>
+              <input type="checkbox" name="attr_deafened">
+            </td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Depleted</div>
+              <input type="checkbox" name="attr_depleted">
+            </td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Dying</div>
+              <input type="checkbox" name="attr_dying">
+            </td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Encumbered</div>
+              <input type="checkbox" name="attr_encumbered">
+            </td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Frightened</div>
+              <input type="checkbox" name="attr_frightened">
+            </td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Grappled</div>
+              <input type="checkbox" name="attr_grappled">
+            </td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Incapacitated</div>
+              <input type="checkbox" name="attr_incapacitated">
+            </td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Inebriated</div>
+              <input type="checkbox" name="attr_inebriated">
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Insane</div>
+              <input type="checkbox" name="attr_insane">
+            </td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Mad</div>
+              <input type="checkbox" name="attr_mad">
+            </td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Muted</div>
+              <input type="checkbox" name="attr_muted">
+            </td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Paralyzed</div>
+              <input type="checkbox" name="attr_paralyzed">
+            </td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Petrified</div>
+              <input type="checkbox" name="attr_petrified">
+            </td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Poisoned</div>
+              <input type="checkbox" name="attr_poisoned">
+            </td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Prone</div>
+              <input type="checkbox" name="attr_prone">
+            </td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Restrained</div>
+              <input type="checkbox" name="attr_restrained">
+            </td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Stunned</div>
+              <input type="checkbox" name="attr_stunned">
+            </td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Taunted</div>
+              <input type="checkbox" name="attr_taunted">
+            </td>
+            <td class="sheet-col-td">
+              <div class="sheet-undertext" style="padding-right: 8px; padding-left: 8px;">Unconscious</div>
+              <input type="checkbox" name="attr_unconscious">
+            </td>
+          </tr>
+        </table>
       </div>
       <hr>
       <div class="sheet-grid-container">
-        <div class="sheet-grid-item">
+        <div class="sheet-grid-item-left">
           <div class="sheet-section-title-bar">Attributes</div>
           <table class="sheet-subsection-table">
             <tr>
@@ -99,7 +701,7 @@
                 <input class="sheet-numbox" type="number" name="attr_str" min="0" step="1" value="0">
               </td>
               <td class="sheet-td-vert">
-                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_str_mod" value="(floor((@{str}-10)/2))" disabled>
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_str_mod" value="[[(floor((@{str}-10)/2))]]" disabled>
               </td>
               <td class="sheet-td-vert">
                 <input type="checkbox" name="attr_str_save_prof" value="@{prof}">
@@ -117,7 +719,7 @@
                 <input class="sheet-numbox" type="number" name="attr_dex" min="0" step="1" value="0">
               </td>
               <td class="sheet-td-vert">
-                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_dex_mod" value="(floor((@{dex}-10)/2))" disabled>
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_dex_mod" value="[[(floor((@{dex}-10)/2))]]" disabled>
               </td>
               <td class="sheet-td-vert">
                 <input type="checkbox" name="attr_dex_save_prof" value="@{prof}">
@@ -135,7 +737,7 @@
                 <input class="sheet-numbox" type="number" name="attr_con" min="0" step="1" value="0">
               </td>
               <td class="sheet-td-vert">
-                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_con_mod" value="(floor((@{con}-10)/2))" disabled>
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_con_mod" value="[[(floor((@{con}-10)/2))]]" disabled>
               </td>
               <td class="sheet-td-vert">
                 <input type="checkbox" name="attr_con_save_prof" value="@{prof}">
@@ -147,13 +749,13 @@
             <tr>
               <td class="sheet-td-vert">
                 <div class="sheet-big-bold">INT</div>
-                <div class="sheet-undertext sheet-text-align-center">Intelligence</div>
+                <div class="sheet-undertext sheet-text-align-center">Intellect</div>
               </td>
               <td class="sheet-td-vert">
                 <input class="sheet-numbox" type="number" name="attr_int" min="0" step="1" value="0">
               </td>
               <td class="sheet-td-vert">
-                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_int_mod" value="(floor((@{int}-10)/2))" disabled>
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_int_mod" value="[[(floor((@{int}-10)/2))]]" disabled>
               </td>
               <td class="sheet-td-vert">
                 <input type="checkbox" name="attr_int_save_prof" value="@{prof}">
@@ -171,7 +773,7 @@
                 <input class="sheet-numbox" type="number" name="attr_wil" min="0" step="1" value="0">
               </td>
               <td class="sheet-td-vert">
-                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_wil_mod" value="(floor((@{wil}-10)/2))" disabled>
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_wil_mod" value="[[(floor((@{wil}-10)/2))]]" disabled>
               </td>
               <td class="sheet-td-vert">
                 <input type="checkbox" name="attr_wil_save_prof" value="@{prof}">
@@ -189,7 +791,7 @@
                 <input class="sheet-numbox" type="number" name="attr_cha" min="0" step="1" value="0">
               </td>
               <td class="sheet-td-vert">
-                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_cha_mod" value="(floor((@{cha}-10)/2))" disabled>
+                <input class="sheet-numbox sheet-sm-text" type="text" name="attr_cha_mod" value="[[(floor((@{cha}-10)/2))]]" disabled>
               </td>
               <td class="sheet-td-vert">
                 <input type="checkbox" name="attr_cha_save_prof" value="@{prof}">
@@ -199,6 +801,11 @@
               </td>
             </tr>
           </table>
+          <hr>
+          <div class="sheet-section-title-bar" style="width: 250px;">Languages</div>
+          <fieldset class="repeating_languages">
+            <input type="text" name="attr_language" style="width: 250px;">
+          </fieldset>
         </div>
         <div class="sheet-grid-item-center">
           <div class="sheet-section-title-bar">Skills</div>
@@ -214,16 +821,16 @@
               <td>
                 <select class="sheet-numbox" name="attr_agility_prof" style="width:auto;">
                   <option value="0">None</option>
-                  <option value="floor(@{prof} / 2)">½ Proficient</option>
+                  <option value="(floor(@{prof}/2))">½ Proficient</option>
                   <option value="@{prof}">Proficient</option>
-                  <option value="(2*@{prof})">Expertise</option>
+                  <option value="([[2*@{prof}]])">Expertise</option>
                 </select>
               </td>
               <td>+
                 <input class="sheet-numbox sheet-sm-text" type="text" name="attr_agility" value="@{agility_prof}" disabled>
               </td>
               <td>
-                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{agility_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_agility"></button>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{agility_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_agility"></button>
               </td>
             </tr>
             <tr>
@@ -233,14 +840,14 @@
                   <option value="0">None</option>
                   <option value="floor(@{prof} / 2)">½ Proficient</option>
                   <option value="@{prof}">Proficient</option>
-                  <option value="(2*@{prof})">Expertise</option>
+                  <option value="([[2*@{prof}]])">Expertise</option>
                 </select>
               </td>
               <td>+
                 <input class="sheet-numbox sheet-sm-text" type="text" name="attr_arcana" value="@{arcana_prof}" disabled>
               </td>
               <td>
-                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{arcana_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_arcana"></button>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{arcana_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_arcana"></button>
               </td>
             </tr>
             <tr>
@@ -250,14 +857,14 @@
                   <option value="0">None</option>
                   <option value="floor(@{prof} / 2)">½ Proficient</option>
                   <option value="@{prof}">Proficient</option>
-                  <option value="(2*@{prof})">Expertise</option>
+                  <option value="([[2*@{prof}]])">Expertise</option>
                 </select>
               </td>
               <td>+
                 <input class="sheet-numbox sheet-sm-text" type="text" name="attr_athletics" value="@{athletics_prof}" disabled>
               </td>
               <td>
-                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{athletics_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_athletics"></button>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{athletics_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_athletics"></button>
               </td>
             </tr>
             <tr>
@@ -267,14 +874,14 @@
                   <option value="0">None</option>
                   <option value="floor(@{prof} / 2)">½ Proficient</option>
                   <option value="@{prof}">Proficient</option>
-                  <option value="(2*@{prof})">Expertise</option>
+                  <option value="([[2*@{prof}]])">Expertise</option>
                 </select>
               </td>
               <td>+
                 <input class="sheet-numbox sheet-sm-text" type="text" name="attr_deception" value="@{deception_prof}" disabled>
               </td>
               <td>
-                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{deception_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_deception"></button>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{deception_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_deception"></button>
               </td>
             </tr>
             <tr>
@@ -284,14 +891,14 @@
                   <option value="0">None</option>
                   <option value="floor(@{prof} / 2)">½ Proficient</option>
                   <option value="@{prof}">Proficient</option>
-                  <option value="(2*@{prof})">Expertise</option>
+                  <option value="([[2*@{prof}]])">Expertise</option>
                 </select>
               </td>
               <td>+
                 <input class="sheet-numbox sheet-sm-text" type="text" name="attr_history" value="@{history_prof}" disabled>
               </td>
               <td>
-                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{history_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_history"></button>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{history_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_history"></button>
               </td>
             </tr>
             <tr>
@@ -301,14 +908,14 @@
                   <option value="0">None</option>
                   <option value="floor(@{prof} / 2)">½ Proficient</option>
                   <option value="@{prof}">Proficient</option>
-                  <option value="(2*@{prof})">Expertise</option>
+                  <option value="([[2*@{prof}]])">Expertise</option>
                 </select>
               </td>
               <td>+
                 <input class="sheet-numbox sheet-sm-text" type="text" name="attr_insight" value="@{insight_prof}" disabled>
               </td>
               <td>
-                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{insight_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_insight"></button>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{insight_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_insight"></button>
               </td>
             </tr>
             <tr>
@@ -318,14 +925,14 @@
                   <option value="0">None</option>
                   <option value="floor(@{prof} / 2)">½ Proficient</option>
                   <option value="@{prof}">Proficient</option>
-                  <option value="(2*@{prof})">Expertise</option>
+                  <option value="([[2*@{prof}]])">Expertise</option>
                 </select>
               </td>
               <td>+
                 <input class="sheet-numbox sheet-sm-text" type="text" name="attr_intimidation" value="@{intimidation_prof}" disabled>
               </td>
               <td>
-                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{intimidation_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_intimidation"></button>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{intimidation_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_intimidation"></button>
               </td>
             </tr>
             <tr>
@@ -335,14 +942,14 @@
                   <option value="0">None</option>
                   <option value="floor(@{prof} / 2)">½ Proficient</option>
                   <option value="@{prof}">Proficient</option>
-                  <option value="(2*@{prof})">Expertise</option>
+                  <option value="([[2*@{prof}]])">Expertise</option>
                 </select>
               </td>
               <td>+
                 <input class="sheet-numbox sheet-sm-text" type="text" name="attr_investigation" value="@{investigation_prof}" disabled>
               </td>
               <td>
-                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{investigation_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_investigation"></button>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{investigation_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_investigation"></button>
               </td>
             </tr>
             <tr>
@@ -352,14 +959,14 @@
                   <option value="0">None</option>
                   <option value="floor(@{prof} / 2)">½ Proficient</option>
                   <option value="@{prof}">Proficient</option>
-                  <option value="(2*@{prof})">Expertise</option>
+                  <option value="([[2*@{prof}]])">Expertise</option>
                 </select>
               </td>
               <td>+
                 <input class="sheet-numbox sheet-sm-text" type="text" name="attr_nature" value="@{nature_prof}" disabled>
               </td>
               <td>
-                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{nature_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_nature"></button>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{nature_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_nature"></button>
               </td>
             </tr>
             <tr>
@@ -369,14 +976,14 @@
                   <option value="0">None</option>
                   <option value="floor(@{prof} / 2)">½ Proficient</option>
                   <option value="@{prof}">Proficient</option>
-                  <option value="(2*@{prof})">Expertise</option>
+                  <option value="([[2*@{prof}]])">Expertise</option>
                 </select>
               </td>
               <td>+
                 <input class="sheet-numbox sheet-sm-text" type="text" name="attr_perception" value="@{perception_prof}" disabled>
               </td>
               <td>
-                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{perception_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_perception"></button>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{perception_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_perception"></button>
               </td>
             </tr>
             <tr>
@@ -386,14 +993,14 @@
                   <option value="0">None</option>
                   <option value="floor(@{prof} / 2)">½ Proficient</option>
                   <option value="@{prof}">Proficient</option>
-                  <option value="(2*@{prof})">Expertise</option>
+                  <option value="([[2*@{prof}]])">Expertise</option>
                 </select>
               </td>
               <td>+
                 <input class="sheet-numbox sheet-sm-text" type="text" name="attr_performance" value="@{performance_prof}" disabled>
               </td>
               <td>
-                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{performance_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_performance"></button>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{performance_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_performance"></button>
               </td>
             </tr>
             <tr>
@@ -403,14 +1010,14 @@
                   <option value="0">None</option>
                   <option value="floor(@{prof} / 2)">½ Proficient</option>
                   <option value="@{prof}">Proficient</option>
-                  <option value="(2*@{prof})">Expertise</option>
+                  <option value="([[2*@{prof}]])">Expertise</option>
                 </select>
               </td>
               <td>+
                 <input class="sheet-numbox sheet-sm-text" type="text" name="attr_persuasion" value="@{persuasion_prof}" disabled>
               </td>
               <td>
-                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{persuasion_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_persuasion"></button>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{persuasion_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_persuasion"></button>
               </td>
             </tr>
             <tr>
@@ -420,14 +1027,14 @@
                   <option value="0">None</option>
                   <option value="floor(@{prof} / 2)">½ Proficient</option>
                   <option value="@{prof}">Proficient</option>
-                  <option value="(2*@{prof})">Expertise</option>
+                  <option value="([[2*@{prof}]])">Expertise</option>
                 </select>
               </td>
               <td>+
                 <input class="sheet-numbox sheet-sm-text" type="text" name="attr_science" value="@{science_prof}" disabled>
               </td>
               <td>
-                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{science_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_science"></button>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{science_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_science"></button>
               </td>
             </tr>
             <tr>
@@ -437,14 +1044,14 @@
                   <option value="0">None</option>
                   <option value="floor(@{prof} / 2)">½ Proficient</option>
                   <option value="@{prof}">Proficient</option>
-                  <option value="(2*@{prof})">Expertise</option>
+                  <option value="([[2*@{prof}]])">Expertise</option>
                 </select>
               </td>
               <td>+
                 <input class="sheet-numbox sheet-sm-text" type="text" name="attr_sleight" value="@{sleight_prof}" disabled>
               </td>
               <td>
-                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{sleight_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_sleight"></button>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{sleight_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_sleight"></button>
               </td>
             </tr>
             <tr>
@@ -454,14 +1061,14 @@
                   <option value="0">None</option>
                   <option value="floor(@{prof} / 2)">½ Proficient</option>
                   <option value="@{prof}">Proficient</option>
-                  <option value="(2*@{prof})">Expertise</option>
+                  <option value="([[2*@{prof}]])">Expertise</option>
                 </select>
               </td>
               <td>+
                 <input class="sheet-numbox sheet-sm-text" type="text" name="attr_survival" value="@{survival_prof}" disabled>
               </td>
               <td>
-                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{survival_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_survival"></button>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{survival_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_survival"></button>
               </td>
             </tr>
             <tr>
@@ -471,236 +1078,860 @@
                   <option value="0">None</option>
                   <option value="floor(@{prof} / 2)">½ Proficient</option>
                   <option value="@{prof}">Proficient</option>
-                  <option value="(2*@{prof})">Expertise</option>
+                  <option value="([[2*@{prof}]])">Expertise</option>
                 </select>
               </td>
               <td>+
                 <input class="sheet-numbox sheet-sm-text" type="text" name="attr_theology" value="@{theology_prof}" disabled>
               </td>
               <td>
-                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{theology_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intelligence,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_theology"></button>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} + (@{theology_prof}) ?{Attribute|Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})}" name="roll_theology"></button>
               </td>
             </tr>
           </table>
+          <hr>
+          <div style="padding-left: 20px; font-weight: bold; font-size: 16pt;">Passive Skill Modifier</div>
+          <div style="padding-left: 40px;">
+            <table class="sheet-subsection-table">
+              <tr>
+                <th>Passive Skill</th>
+                <th>Modifier</th>
+              </tr>
+              <tr>
+                <td>Passive Insight</td>
+                <td>
+                  <input class="sheet-numbox" type="number" name="attr_passive_insight_bonus" min="0" step="1" value="0">
+                </td>
+              </tr>
+              <tr>
+                <td>Passive Investigation</td>
+                <td>
+                  <input class="sheet-numbox" type="number" name="attr_passive_investigation_bonus" min="0" step="1" value="0">
+                </td>
+              </tr>
+              <tr>
+                <td>Passive Perception</td>
+                <td>
+                  <input class="sheet-numbox" type="number" name="attr_passive_perception_bonus" min="0" step="1" value="0">
+                </td>
+              </tr>
+            </table>
+          </div>
         </div>
         <div class="sheet-grid-item-right">
-          <div class="sheet-section-title-bar">Class</div>
-          <table class="sheet-subsection-table">
-            <tr>
-              <th>Class</th>
-              <th>Level</th>
-              <th>Archetype</th>
-            </tr>
-            <tr>
-              <td>Artificer</td>
-              <td>
-                <input class="sheet-numbox" type="number" name="attr_artificer_level" value="0" min="0" max="20" step="1">
-              </td>
-              <td>
-                <select class="sheet-numbox sheet-width-all" name="attr_artificer_archetype">
-                  <option value="">-----</option>
-                  <option value="TBD">TBD</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>Augmentor</td>
-              <td>
-                <input class="sheet-numbox" type="number" name="attr_augmentor_level" value="0" min="0" max="20" step="1">
-              </td>
-              <td>
-                <select class="sheet-numbox sheet-width-all" name="attr_augmentor_archetype">
-                  <option value="">-----</option>
-                  <option value="TBD">TBD</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>Cultivator</td>
-              <td>
-                <input class="sheet-numbox" type="number" name="attr_cultivator_level" value="0" min="0" max="20" step="1">
-              </td>
-              <td>
-                <select class="sheet-numbox sheet-width-all" name="attr_cultivator_archetype">
-                  <option value="">-----</option>
-                  <option value="TBD">TBD</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>Martialist</td>
-              <td>
-                <input class="sheet-numbox" type="number" name="attr_martialist_level" value="0" min="0" max="20" step="1">
-              </td>
-              <td>
-                <select class="sheet-numbox sheet-width-all" name="attr_martialist_archetype">
-                  <option value="">-----</option>
-                  <option value="TBD">TBD</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>Occultist</td>
-              <td>
-                <input class="sheet-numbox" type="number" name="attr_occultist_level" value="0" min="0" max="20" step="1">
-              </td>
-              <td>
-                <select class="sheet-numbox sheet-width-all" name="attr_occultist_archetype">
-                  <option value="">-----</option>
-                  <option value="TBD">TBD</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>Schemer</td>
-              <td>
-                <input class="sheet-numbox" type="number" name="attr_schemer_level" value="0" min="0" max="20" step="1">
-              </td>
-              <td>
-                <select class="sheet-numbox sheet-width-all" name="attr_schemer_archetype">
-                  <option value="">-----</option>
-                  <option value="TBD">TBD</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>Shifter</td>
-              <td>
-                <input class="sheet-numbox" type="number" name="attr_shifter_level" value="0" min="0" max="20" step="1">
-              </td>
-              <td>
-                <select class="sheet-numbox sheet-width-all" name="attr_shifter_archetype">
-                  <option value="">-----</option>
-                  <option value="TBD">TBD</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>Sorcerer</td>
-              <td>
-                <input class="sheet-numbox" type="number" name="attr_sorcerer_level" value="0" min="0" max="20" step="1">
-              </td>
-              <td>
-                <select class="sheet-numbox sheet-width-all" name="attr_sorcerer_archetype">
-                  <option value="">-----</option>
-                  <option value="Wild Soul">Wild Soul</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>Summoner</td>
-              <td>
-                <input class="sheet-numbox" type="number" name="attr_summoner_level" value="0" min="0" max="20" step="1">
-              </td>
-              <td>
-                <select class="sheet-numbox sheet-width-all" name="attr_summoner_archetype">
-                  <option value="">-----</option>
-                  <option value="Beast Master">Beast Master</option>
-                  <option value="Cryptic Caller">Cryptic Caller</option>
-                  <option value="Flesh Stitcher">Flesh Stitcher</option>
-                  <option value="Golem Smith">Golem Smith</option>
-                  <option value="Grave Commander">Grave Commander</option>
-                  <option value="Life Animator">Life Animator</option>
-                  <option value="Phyto Whisperer">Phyto Whisperer</option>
-                  <option value="Soul Splitter">Soul Splitter</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>Theurgist</td>
-              <td>
-                <input class="sheet-numbox" type="number" name="attr_theurgist_level" value="0" min="0" max="20" step="1">
-              </td>
-              <td>
-                <select class="sheet-numbox sheet-width-all" name="attr_theurgist_archetype">
-                  <option value="">-----</option>
-                  <option value="TBD">TBD</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>Vanguard</td>
-              <td>
-                <input class="sheet-numbox" type="number" name="attr_vanguard_level" value="0" min="0" max="20" step="1">
-              </td>
-              <td>
-                <select class="sheet-numbox sheet-width-all" name="attr_vanguard_archetype">
-                  <option value="">-----</option>
-                  <option value="TBD">TBD</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>Visionary</td>
-              <td>
-                <input class="sheet-numbox" type="number" name="attr_visionary_level" value="0" min="0" max="20" step="1">
-              </td>
-              <td>
-                <select class="sheet-numbox sheet-width-all" name="attr_visionary_archetype">
-                  <option value="">-----</option>
-                  <option value="Allurist">Allurist</option>
-                  <option value="Battledancer">Battledancer</option>
-                  <option value="Chantress">Chantress</option>
-                  <option value="Chromamancer">Chromamancer</option>
-                  <option value="Fablewright">Fablewright</option>
-                  <option value="Maestro">Maestro</option>
-                  <option value="Mindsculptor">Mindsculptor</option>
-                  <option value="Vates">Vates</option>
-                  <option value="Wordsmith">Wordsmith</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>Votarient</td>
-              <td>
-                <input class="sheet-numbox" type="number" name="attr_votarient_level" value="0" min="0" max="20" step="1">
-              </td>
-              <td>
-                <select class="sheet-numbox sheet-width-all" name="attr_votarient_archetype">
-                  <option value="">-----</option>
-                  <option value="TBD">TBD</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>Warden</td>
-              <td>
-                <input class="sheet-numbox" type="number" name="attr_warden_level" value="0" min="0" max="20" step="1">
-              </td>
-              <td>
-                <select class="sheet-numbox sheet-width-all" name="attr_warden_archetype">
-                  <option value="">-----</option>
-                  <option value="TBD">TBD</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>Wizard</td>
-              <td>
-                <input class="sheet-numbox" type="number" name="attr_wizard_level" value="0" min="0" max="20" step="1">
-              </td>
-              <td>
-                <select class="sheet-numbox sheet-width-all" name="attr_wizard_archetype">
-                  <option value="">-----</option>
-                  <option value="TBD">TBD</option>
-                </select>
-              </td>
-            </tr>
-          </table>
+          <div style="padding-bottom: 25px;">
+            <div class="sheet-section-title-bar">Equipment</div>
+            <table class="sheet-subsection-table">
+              <tr>
+                <th class="sheet-th-pad">Equipment</th>
+                <th>Proficiency</th>
+              </tr>
+              <tr>
+                <td class="sheet-td-vert">Simple Melee Weapon</td>
+                <td>
+                  <input type="checkbox" name="attr_simple_melee_prof">
+                </td>
+              </tr>
+              <tr>
+                <td class="sheet-td-vert">Simple Ranged Weapon</td>
+                <td>
+                  <input type="checkbox" name="attr_simple_ranged_prof">
+                </td>
+              </tr>
+              <tr>
+                <td class="sheet-td-vert">Martial Melee Weapon</td>
+                <td>
+                  <input type="checkbox" name="attr_martial_melee_prof">
+                </td>
+              </tr>
+              <tr>
+                <td class="sheet-td-vert">Martial Ranged Weapon</td>
+                <td>
+                  <input type="checkbox" name="attr_martial_ranged_prof">
+                </td>
+              </tr>
+              <tr>
+                <td class="sheet-td-vert">Improvised Weapon</td>
+                <td>
+                  <input type="checkbox" name="attr_improvised_prof">
+                </td>
+              </tr>
+              <tr>
+                <td class="sheet-td-vert">Firearms</td>
+                <td>
+                  <input type="checkbox" name="attr_firearms_prof">
+                </td>
+              </tr>
+              <tr>
+                <td class="sheet-td-vert">Light Armor</td>
+                <td>
+                  <input type="checkbox" name="attr_light_armor_prof">
+                </td>
+              </tr>
+              <tr>
+                <td class="sheet-td-vert">Medium Armor</td>
+                <td>
+                  <input type="checkbox" name="attr_med_armor_prof">
+                </td>
+              </tr>
+              <tr>
+                <td class="sheet-td-vert">Heavy Armor</td>
+                <td>
+                  <input type="checkbox" name="attr_heavy_armor_prof">
+                </td>
+              </tr>
+              <tr>
+                <td class="sheet-td-vert">Shields</td>
+                <td>
+                  <input type="checkbox" name="attr_shields_prof">
+                </td>
+              </tr>
+              <tr>
+                <td class="sheet-td-vert">
+                  <input type="text" name="attr_other_prof" style="width: 120px;">
+                </td>
+                <td>
+                  <input type="checkbox" name="attr_other_prof_prof">
+                </td>
+              </tr>
+            </table>
+          </div>
+          <hr>
+          <div class="sheet-section-title-bar" style="width: 250px;">Tools</div>
+          <fieldset class="repeating_tools">
+            <input type="text" name="attr_tool" style="width: 160px;">
+            <select class="sheet-numbox" name="attr_tool_prof" style="width:auto;">
+              <option value="@{prof}">Proficient</option>
+              <option value="([[2*@{prof}]])">Expertise</option>
+            </select>
+          </fieldset>
         </div>
       </div>
+      <hr>
+      <div class="sheet-grid-container">
+        <div class="sheet-grid-item-left">
+          <div class="sheet-section-title-bar">Class</div>
+          <div>
+            <table class="sheet-subsection-table">
+              <tr>
+                <th>Class</th>
+                <th>Level</th>
+                <th>Archetype and Tier Level</th>
+              </tr>
+              <tr>
+                <td>Artificer</td>
+                <td>
+                  <input class="sheet-numbox" type="number" name="attr_artificer_level" value="0" min="0" max="20" step="1">
+                </td>
+                <td>
+                  <div style="width: 280px;">
+                    <fieldset class="repeating_artificer_archetype">
+                      <div class="sheet-inline">
+                        <input type="text" name="attr_artificer_archetype" style="width: 230px;">
+                      </div>
+                      <div class="sheet-inline">
+                        <input type="number" name="attr_artificer_archetype_tier" value="0" min="0" max="5" step="1">
+                      </div>
+                    </fieldset>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Augmentor</td>
+                <td>
+                  <input class="sheet-numbox" type="number" name="attr_augmentor_level" value="0" min="0" max="20" step="1">
+                </td>
+                <td>
+                  <div style="width: 280px;">
+                    <fieldset class="repeating_augmentor_archetype">
+                      <div class="sheet-inline">
+                        <input type="text" name="attr_augmentor_archetype" style="width: 230px;">
+                      </div>
+                      <div class="sheet-inline">
+                        <input type="number" name="attr_augmentor_archetype_tier" value="0" min="0" max="5" step="1">
+                      </div>
+                    </fieldset>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Cultivator</td>
+                <td>
+                  <input class="sheet-numbox" type="number" name="attr_cultivator_level" value="0" min="0" max="20" step="1">
+                </td>
+                <td>
+                  <div style="width: 280px;">
+                    <fieldset class="repeating_cultivator_archetype">
+                      <div class="sheet-inline">
+                        <input type="text" name="attr_cultivator_archetype" style="width: 230px;">
+                      </div>
+                      <div class="sheet-inline">
+                        <input type="number" name="attr_cultivator_archetype_tier" value="0" min="0" max="5" step="1">
+                      </div>
+                    </fieldset>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Martialist</td>
+                <td>
+                  <input class="sheet-numbox" type="number" name="attr_martialist_level" value="0" min="0" max="20" step="1">
+                </td>
+                <td>
+                  <div style="width: 280px;">
+                    <fieldset class="repeating_martialist_archetype">
+                      <div class="sheet-inline">
+                        <input type="text" name="attr_martialist_archetype" style="width: 230px;">
+                      </div>
+                      <div class="sheet-inline">
+                        <input type="number" name="attr_martialist_archetype_tier" value="0" min="0" max="5" step="1">
+                      </div>
+                    </fieldset>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Occultist</td>
+                <td>
+                  <input class="sheet-numbox" type="number" name="attr_occultist_level" value="0" min="0" max="20" step="1">
+                </td>
+                <td>
+                  <div style="width: 280px;">
+                    <fieldset class="repeating_occultist_archetype">
+                      <div class="sheet-inline">
+                        <input type="text" name="attr_occultist_archetype" style="width: 230px;">
+                      </div>
+                      <div class="sheet-inline">
+                        <input type="number" name="attr_occultist_archetype_tier" value="0" min="0" max="5" step="1">
+                      </div>
+                    </fieldset>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Schemer</td>
+                <td>
+                  <input class="sheet-numbox" type="number" name="attr_schemer_level" value="0" min="0" max="20" step="1">
+                </td>
+                <td>
+                  <div style="width: 280px;">
+                    <fieldset class="repeating_schemer_archetype">
+                      <div class="sheet-inline">
+                        <input type="text" name="attr_schemer_archetype" style="width: 230px;">
+                      </div>
+                      <div class="sheet-inline">
+                        <input type="number" name="attr_schemer_archetype_tier" value="0" min="0" max="5" step="1">
+                      </div>
+                    </fieldset>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Shifter</td>
+                <td>
+                  <input class="sheet-numbox" type="number" name="attr_shifter_level" value="0" min="0" max="20" step="1">
+                </td>
+                <td>
+                  <div style="width: 280px;">
+                    <fieldset class="repeating_shifter_archetype">
+                      <div class="sheet-inline">
+                        <input type="text" name="attr_shifter_archetype" style="width: 230px;">
+                      </div>
+                      <div class="sheet-inline">
+                        <input type="number" name="attr_shifter_archetype_tier" value="0" min="0" max="5" step="1">
+                      </div>
+                    </fieldset>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Sorcerer</td>
+                <td>
+                  <input class="sheet-numbox" type="number" name="attr_sorcerer_level" value="0" min="0" max="20" step="1">
+                </td>
+                <td>
+                  <div style="width: 280px;">
+                    <fieldset class="repeating_sorcerer_archetype">
+                      <div class="sheet-inline">
+                        <input type="text" name="attr_sorcerer_archetype" style="width: 230px;">
+                      </div>
+                      <div class="sheet-inline">
+                        <input type="number" name="attr_sorcerer_archetype_tier" value="0" min="0" max="5" step="1">
+                      </div>
+                    </fieldset>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Summoner</td>
+                <td>
+                  <input class="sheet-numbox" type="number" name="attr_summoner_level" value="0" min="0" max="20" step="1">
+                </td>
+                <td>
+                  <div style="width: 280px;">
+                    <fieldset class="repeating_summoner_archetype">
+                      <div class="sheet-inline">
+                        <input type="text" name="attr_summoner_archetype" style="width: 230px;">
+                      </div>
+                      <div class="sheet-inline">
+                        <input type="number" name="attr_summoner_archetype_tier" value="0" min="0" max="5" step="1">
+                      </div>
+                    </fieldset>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Theurgist</td>
+                <td>
+                  <input class="sheet-numbox" type="number" name="attr_theurgist_level" value="0" min="0" max="20" step="1">
+                </td>
+                <td>
+                  <div style="width: 280px;">
+                    <fieldset class="repeating_theurgist_archetype">
+                      <div class="sheet-inline">
+                        <input type="text" name="attr_theurgist_archetype" style="width: 230px;">
+                      </div>
+                      <div class="sheet-inline">
+                        <input type="number" name="attr_theurgist_archetype_tier" value="0" min="0" max="5" step="1">
+                      </div>
+                    </fieldset>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Vanguard</td>
+                <td>
+                  <input class="sheet-numbox" type="number" name="attr_vanguard_level" value="0" min="0" max="20" step="1">
+                </td>
+                <td>
+                  <div style="width: 280px;">
+                    <fieldset class="repeating_vanguard_archetype">
+                      <div class="sheet-inline">
+                        <input type="text" name="attr_vanguard_archetype" style="width: 230px;">
+                      </div>
+                      <div class="sheet-inline">
+                        <input type="number" name="attr_vanguard_archetype_tier" value="0" min="0" max="5" step="1">
+                      </div>
+                    </fieldset>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Visionary</td>
+                <td>
+                  <input class="sheet-numbox" type="number" name="attr_visionary_level" value="0" min="0" max="20" step="1">
+                </td>
+                <td>
+                  <div style="width: 280px;">
+                    <fieldset class="repeating_visionary_archetype">
+                      <div class="sheet-inline">
+                        <input type="text" name="attr_visionary_archetype" style="width: 230px;">
+                      </div>
+                      <div class="sheet-inline">
+                        <input type="number" name="attr_visionary_archetype_tier" value="0" min="0" max="5" step="1">
+                      </div>
+                    </fieldset>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Votarient</td>
+                <td>
+                  <input class="sheet-numbox" type="number" name="attr_votarient_level" value="0" min="0" max="20" step="1">
+                </td>
+                <td>
+                  <div style="width: 280px;">
+                    <fieldset class="repeating_votarient_archetype">
+                      <div class="sheet-inline">
+                        <input type="text" name="attr_votarient_archetype" style="width: 230px;">
+                      </div>
+                      <div class="sheet-inline">
+                        <input type="number" name="attr_votarient_archetype_tier" value="0" min="0" max="5" step="1">
+                      </div>
+                    </fieldset>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Warden</td>
+                <td>
+                  <input class="sheet-numbox" type="number" name="attr_warden_level" value="0" min="0" max="20" step="1">
+                </td>
+                <td>
+                  <div style="width: 280px;">
+                    <fieldset class="repeating_warden_archetype">
+                      <div class="sheet-inline">
+                        <input type="text" name="attr_warden_archetype" style="width: 230px;">
+                      </div>
+                      <div class="sheet-inline">
+                        <input type="number" name="attr_warden_archetype_tier" value="0" min="0" max="5" step="1">
+                      </div>
+                    </fieldset>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Wizard</td>
+                <td>
+                  <input class="sheet-numbox" type="number" name="attr_wizard_level" value="0" min="0" max="20" step="1">
+                </td>
+                <td>
+                  <div style="width: 280px;">
+                    <fieldset class="repeating_wizard_archetype">
+                      <div class="sheet-inline">
+                        <input type="text" name="attr_wizard_archetype" style="width: 230px;">
+                      </div>
+                      <div class="sheet-inline">
+                        <input type="number" name="attr_wizard_archetype_tier" value="0" min="0" max="5" step="1">
+                      </div>
+                    </fieldset>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="sheet-grid-item-right" style="border-left: 3px solid; border-color: #e8e8e8; width: 350px;">
+          <div class="sheet-section-title-bar">Lasting Injuries</div>
+          <div>
+            <table class="sheet-subsection-table">
+              <tr>
+                <th class="sheet-th-vert">Body Part</th>
+                <th class="sheet-th-vert">Remedial Effect</th>
+                <th class="sheet-th-vert">Permanent Effect</th>
+              </tr>
+              <tr>
+                <td>
+                  <div style="padding-right: 210px;"></div>
+                </td>
+                <td>
+                  <div style="padding-right: 70px;"></div>
+                </td>
+                <td></td>
+              </tr>
+            </table>
+            <div style="width: 330px;">
+              <fieldset class="repeating_injury">
+                <div class="sheet-inline">
+                  <input type="text" name="attr_body_part" style="width: 220px;">
+                </div>
+                <div class="sheet-inline" style="padding-left: 25px; padding-right: 50px;">
+                  <input type="checkbox" name="attr_remedial">
+                </div>
+                <div class="sheet-inline">
+                  <input type="checkbox" name="attr_permanent">
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div><br><br>
+      <div style="border-bottom: 3px solid; border-color: #e8e8e8;"></div>
     </div>
-    <!-- Tab 3-->
-    <div class="sheet-tabbed-pane sheet-tab sheet-tab3"></div>
-    <!-- Tab 4-->
-    <div class="sheet-tabbed-pane sheet-tab sheet-tab4"></div>
-    <!-- Tab 5-->
-    <div class="sheet-tabbed-pane sheet-tab sheet-tab5"></div>
-    <!-- Tab 6-->
-    <div class="sheet-tabbed-pane sheet-tab sheet-tab6"></div>
-    <!-- Tab 7-->
-    <div class="sheet-tabbed-pane sheet-tab sheet-tab7"></div>
-    <!-- Tab 8-->
-    <div class="sheet-tabbed-pane sheet-tab sheet-tab8"></div>
+    <!-- Abilities-->
+    <div class="sheet-tabbed-pane sheet-tab sheet-tab3"><br>
+      <div class="sheet-sub-header">Abilities</div>
+      <div>
+        <div class="sheet-sub-header-small-left">Racial Abilities</div>
+        <fieldset class="repeating_racial_abilities">
+          <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+            <div class="sheet-inline">
+              <div class="sheet-undertext">Ability Name</div>
+              <input type="text" name="attr_racial_ability_name" style="width: 200px;">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext">&nbsp;</div>
+              <div class="sheet-undertext">&nbsp;</div>
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Current Uses</div>
+              <input type="number" name="attr_racial_ability_curr" style="width: 50px;" min="0" step="1" value="0">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Max Uses</div>
+              <input type="number" name="attr_racial_ability_max" style="width: 50px;" min="0" step="1" value="0">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Short Rest Recharge?</div>
+              <input type="checkbox" name="attr_racial_ability_sr_recharge">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Long Rest Recharge?</div>
+              <input type="checkbox" name="attr_racial_ability_lr_recharge">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Send to Chat</div>
+              <button class="sheet-roll-button" type="roll" value="&amp;{template:feature} {{title=@{racial_ability_name}}} {{desc=@{racial_ability_desc}}}" name="roll_racial_ability"></button>
+            </div>
+          </div>
+          <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+            <div class="sheet-undertext">Description</div>
+            <textarea class="sheet-paragraph-box" type="text" name="attr_racial_ability_desc" style="width: 100%; height: 50%;"></textarea>
+          </div>
+        </fieldset>
+        <hr>
+        <div class="sheet-sub-header-small-left">Traits</div>
+        <fieldset class="repeating_racial_abilities">
+          <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+            <div class="sheet-inline">
+              <div class="sheet-undertext">Trait Name</div>
+              <input type="text" name="attr_trait_name" style="width: 200px;">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext">&nbsp;</div>
+              <div class="sheet-undertext">&nbsp;</div>
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Current Uses</div>
+              <input type="number" name="attr_trait_curr" style="width: 50px;" min="0" step="1" value="0">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Max Uses</div>
+              <input type="number" name="attr_trait_max" style="width: 50px;" min="0" step="1" value="0">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Short Rest Recharge?</div>
+              <input type="checkbox" name="attr_trait_sr_recharge">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Long Rest Recharge?</div>
+              <input type="checkbox" name="attr_trait_lr_recharge">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Send to Chat</div>
+              <button class="sheet-roll-button" type="roll" value="&amp;{template:feature} {{title=@{trait_name}}} {{desc=@{trait_desc}}}" name="roll_trait"></button>
+            </div>
+          </div>
+          <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+            <div class="sheet-undertext">Description</div>
+            <textarea class="sheet-paragraph-box" type="text" name="attr_trait_desc" style="width: 100%; height: 50%;"></textarea>
+          </div>
+        </fieldset>
+        <hr>
+        <div class="sheet-sub-header-small-left">Feats</div>
+        <fieldset class="repeating_racial_abilities">
+          <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+            <div class="sheet-inline">
+              <div class="sheet-undertext">Feat Name</div>
+              <input type="text" name="attr_feat_name" style="width: 200px;">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext">&nbsp;</div>
+              <div class="sheet-undertext">&nbsp;</div>
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Current Uses</div>
+              <input type="number" name="attr_feat_curr" style="width: 50px;" min="0" step="1" value="0">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Max Uses</div>
+              <input type="number" name="attr_feat_max" style="width: 50px;" min="0" step="1" value="0">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Short Rest Recharge?</div>
+              <input type="checkbox" name="attr_feat_sr_recharge">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Long Rest Recharge?</div>
+              <input type="checkbox" name="attr_feat_lr_recharge">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Send to Chat</div>
+              <button class="sheet-roll-button" type="roll" value="&amp;{template:feature} {{title=@{feat_name}}} {{desc=@{feat_desc}}}" name="roll_feature"></button>
+            </div>
+          </div>
+          <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+            <div class="sheet-undertext">Description</div>
+            <textarea class="sheet-paragraph-box" type="text" name="attr_feat_desc" style="width: 100%; height: 50%;"></textarea>
+          </div>
+        </fieldset>
+        <hr>
+        <div class="sheet-sub-header-small-left">Class Features</div>
+        <fieldset class="repeating_racial_abilities">
+          <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+            <div class="sheet-inline">
+              <div class="sheet-undertext">Feature Name</div>
+              <input type="text" name="attr_class_feat_name" style="width: 200px;">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext">&nbsp;</div>
+              <div class="sheet-undertext">&nbsp;</div>
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Current Uses</div>
+              <input type="number" name="attr_class_feat_curr" style="width: 50px;" min="0" step="1" value="0">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Max Uses</div>
+              <input type="number" name="attr_class_feat_max" style="width: 50px;" min="0" step="1" value="0">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Short Rest Recharge?</div>
+              <input type="checkbox" name="attr_class_feat_sr_recharge">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Long Rest Recharge?</div>
+              <input type="checkbox" name="attr_class_feat_lr_recharge">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Send to Chat</div>
+              <button class="sheet-roll-button" type="roll" value="&amp;{template:feature} {{title=@{class_feat_name}}} {{desc=@{class_feat_desc}}}" name="roll_class_feature"></button>
+            </div>
+          </div>
+          <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+            <div class="sheet-undertext">Description</div>
+            <textarea class="sheet-paragraph-box" type="text" name="attr_class_feat_desc" style="width: 100%; height: 50%;"></textarea>
+          </div>
+        </fieldset>
+        <hr>
+        <div class="sheet-sub-header-small-left">Other Features</div>
+        <fieldset class="repeating_racial_abilities">
+          <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+            <div class="sheet-inline">
+              <div class="sheet-undertext">Feature Name</div>
+              <input type="text" name="attr_other_feat_name" style="width: 200px;">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext">&nbsp;</div>
+              <div class="sheet-undertext">&nbsp;</div>
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Current Uses</div>
+              <input type="number" name="attr_other_feat_curr" style="width: 50px;" min="0" step="1" value="0">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Max Uses</div>
+              <input type="number" name="attr_other_feat_max" style="width: 50px;" min="0" step="1" value="0">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Short Rest Recharge?</div>
+              <input type="checkbox" name="attr_other_feat_sr_recharge">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Long Rest Recharge?</div>
+              <input type="checkbox" name="attr_other_feat_lr_recharge">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Send to Chat</div>
+              <button class="sheet-roll-button" type="roll" value="&amp;{template:feature} {{title=@{other_feat_name}}} {{desc=@{other_feat_desc}}}" name="roll_other_feature"></button>
+            </div>
+          </div>
+          <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+            <div class="sheet-undertext">Description</div>
+            <textarea class="sheet-paragraph-box" type="text" name="attr_other_feat_desc" style="width: 100%; height: 50%;"></textarea>
+          </div>
+        </fieldset>
+      </div><br>
+      <div style="border-bottom: 3px solid; border-color: #e8e8e8;"></div>
+    </div>
+    <!-- Spells-->
+    <div class="sheet-tabbed-pane sheet-tab sheet-tab4"><br><br>
+      <div style="border-bottom: 3px solid; border-color: #e8e8e8;"></div>
+    </div>
+    <!-- Strings-->
+    <div class="sheet-tabbed-pane sheet-tab sheet-tab5"><br>
+      <div class="sheet-sub-header">Strings</div>
+      <div>
+        <div class="sheet-sub-header-small-left">Relationships</div>
+        <fieldset class="repeating_relationships">
+          <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+            <div class="sheet-inline">
+              <div class="sheet-undertext">Person</div>
+              <input type="text" name="attr_relationship" style="width: 200px;">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext">&nbsp;</div>
+              <div class="sheet-undertext">&nbsp;</div>
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext">Importance</div>
+              <select name="attr_relationship_importance" style="width: auto;">
+                <option value="1">Minor</option>
+                <option value="3">Major</option>
+                <option value="5">Defining</option>
+              </select>
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Roll</div>
+              <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} ?{Situation|Positive,+ (@{relationship_importance}), |Negative,- (@{relationship_importance})} ?{Attribute|None,+ 0, |Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})} ?{Skill|None,+ 0, |Persuasion,+ (@{persuasion_prof}), |Deception,+ (@{deception_prof}), |Intimidation,+ (@{intimidation_prof}), |Insight,+ (@{insight_prof}), |Performance,+ (@{performance_prof})}" name="roll_relationship"></button>
+            </div>
+          </div>
+          <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+            <div class="sheet-undertext">Description</div>
+            <textarea class="sheet-paragraph-box" type="text" name="attr_relationship_desc" style="width: 100%; height: 50%;"></textarea>
+          </div>
+        </fieldset>
+      </div>
+      <hr>
+      <div>
+        <div class="sheet-sub-header-small-left">Principles</div>
+        <fieldset class="repeating_principles">
+          <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+            <div class="sheet-inline">
+              <div class="sheet-undertext">Principle</div>
+              <input type="text" name="attr_principle" style="width: 200px;">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext">&nbsp;</div>
+              <div class="sheet-undertext">&nbsp;</div>
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext">Importance</div>
+              <select name="attr_principle_importance" style="width: auto;">
+                <option value="1">Minor</option>
+                <option value="3">Major</option>
+                <option value="5">Defining</option>
+              </select>
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Roll</div>
+              <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} ?{Situation|Positive,+ (@{principle_importance}), |Negative,- (@{principle_importance})} ?{Attribute|None,+ 0, |Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})} ?{Skill|None,+ 0, |Persuasion,+ (@{persuasion_prof}), |Deception,+ (@{deception_prof}), |Intimidation,+ (@{intimidation_prof}), |Insight,+ (@{insight_prof}), |Performance,+ (@{performance_prof})}" name="roll_principle"></button>
+            </div>
+          </div>
+          <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+            <div class="sheet-undertext">Description</div>
+            <textarea class="sheet-paragraph-box" type="text" name="attr_principle_desc" style="width: 100%; height: 50%;"></textarea>
+          </div>
+        </fieldset>
+      </div>
+      <hr>
+      <div>
+        <div class="sheet-sub-header-small-left">Reputation</div>
+        <fieldset class="repeating_reputation">
+          <div class="sheet-header">
+            <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+              <div class="sheet-inline">
+                <div class="sheet-undertext">Faction</div>
+                <input type="text" name="attr_faction_name" style="width:100px">
+              </div>
+              <div class="sheet-inline">
+                <div class="sheet-undertext">Reputation</div>
+                <input class="sheet-numbox" type="number" name="attr_faction_reputation" min="0" value="0" step="1" style="width:50px">
+              </div>
+              <div class="sheet-inline">
+                <div class="sheet-undertext">Modifier</div>
+                <input class="sheet-numbox" type="text" name="attr_faction_mod" value="[[(floor((@{faction_reputation}-10)/2))]]" disabled>
+              </div>
+              <div class="sheet-inline">
+                <div class="sheet-undertext">Roll</div>
+                <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} ?{Situation|Positive,+ (@{faction_mod}), |Negative,- (@{faction_mod})} ?{Attribute|None,+ 0, |Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})} ?{Skill|None,+ 0, |Persuasion,+ (@{persuasion_prof}), |Deception,+ (@{deception_prof}), |Intimidation,+ (@{intimidation_prof}), |Insight,+ (@{insight_prof}), |Performance,+ (@{performance_prof}), |Arcana,+ (@{arcana_prof}), |History,+ (@{history_prof}), |Investigation,+ (@{investigation_prof}), |Nature,+ (@{nature_prof}), |Perception,+ (@{perception_prof}), |Science,+ (@{science_prof}), |Survival,+ (@{survival_prof}), |Theology,+ (@{theology_prof})}" name="roll_reputation"></button>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div><br>
+      <div style="border-bottom: 3px solid; border-color: #e8e8e8;"></div>
+    </div>
+    <!-- Character Details-->
+    <div class="sheet-tabbed-pane sheet-tab sheet-tab6"><br>
+      <div class="sheet-sub-header">Character Details</div>
+      <div>
+        <div class="sheet-sub-header-small-left">Appearance</div>
+        <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+          <div class="sheet-inline">
+            <div class="sheet-undertext">Aura Color</div>
+            <input type="text" name="attr_aura_color" style="width:100px">
+          </div>
+          <div class="sheet-inline">
+            <div class="sheet-undertext">Aura Scent</div>
+            <input type="text" name="attr_aura_scent" style="width:100px">
+          </div>
+          <div class="sheet-inline">
+            <div class="sheet-undertext">Hair Color</div>
+            <input type="text" name="attr_hair_color" style="width:100px">
+          </div>
+          <div class="sheet-inline">
+            <div class="sheet-undertext">Eye Color</div>
+            <input type="text" name="attr_eye_color" style="width:100px">
+          </div>
+          <div class="sheet-inline">
+            <div class="sheet-undertext">Height</div>
+            <input type="text" name="attr_char_height" style="width:50px">
+          </div>
+          <div class="sheet-inline">
+            <div class="sheet-undertext">Weight</div>
+            <input type="text" name="attr_char_weight" style="width:50px">
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="sheet-sub-header-small-left">Description</div>
+        <textarea class="sheet-paragraph-box" type="text" name="attr_appearance_description" style="width: 100%; height: 200px; overflow: auto;"></textarea>
+      </div>
+      <div>
+        <div class="sheet-sub-header-small-left">Background</div>
+        <textarea class="sheet-paragraph-box" type="text" name="attr_background" style="width: 100%; height: 200px; overflow: auto;"></textarea>
+      </div>
+      <div>
+        <div class="sheet-sub-header-small-left">Culture</div>
+        <textarea class="sheet-paragraph-box" type="text" name="attr_culture" style="width: 100%; height: 200px; overflow: auto;"></textarea>
+      </div>
+      <div>
+        <div class="sheet-sub-header-small-left">Other Details</div>
+        <textarea class="sheet-paragraph-box" type="text" name="attr_background" style="width: 100%; height: 200px; overflow: auto;"></textarea>
+      </div>
+      <div>
+        <div class="sheet-sub-header-small-left">Backstory</div>
+        <textarea class="sheet-paragraph-box" type="text" name="attr_backstory" style="width: 100%; height: 500px; overflow: auto;"></textarea>
+      </div><br>
+      <div style="border-bottom: 3px solid; border-color: #e8e8e8;"></div>
+    </div>
+    <!-- Inventory-->
+    <div class="sheet-tabbed-pane sheet-tab sheet-tab7"><br><br>
+      <div style="border-bottom: 3px solid; border-color: #e8e8e8;"></div>
+    </div>
+    <!-- Companion-->
+    <div class="sheet-tabbed-pane sheet-tab sheet-tab8"><br><br>
+      <div style="border-bottom: 3px solid; border-color: #e8e8e8;"></div>
+    </div>
+    <!-- Notebook-->
+    <div class="sheet-tabbed-pane sheet-tab sheet-tab9"><br>
+      <div class="sheet-sub-header">Notes</div>
+      <div>
+        <div class="sheet-sub-header-small-left">General Notes</div>
+        <textarea class="sheet-paragraph-box" type="text" name="attr_notes" style="width: 100%; height: 500px; overflow: auto;"></textarea>
+      </div>
+      <div>
+        <div class="sheet-sub-header-small-left">Sendable Notes</div>
+        <fieldset class="repeating_notes">
+          <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+            <div class="sheet-inline">
+              <div class="sheet-undertext">Title</div>
+              <input type="text" name="attr_notes_title" style="width: 200px;">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext">&nbsp;</div>
+              <div class="sheet-undertext">&nbsp;</div>
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext">Subtitle</div>
+              <input type="text" name="attr_notes_subtitle" style="width: 200px;">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Send to Chat</div>
+              <button class="sheet-roll-button" type="roll" value="&amp;{template:feature} {{title=@{notes_title}}} {{subtitle=@{notes_subtitle}}} {{desc=@{notes_desc}}}" name="roll_notes"></button>
+            </div>
+          </div>
+          <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+            <div class="sheet-undertext">Notes</div>
+            <textarea class="sheet-paragraph-box" type="text" name="attr_notes_desc" style="width: 100%; height: 50%;"></textarea>
+          </div>
+        </fieldset>
+      </div><br>
+      <div style="border-bottom: 3px solid; border-color: #e8e8e8;"></div>
+    </div>
   </div>
 </html>
+<rolltemplate class="sheet-rolltemplate-feature">
+  <div class="sheet-color-{{color}} sheet-container">
+    <div class="sheet-header">
+      {{#title}}<div class="sheet-title">{{title}}</div>{{/title}}
+      {{#subtitle}}<div class="sheet-subtitle">{{subtitle}}</div>{{/subtitle}}
+    </div>
+    <div class="sheet-content">{{#allprops() title subtitle desc color}}
+      <div class="sheet-key">{{key}}</div>
+      <div class="sheet-value">{{value}}</div>{{/allprops() title subtitle desc color}}
+      {{#desc}}<div class="sheet-desc">{{desc}}</div>{{/desc}}
+    </div>
+  </div>
+</rolltemplate>

@@ -16,6 +16,7 @@
 .sheet-grid-item-center {
 	display: inline-block;
 	padding-top: 10px;
+	padding-right: 10px;
 	padding-left: 10px;
 	border-right: 3px solid;
 	border-left: 3px solid;
@@ -28,6 +29,78 @@
 	padding-left: 10px;
 }
 
+.sheet-grid-item-left {
+	display: inline-block;
+	padding-top: 10px;
+	padding-right: 10px;
+}
+
+.sheet-col-div-inline {
+	display: inline-block;
+	vertical-align: top;
+}
+.sheet-col-input-inline {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.sheet-col-td {
+	vertical-align: middle;
+}
+.sheet-col-div-border {
+	border: 1px solid;
+	border-color: #e8e8e8;
+}
+
+.sheet-sub-header {
+	font-family: Georgia, "Charis SIL", Utopia, Charter, serif;
+	font-size: 18pt;
+	font-weight: bold;
+	font-style: normal;
+	padding-bottom: 8px;
+	text-align: center;
+}
+
+.sheet-sub-header-small {
+	font-family: Georgia, "Charis SIL", Utopia, Charter, serif;
+	font-size: 16pt;
+	font-style: normal;
+	padding-bottom: 8px;
+	text-align: center;
+}
+
+.sheet-sub-header-small-left {
+	font-family: Georgia, "Charis SIL", Utopia, Charter, serif;
+	font-size: 16pt;
+	font-style: normal;
+	padding-bottom: 8px;
+	text-align: left;
+}
+
+.sheet-vert-aligned-table {
+	border-spacing: 0;
+}
+.sheet-vert-aligned-table tr td {
+	text-align: center;
+	vertical-align: top;
+	padding: 2px;
+}
+
+.sheet-div-center-smaller {
+	margin: auto;
+	width: 65%;
+	padding: 10px;
+}
+
+.sheet-md-vert {
+	text-align: center;
+	width: 35px;
+}
+
+.sheet-lg-vert {
+	text-align: center;
+	width: 25px;
+}
 
 /*
 This work is licensed the MIT License.
@@ -137,6 +210,12 @@ Minor modifications by Russell Leong
 	padding-right: 6px;
 }
 .sheet-th-vert {
+	text-align: center;
+	width: 10px;
+}
+.sheet-th-inline {
+	display: inline;
+	text-align: center;
 	width: 10px;
 }
 .sheet-td-vert {
@@ -290,9 +369,9 @@ div:last-child.sheet-subsection-nontable-row {
 	border-color: #e8e8e8;
 }
 .sheet-div-center {
-  margin: auto;
-  width: 80%;
-  padding: 10px;
+	margin: auto;
+	width: 80%;
+	padding: 10px;
 }
 
 
@@ -319,9 +398,90 @@ input.sheet-tab-button2:checked ~ div.sheet-tab2,
 input.sheet-tab-button3:checked ~ div.sheet-tab3, 
 input.sheet-tab-button4:checked ~ div.sheet-tab4, 
 input.sheet-tab-button5:checked ~ div.sheet-tab5, 
-input.sheet-tab-button4:checked ~ div.sheet-tab6, 
-input.sheet-tab-button5:checked ~ div.sheet-tab7, 
-input.sheet-tab-button4:checked ~ div.sheet-tab8, 
-input.sheet-tab-button5:checked ~ div.sheet-tab9 {
+input.sheet-tab-button6:checked ~ div.sheet-tab6, 
+input.sheet-tab-button7:checked ~ div.sheet-tab7, 
+input.sheet-tab-button8:checked ~ div.sheet-tab8, 
+input.sheet-tab-button9:checked ~ div.sheet-tab9 {
 	display: block;
+}
+
+/* Smaller margins - remove these if you want the huge default left margin */
+.sheet-rolltemplate-custom {
+  margin-left: -37px;
+}
+.withoutavatars .sheet-rolltemplate-custom {
+  margin-left: -7px;
+}
+
+.sheet-rolltemplate-custom .sheet-container {
+  border: 1px solid;
+  /* by default, the border is the same color as the header. You can change this here, e.g. to black */
+  border-color: var(--header-bg-color);
+}
+
+/* Header formatting - title and subtitle */
+.sheet-rolltemplate-custom .sheet-header {
+  background-color: var(--header-bg-color);
+  /* change text-align to center to center the header text */
+  text-align: left;
+  color: var(--header-text-color);
+  padding: 5px;
+}
+.sheet-rolltemplate-custom .sheet-title {
+  font-size:1.1em;
+}
+.sheet-rolltemplate-custom .sheet-subtitle {
+  font-size:.9em;
+}
+
+/* example colors */
+.sheet-rolltemplate-custom .sheet-container {
+  /* this is the default color */
+  --header-bg-color: rgba(112,32,130,1);
+  --header-text-color: #FFF;
+}
+.sheet-rolltemplate-custom .sheet-container.sheet-color-red {
+  --header-bg-color: #F00;
+}
+.sheet-rolltemplate-custom .sheet-container.sheet-color-green {
+  --header-bg-color: #0F0;
+  --header-text-color: #000;
+}
+
+/* Allprops part */
+.sheet-rolltemplate-custom .sheet-content {
+  display: grid;
+  background: #FFF;
+  /* Header formatting - modify the column layout below */
+  grid-template-columns: auto auto;
+  /* Line height to match default roll template */
+  line-height:1.4em;
+}
+.sheet-rolltemplate-custom .sheet-content > div {
+  padding: 5px;
+}
+
+/* Left column */
+.sheet-rolltemplate-custom .sheet-content .sheet-key {
+  font-weight: bold;
+  padding-right: 10px;
+  text-align: right;
+}
+
+/* Empty rule, use this if you want to change the right column 
+.sheet-rolltemplate-custom .sheet-value {
+}
+*/
+
+/* Make even-numbered rows grey */
+.sheet-rolltemplate-custom .sheet-content :nth-child(4n+3),
+.sheet-rolltemplate-custom .sheet-content :nth-child(4n) {
+  background:#EEE;
+}
+
+/* Description field */
+.sheet-rolltemplate-custom .sheet-desc {
+  grid-column: span 2;
+  padding: 5px;
+  text-align: center;
 }
