@@ -97,7 +97,7 @@
 	width: 35px;
 }
 
-.sheet-lg-vert {
+.sheet-sm-vert {
 	text-align: center;
 	width: 25px;
 }
@@ -179,6 +179,7 @@ Minor modifications by Russell Leong
 .sheet-paragraph-box {
 	width: calc(100% - 16px);
 	height: 4em;
+	overflow: auto;
 }
 .sheet-list-box {
 	width: calc(100% - 16px);
@@ -230,13 +231,13 @@ Minor modifications by Russell Leong
 /* Chrome, Safari, Edge, Opera */
 .sheet-num-hide input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+	-webkit-appearance: none;
+	margin: 0;
 }
 
 /* Firefox */
 .sheet-num-hide-firefox input[type=number] {
-  -moz-appearance: textfield;
+	-moz-appearance: textfield;
 }
 
 /*********************************** section box layout ***********************************/
@@ -324,7 +325,7 @@ input.sheet-table-hide-checkbox:checked ~ div.sheet-table-hide {
 	display: block;
 }
 
-div.sheet-subsection-nontable-row  {
+div.sheet-subsection-nontable-row	{
 	border-bottom: 1pt solid #808080;
 	border-top: none;
 	border-left: none;
@@ -407,65 +408,65 @@ input.sheet-tab-button9:checked ~ div.sheet-tab9 {
 
 /* Smaller margins - remove these if you want the huge default left margin */
 .sheet-rolltemplate-custom {
-  margin-left: -37px;
+	margin-left: -37px;
 }
 .withoutavatars .sheet-rolltemplate-custom {
-  margin-left: -7px;
+	margin-left: -7px;
 }
 
 .sheet-rolltemplate-custom .sheet-container {
-  border: 1px solid;
-  /* by default, the border is the same color as the header. You can change this here, e.g. to black */
-  border-color: var(--header-bg-color);
+	border: 1px solid;
+	/* by default, the border is the same color as the header. You can change this here, e.g. to black */
+	border-color: var(--header-bg-color);
 }
 
 /* Header formatting - title and subtitle */
 .sheet-rolltemplate-custom .sheet-header {
-  background-color: var(--header-bg-color);
-  /* change text-align to center to center the header text */
-  text-align: left;
-  color: var(--header-text-color);
-  padding: 5px;
+	background-color: var(--header-bg-color);
+	/* change text-align to center to center the header text */
+	text-align: left;
+	color: var(--header-text-color);
+	padding: 5px;
 }
 .sheet-rolltemplate-custom .sheet-title {
-  font-size:1.1em;
+	font-size:1.1em;
 }
 .sheet-rolltemplate-custom .sheet-subtitle {
-  font-size:.9em;
+	font-size:.9em;
 }
 
 /* example colors */
 .sheet-rolltemplate-custom .sheet-container {
-  /* this is the default color */
-  --header-bg-color: rgba(112,32,130,1);
-  --header-text-color: #FFF;
+	/* this is the default color */
+	--header-bg-color: rgba(112,32,130,1);
+	--header-text-color: #FFF;
 }
 .sheet-rolltemplate-custom .sheet-container.sheet-color-red {
-  --header-bg-color: #F00;
+	--header-bg-color: #F00;
 }
 .sheet-rolltemplate-custom .sheet-container.sheet-color-green {
-  --header-bg-color: #0F0;
-  --header-text-color: #000;
+	--header-bg-color: #0F0;
+	--header-text-color: #000;
 }
 
 /* Allprops part */
 .sheet-rolltemplate-custom .sheet-content {
-  display: grid;
-  background: #FFF;
-  /* Header formatting - modify the column layout below */
-  grid-template-columns: auto auto;
-  /* Line height to match default roll template */
-  line-height:1.4em;
+	display: grid;
+	background: #FFF;
+	/* Header formatting - modify the column layout below */
+	grid-template-columns: auto auto;
+	/* Line height to match default roll template */
+	line-height:1.4em;
 }
 .sheet-rolltemplate-custom .sheet-content > div {
-  padding: 5px;
+	padding: 5px;
 }
 
 /* Left column */
 .sheet-rolltemplate-custom .sheet-content .sheet-key {
-  font-weight: bold;
-  padding-right: 10px;
-  text-align: right;
+	font-weight: bold;
+	padding-right: 10px;
+	text-align: right;
 }
 
 /* Empty rule, use this if you want to change the right column 
@@ -476,12 +477,231 @@ input.sheet-tab-button9:checked ~ div.sheet-tab9 {
 /* Make even-numbered rows grey */
 .sheet-rolltemplate-custom .sheet-content :nth-child(4n+3),
 .sheet-rolltemplate-custom .sheet-content :nth-child(4n) {
-  background:#EEE;
+	background:#EEE;
 }
 
 /* Description field */
 .sheet-rolltemplate-custom .sheet-desc {
-  grid-column: span 2;
-  padding: 5px;
-  text-align: center;
+	grid-column: span 2;
+	padding: 5px;
+	text-align: center;
+}
+
+/* 5e Attack Template */
+
+.sheet-rolltemplate-5eAttack .sheet-container {
+	background-color: #ffffff;
+	border: 1px solid;
+	padding: 2px;
+	width: 189px;
+}
+
+.sheet-rolltemplate-5eAttack .sheet-container h1 {
+	color: rgb(126, 45, 64);
+	font-size: 1.2em;
+	font-variant: small-caps;
+	line-height: 20px;
+}
+
+.sheet-rolltemplate-5eAttack div {
+	padding: 2px;
+};
+ 
+.sheet-rolltemplate-5eAttack span {
+	color: rgb(126, 45, 64);
+	font-family: "Times New Roman", Times, serif;
+	font-size: 1.2em;
+	font-variant: small-caps;
+	line-height: 1.6em;
+	padding-left: 5px;
+	text-align: left;
+}
+ 
+.sheet-rolltemplate-5eAttack .sheet-subheader {
+	color: #000;
+	font-size: 1em;
+	font-style: italic;
+}
+ 
+.sheet-rolltemplate-5eAttack .sheet-arrow-right {
+	border-bottom: 2px solid transparent;
+	border-left: 180px solid rgb(126, 45, 64);
+	border-top: 2px solid transparent;
+}
+ 
+.sheet-rolltemplate-5eAttack .sheet-tcat {
+	font-style: italic;
+}
+ 
+.sheet-rolltemplate-5eAttack .inlinerollresult	{
+	background-color: #ffffff;
+	border: none;
+}
+ 
+.sheet-rolltemplate-5eAttack .inlinerollresult.fullcrit {
+	color: #3FB315;
+	border: none;
+}
+ 
+.sheet-rolltemplate-5eAttack .inlinerollresult.fullfail {
+	color: #B31515;
+	border: none;
+}
+ 
+.sheet-rolltemplate-5eAttack .inlinerollresult.importandivoll {
+	color: #4A57ED;
+	border: none;
+}
+
+/* 5e Spell Template */
+
+.sheet-rolltemplate-spell .sheet-container {
+	background-color: #ffffff;
+	border: 1px solid;
+	padding: 2px;
+}
+
+.sheet-rolltemplate-spell .sheet-container h1 {
+	color: rgb(126, 45, 64);
+	font-size: 1.2em;
+	font-variant: small-caps;
+	line-height: 20px;
+}
+
+.sheet-rolltemplate-spell div {
+	padding: 2px;
+};
+ 
+.sheet-rolltemplate-spell span {
+	color: rgb(126, 45, 64);
+	font-family: "Times New Roman", Times, serif;
+	font-size: 1.2em;
+	font-variant: small-caps;
+	line-height: 1.6em;
+	padding-left: 5px;
+	text-align: left;
+}
+ 
+.sheet-rolltemplate-spell .sheet-subheader {
+	color: #000;
+	font-size: 1em;
+	font-style: italic;
+}
+ 
+.sheet-rolltemplate-spell .sheet-arrow-right {
+	border-bottom: 2px solid transparent;
+	border-left: 180px solid rgb(126, 45, 64);
+	border-top: 2px solid transparent;
+}
+ 
+.sheet-rolltemplate-spell .sheet-tcat {
+	font-style: italic;
+}
+
+.sheet-rolltemplate-spell .sheet-bcat {
+	font-weight: bold;
+}
+ 
+.sheet-rolltemplate-spell .inlinerollresult	{
+	background-color: #ffffff;
+	border: none;
+}
+ 
+.sheet-rolltemplate-spell .inlinerollresult.fullcrit {
+	color: #3FB315;
+	border: none;
+}
+ 
+.sheet-rolltemplate-spell .inlinerollresult.fullfail {
+	color: #B31515;
+	border: none;
+}
+ 
+.sheet-rolltemplate-spell .inlinerollresult.importandivoll {
+	color: #4A57ED;
+	border: none;
+}
+
+/* 5e Desc Template */
+
+.sheet-rolltemplate-feature .sheet-container {
+	background-color: #ffffff;
+	border: 1px solid;
+	padding: 2px;
+	width: 189px;
+}
+
+.sheet-rolltemplate-feature .sheet-container h1 {
+	color: rgb(126, 45, 64);
+	font-size: 1.2em;
+	font-variant: small-caps;
+	line-height: 20px;
+}
+
+.sheet-rolltemplate-feature div {
+	padding: 2px;
+};
+ 
+.sheet-rolltemplate-feature span {
+	color: rgb(126, 45, 64);
+	font-family: "Times New Roman", Times, serif;
+	font-size: 1.2em;
+	font-variant: small-caps;
+	line-height: 1.6em;
+	padding-left: 5px;
+	text-align: left;
+}
+ 
+.sheet-rolltemplate-feature .sheet-subheader {
+	color: #000;
+	font-size: 1em;
+	font-style: italic;
+}
+ 
+.sheet-rolltemplate-feature .sheet-arrow-right {
+	border-bottom: 2px solid transparent;
+	border-left: 180px solid rgb(126, 45, 64);
+	border-top: 2px solid transparent;
+}
+ 
+.sheet-rolltemplate-feature .sheet-tcat {
+	font-style: italic;
+}
+ 
+.sheet-rolltemplate-feature .inlinerollresult	{
+	background-color: #ffffff;
+	border: none;
+}
+ 
+.sheet-rolltemplate-feature .inlinerollresult.fullcrit {
+	color: #3FB315;
+	border: none;
+}
+ 
+.sheet-rolltemplate-feature .inlinerollresult.fullfail {
+	color: #B31515;
+	border: none;
+}
+ 
+.sheet-rolltemplate-feature .inlinerollresult.importandivoll {
+	color: #4A57ED;
+	border: none;
+}
+
+/***************************/
+
+/* spell notes hiding */
+
+.sheet-spell-paragraph-box {
+	width: calc(100% - 16px);
+	height: 4em;
+}
+.sheet-spell-info {
+	display: none;
+}
+.sheet-spell-info-button{
+	margin: 2px;
+}
+input.sheet-spell-info-button:checked ~ div.sheet-spell-info {
+	display: block;
 }
