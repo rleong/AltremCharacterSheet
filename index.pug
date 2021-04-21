@@ -477,9 +477,12 @@ html
 				div.sheet-header-block
 					div.sheet-undertext.sheet-th-vert Flying Speed
 					input(type="number" name="attr_fly_speed" min="0" value="0").sheet-numbox
-				div(style="border-right: 1px solid; border-color: #e8e8e8; padding-right: 9px;").sheet-header-block
+				div.sheet-header-block
 					div.sheet-undertext.sheet-th-vert Swimming Speed
 					input(type="number" name="attr_swim_speed" min="0" value="0").sheet-numbox
+				div(style="border-right: 1px solid; border-color: #e8e8e8; padding-right: 9px;").sheet-header-block
+					div.sheet-undertext.sheet-th-vert Burrowing Speed
+					input(type="number" name="attr_burrow_speed" min="0" value="0").sheet-numbox
 				div.sheet-header-block
 					div.sheet-undertext.sheet-th-vert Exhaustion Level
 					input(type="number" name="attr_exhaustion" min="0" value="0" max="6").sheet-numbox
@@ -1330,9 +1333,6 @@ html
 				div(style="border-bottom: none;").sheet-subsection-nontable-row
 					fieldset.repeating_spell0
 						div
-							div.sheet-inline.sheet-text-align-center
-								div.sheet-undertext Prep'd
-								input(type="checkbox" name="attr_prepared_spell0")
 							div.sheet-inline
 								div.sheet-undertext.sheet-text-align-center Name
 								input(type="text" name="attr_name_spell0" style="width: 200px;")
@@ -1361,11 +1361,13 @@ html
 												div.sheet-undertext Area Type
 												select(name="attr_area_type_spell0" style="width: auto;")
 													option(value="") N/A
+													option(value="Circle") Circle
 													option(value="Cone") Cone
 													option(value="Cube") Cube
 													option(value="Cylinder") Cylinder
 													option(value="Line") Line
 													option(value="Sphere") Sphere
+													option(value="Square") Square
 											div.sheet-inline
 												div.sheet-undertext School
 												select(name="attr_school_spell0" style="width: auto;")
@@ -1483,11 +1485,13 @@ html
 												div.sheet-undertext Area Type
 												select(name="attr_area_type_spell1" style="width: auto;")
 													option(value="") N/A
+													option(value="Circle") Circle
 													option(value="Cone") Cone
 													option(value="Cube") Cube
 													option(value="Cylinder") Cylinder
 													option(value="Line") Line
 													option(value="Sphere") Sphere
+													option(value="Square") Square
 											div.sheet-inline
 												div.sheet-undertext School
 												select(name="attr_school_spell1" style="width: auto;")
@@ -1605,11 +1609,13 @@ html
 												div.sheet-undertext Area Type
 												select(name="attr_area_type_spell2" style="width: auto;")
 													option(value="") N/A
+													option(value="Circle") Circle
 													option(value="Cone") Cone
 													option(value="Cube") Cube
 													option(value="Cylinder") Cylinder
 													option(value="Line") Line
 													option(value="Sphere") Sphere
+													option(value="Square") Square
 											div.sheet-inline
 												div.sheet-undertext School
 												select(name="attr_school_spell2" style="width: auto;")
@@ -1727,11 +1733,13 @@ html
 												div.sheet-undertext Area Type
 												select(name="attr_area_type_spell3" style="width: auto;")
 													option(value="") N/A
+													option(value="Circle") Circle
 													option(value="Cone") Cone
 													option(value="Cube") Cube
 													option(value="Cylinder") Cylinder
 													option(value="Line") Line
 													option(value="Sphere") Sphere
+													option(value="Square") Square
 											div.sheet-inline
 												div.sheet-undertext School
 												select(name="attr_school_spell3" style="width: auto;")
@@ -1849,11 +1857,13 @@ html
 												div.sheet-undertext Area Type
 												select(name="attr_area_type_spell4" style="width: auto;")
 													option(value="") N/A
+													option(value="Circle") Circle
 													option(value="Cone") Cone
 													option(value="Cube") Cube
 													option(value="Cylinder") Cylinder
 													option(value="Line") Line
 													option(value="Sphere") Sphere
+													option(value="Square") Square
 											div.sheet-inline
 												div.sheet-undertext School
 												select(name="attr_school_spell4" style="width: auto;")
@@ -1971,11 +1981,13 @@ html
 												div.sheet-undertext Area Type
 												select(name="attr_area_type_spell5" style="width: auto;")
 													option(value="") N/A
+													option(value="Circle") Circle
 													option(value="Cone") Cone
 													option(value="Cube") Cube
 													option(value="Cylinder") Cylinder
 													option(value="Line") Line
 													option(value="Sphere") Sphere
+													option(value="Square") Square
 											div.sheet-inline
 												div.sheet-undertext School
 												select(name="attr_school_spell5" style="width: auto;")
@@ -2093,11 +2105,13 @@ html
 												div.sheet-undertext Area Type
 												select(name="attr_area_type_spell6" style="width: auto;")
 													option(value="") N/A
+													option(value="Circle") Circle
 													option(value="Cone") Cone
 													option(value="Cube") Cube
 													option(value="Cylinder") Cylinder
 													option(value="Line") Line
 													option(value="Sphere") Sphere
+													option(value="Square") Square
 											div.sheet-inline
 												div.sheet-undertext School
 												select(name="attr_school_spell6" style="width: auto;")
@@ -2215,11 +2229,13 @@ html
 												div.sheet-undertext Area Type
 												select(name="attr_area_type_spell7" style="width: auto;")
 													option(value="") N/A
+													option(value="Circle") Circle
 													option(value="Cone") Cone
 													option(value="Cube") Cube
 													option(value="Cylinder") Cylinder
 													option(value="Line") Line
 													option(value="Sphere") Sphere
+													option(value="Square") Square
 											div.sheet-inline
 												div.sheet-undertext School
 												select(name="attr_school_spell7" style="width: auto;")
@@ -2337,11 +2353,13 @@ html
 												div.sheet-undertext Area Type
 												select(name="attr_area_type_spell8" style="width: auto;")
 													option(value="") N/A
+													option(value="Circle") Circle
 													option(value="Cone") Cone
 													option(value="Cube") Cube
 													option(value="Cylinder") Cylinder
 													option(value="Line") Line
 													option(value="Sphere") Sphere
+													option(value="Square") Square
 											div.sheet-inline
 												div.sheet-undertext School
 												select(name="attr_school_spell8" style="width: auto;")
@@ -2459,11 +2477,13 @@ html
 												div.sheet-undertext Area Type
 												select(name="attr_area_type_spell9" style="width: auto;")
 													option(value="") N/A
+													option(value="Circle") Circle
 													option(value="Cone") Cone
 													option(value="Cube") Cube
 													option(value="Cylinder") Cylinder
 													option(value="Line") Line
 													option(value="Sphere") Sphere
+													option(value="Square") Square
 											div.sheet-inline
 												div.sheet-undertext School
 												select(name="attr_school_spell9" style="width: auto;")
@@ -2581,11 +2601,13 @@ html
 												div.sheet-undertext Area Type
 												select(name="attr_area_type_spell10" style="width: auto;")
 													option(value="") N/A
+													option(value="Circle") Circle
 													option(value="Cone") Cone
 													option(value="Cube") Cube
 													option(value="Cylinder") Cylinder
 													option(value="Line") Line
 													option(value="Sphere") Sphere
+													option(value="Square") Square
 											div.sheet-inline
 												div.sheet-undertext School
 												select(name="attr_school_spell10" style="width: auto;")
@@ -2852,7 +2874,7 @@ html
 										textarea(type="text" name="attr_item_desc" style="width: 800px; height: 50%;").sheet-paragraph-box
 			div
 				div.sheet-sub-header-small-left Storage
-					fieldset.repeating_inventory
+					fieldset.repeating_storage
 						div(style="border-bottom: none;").sheet-subsection-nontable-row
 							div.sheet-inline
 								div.sheet-undertext Name
@@ -2918,23 +2940,41 @@ html
 											div.sheet-undertext.sheet-text-align-center.sheet-th-vert Prof. Bonus
 											input(type="number" name="attr_companion_proficiency" min="0" value="0" step="1").sheet-numbox
 										div.sheet-inline
-											div.sheet-undertext.sheet-text-align-center.sheet-th-vert Power Level
-											input(type="number" name="attr_companion_power_level" min="0" value="0" step="1").sheet-numbox
+											div.sheet-undertext &nbsp;
+											div.sheet-undertext &nbsp;
 										div.sheet-inline
 											div.sheet-undertext.sheet-text-align-center.sheet-th-vert Walking Speed
 											input(type="number" name="attr_companion_walk_speed" min="0" value="0" step="1").sheet-numbox
 										div.sheet-inline
+											div.sheet-undertext &nbsp;
+											div.sheet-undertext &nbsp;
+										div.sheet-inline
 											div.sheet-undertext.sheet-text-align-center.sheet-th-vert Crawling Speed
 											input(type="number" name="attr_companion_crawl_speed" min="0" value="0" step="1").sheet-numbox
+										div.sheet-inline
+											div.sheet-undertext &nbsp;
+											div.sheet-undertext &nbsp;
 										div.sheet-inline
 											div.sheet-undertext.sheet-text-align-center.sheet-th-vert Climbing Speed
 											input(type="number" name="attr_companion_climb_speed" min="0" value="0" step="1").sheet-numbox
 										div.sheet-inline
+											div.sheet-undertext &nbsp;
+											div.sheet-undertext &nbsp;
+										div.sheet-inline
 											div.sheet-undertext.sheet-text-align-center.sheet-th-vert Flying Speed
 											input(type="number" name="attr_companion_fly_speed" min="0" value="0" step="1").sheet-numbox
 										div.sheet-inline
+											div.sheet-undertext &nbsp;
+											div.sheet-undertext &nbsp;
+										div.sheet-inline
 											div.sheet-undertext.sheet-text-align-center.sheet-th-vert Swimming Speed
 											input(type="number" name="attr_companion_swim_speed" min="0" value="0" step="1").sheet-numbox
+										div.sheet-inline
+											div.sheet-undertext &nbsp;
+											div.sheet-undertext &nbsp;
+										div.sheet-inline
+											div.sheet-undertext.sheet-text-align-center.sheet-th-vert Burrowing Speed
+											input(type="number" name="attr_companion_burrow_speed" min="0" value="0" step="1").sheet-numbox
 									div(style="border-bottom: none;").sheet-subsection-nontable-row
 										div.sheet-inline
 											div.sheet-undertext.sheet-text-align-center.sheet-th-vert Strength
