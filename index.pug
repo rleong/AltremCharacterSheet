@@ -1215,6 +1215,40 @@ html
 									div.sheet-undertext Description
 									textarea(type="text" name="attr_trait_desc" style="width: 800px; height: 50%;").sheet-paragraph-box
 
+
+				hr
+				div.sheet-sub-header-small-left Adaptations
+				fieldset.repeating_racial_abilities
+					div(style="border-bottom: none;").sheet-subsection-nontable-row
+						div.sheet-inline
+							div.sheet-undertext Adaptation Name
+							input(type="text" name="attr_adapt_name" style="width: 200px;")
+						div.sheet-inline
+							div.sheet-undertext &nbsp;
+							div.sheet-undertext &nbsp;
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Current Uses
+							input(type="number" name="attr_adapt_curr" style="width: 50px;" min="0" step="1" value="0")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Max Uses
+							input(type="number" name="attr_adapt_max" style="width: 50px;" min="0" step="1" value="0")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Short Rest Recharge?
+							input(type="checkbox" name="attr_adapt_sr_recharge")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Long Rest Recharge?
+							input(type="checkbox" name="attr_adapt_lr_recharge")
+						div.sheet-inline
+							div(style="padding-right: 20px;").sheet-undertext Send to Chat
+							button(type="roll" value="&{template:feature} {{title=@{adapt_name}}} {{desc=@{adapt_desc}}}" name="roll_adapt").sheet-roll-button
+						div.sheet-inline
+							div.sheet-undertext Expand
+							span(style="vertical-align: bottom;").sheet-undertext &#8505;
+								input(style="vertical-align: bottom;" type="checkbox").sheet-spell-info-button
+								div.sheet-spell-info
+									div.sheet-undertext Description
+									textarea(type="text" name="attr_adapt_desc" style="width: 800px; height: 50%;").sheet-paragraph-box
+
 				hr
 				div.sheet-sub-header-small-left Feats
 				fieldset.repeating_racial_abilities

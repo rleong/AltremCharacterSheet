@@ -1679,6 +1679,48 @@
           </div>
         </fieldset>
         <hr>
+        <div class="sheet-sub-header-small-left">Adaptations</div>
+        <fieldset class="repeating_racial_abilities">
+          <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
+            <div class="sheet-inline">
+              <div class="sheet-undertext">Adaptation Name</div>
+              <input type="text" name="attr_adapt_name" style="width: 200px;">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext">&nbsp;</div>
+              <div class="sheet-undertext">&nbsp;</div>
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Current Uses</div>
+              <input type="number" name="attr_adapt_curr" style="width: 50px;" min="0" step="1" value="0">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Max Uses</div>
+              <input type="number" name="attr_adapt_max" style="width: 50px;" min="0" step="1" value="0">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Short Rest Recharge?</div>
+              <input type="checkbox" name="attr_adapt_sr_recharge">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Long Rest Recharge?</div>
+              <input type="checkbox" name="attr_adapt_lr_recharge">
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext" style="padding-right: 20px;">Send to Chat</div>
+              <button class="sheet-roll-button" type="roll" value="&amp;{template:feature} {{title=@{adapt_name}}} {{desc=@{adapt_desc}}}" name="roll_adapt"></button>
+            </div>
+            <div class="sheet-inline">
+              <div class="sheet-undertext">Expand</div><span class="sheet-undertext" style="vertical-align: bottom;">&#8505;
+                <input class="sheet-spell-info-button" style="vertical-align: bottom;" type="checkbox">
+                <div class="sheet-spell-info">
+                  <div class="sheet-undertext">Description</div>
+                  <textarea class="sheet-paragraph-box" type="text" name="attr_adapt_desc" style="width: 800px; height: 50%;"></textarea>
+                </div></span>
+            </div>
+          </div>
+        </fieldset>
+        <hr>
         <div class="sheet-sub-header-small-left">Feats</div>
         <fieldset class="repeating_racial_abilities">
           <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
