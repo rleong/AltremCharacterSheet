@@ -10,7 +10,7 @@
     <input class="sheet-tab-button sheet-tab-button2" type="radio" name="attr_tab" value="2" title="No2"><span class="sheet-tab-label">&nbsp;Stats&nbsp;</span>
     <input class="sheet-tab-button sheet-tab-button3" type="radio" name="attr_tab" value="3" title="No3"><span class="sheet-tab-label">&nbsp;Abilities&nbsp;</span>
     <input class="sheet-tab-button sheet-tab-button4" type="radio" name="attr_tab" value="4" title="No4"><span class="sheet-tab-label">&nbsp;Spells&nbsp;</span>
-    <input class="sheet-tab-button sheet-tab-button5" type="radio" name="attr_tab" value="5" title="No5"><span class="sheet-tab-label">&nbsp;Strings&nbsp;</span>
+    <input class="sheet-tab-button sheet-tab-button5" type="radio" name="attr_tab" value="5" title="No5"><span class="sheet-tab-label">&nbsp;Social&nbsp;</span>
     <input class="sheet-tab-button sheet-tab-button6" type="radio" name="attr_tab" value="6" title="No6"><span class="sheet-tab-label">&nbsp;Character Details&nbsp;</span>
     <input class="sheet-tab-button sheet-tab-button7" type="radio" name="attr_tab" value="7" title="No7"><span class="sheet-tab-label">&nbsp;Inventory&nbsp;</span>
     <input class="sheet-tab-button sheet-tab-button8" type="radio" name="attr_tab" value="8" title="No8"><span class="sheet-tab-label">&nbsp;Companion&nbsp;</span>
@@ -3652,11 +3652,11 @@
       </div><br>
       <div style="border-bottom: 3px solid; border-color: #e8e8e8;"></div>
     </div>
-    <!-- Strings-->
+    <!-- Social-->
     <div class="sheet-tabbed-pane sheet-tab sheet-tab5"><br>
-      <div class="sheet-sub-header">Strings</div>
+      <div class="sheet-sub-header">Social</div>
       <div>
-        <div class="sheet-sub-header-small-left">Relationships</div>
+        <div class="sheet-sub-header-small-left">Strings</div>
         <fieldset class="repeating_relationships">
           <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
             <div class="sheet-inline">
@@ -3685,42 +3685,6 @@
                 <div class="sheet-spell-info">
                   <div class="sheet-undertext">Description</div>
                   <textarea class="sheet-paragraph-box" type="text" name="attr_relationship_desc" style="width: 800px; height: 50%;"></textarea>
-                </div></span>
-            </div>
-          </div>
-        </fieldset>
-      </div>
-      <hr>
-      <div>
-        <div class="sheet-sub-header-small-left">Principles</div>
-        <fieldset class="repeating_principles">
-          <div class="sheet-subsection-nontable-row" style="border-bottom: none;">
-            <div class="sheet-inline">
-              <div class="sheet-undertext">Principle</div>
-              <input type="text" name="attr_principle" style="width: 200px;">
-            </div>
-            <div class="sheet-inline">
-              <div class="sheet-undertext">&nbsp;</div>
-              <div class="sheet-undertext">&nbsp;</div>
-            </div>
-            <div class="sheet-inline">
-              <div class="sheet-undertext">Importance</div>
-              <select name="attr_principle_importance" style="width: auto;">
-                <option value="1">Minor</option>
-                <option value="3">Major</option>
-                <option value="5">Defining</option>
-              </select>
-            </div>
-            <div class="sheet-inline">
-              <div class="sheet-undertext" style="padding-right: 20px;">Roll</div>
-              <button class="sheet-roll-button" type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} ?{Situation|Positive,+ (@{principle_importance}), |Negative,- (@{principle_importance})} ?{Attribute|None,+ 0, |Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})} ?{Skill|None,+ 0, |Persuasion,+ (@{persuasion_prof}), |Deception,+ (@{deception_prof}), |Intimidation,+ (@{intimidation_prof}), |Insight,+ (@{insight_prof}), |Performance,+ (@{performance_prof})}" name="roll_principle"></button>
-            </div>
-            <div class="sheet-inline">
-              <div class="sheet-undertext">Expand</div><span class="sheet-undertext" style="vertical-align: bottom;">&#8505;
-                <input class="sheet-spell-info-button" style="vertical-align: bottom;" type="checkbox">
-                <div class="sheet-spell-info">
-                  <div class="sheet-undertext">Description</div>
-                  <textarea class="sheet-paragraph-box" type="text" name="attr_principle_desc" style="width: 800px; height: 50%;"></textarea>
                 </div></span>
             </div>
           </div>

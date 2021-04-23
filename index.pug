@@ -17,7 +17,7 @@ html
 		input(type="radio" name="attr_tab" value="4" title="No4").sheet-tab-button.sheet-tab-button4
 		span.sheet-tab-label &nbsp;Spells&nbsp;
 		input(type="radio" name="attr_tab" value="5" title="No5").sheet-tab-button.sheet-tab-button5
-		span.sheet-tab-label &nbsp;Strings&nbsp;
+		span.sheet-tab-label &nbsp;Social&nbsp;
 		input(type="radio" name="attr_tab" value="6" title="No6").sheet-tab-button.sheet-tab-button6
 		span.sheet-tab-label &nbsp;Character Details&nbsp;
 		input(type="radio" name="attr_tab" value="7" title="No7").sheet-tab-button.sheet-tab-button7
@@ -2726,12 +2726,12 @@ html
 			br
 			div(style="border-bottom: 3px solid; border-color: #e8e8e8;")
 
-		// Strings
+		// Social
 		div.sheet-tabbed-pane.sheet-tab.sheet-tab5
 			br
-			div.sheet-sub-header Strings
+			div.sheet-sub-header Social
 			div
-				div.sheet-sub-header-small-left Relationships
+				div.sheet-sub-header-small-left Strings
 				fieldset.repeating_relationships
 					div(style="border-bottom: none;").sheet-subsection-nontable-row
 						div.sheet-inline
@@ -2756,33 +2756,6 @@ html
 								div.sheet-spell-info
 									div.sheet-undertext Description
 									textarea(type="text" name="attr_relationship_desc" style="width: 800px; height: 50%;").sheet-paragraph-box
-			hr
-			div
-				div.sheet-sub-header-small-left Principles
-				fieldset.repeating_principles
-					div(style="border-bottom: none;").sheet-subsection-nontable-row
-						div.sheet-inline
-							div.sheet-undertext Principle
-							input(type="text" name="attr_principle" style="width: 200px;")
-						div.sheet-inline
-							div.sheet-undertext &nbsp;
-							div.sheet-undertext &nbsp;
-						div.sheet-inline
-							div.sheet-undertext Importance
-							select(name="attr_principle_importance" style="width: auto;")
-								option(value="1") Minor
-								option(value="3") Major
-								option(value="5") Defining
-						div.sheet-inline
-							div(style="padding-right: 20px;").sheet-undertext Roll
-							button(type="roll" value="/roll ?{Roll Type|Normal,1d20 |Advantage,2d20dl1 |Disadvantage,2d20dh1} ?{Situation|Positive,+ (@{principle_importance}), |Negative,- (@{principle_importance})} ?{Attribute|None,+ 0, |Strength,+ (@{str_mod}), |Dexterity,+ (@{dex_mod}), |Constitution,+ (@{con_mod}), |Intellect,+ (@{int_mod}), |Willpower,+ (@{wil_mod}), |Charisma,+ (@{cha_mod})} ?{Skill|None,+ 0, |Persuasion,+ (@{persuasion_prof}), |Deception,+ (@{deception_prof}), |Intimidation,+ (@{intimidation_prof}), |Insight,+ (@{insight_prof}), |Performance,+ (@{performance_prof})}" name="roll_principle").sheet-roll-button
-						div.sheet-inline
-							div.sheet-undertext Expand
-							span(style="vertical-align: bottom;").sheet-undertext &#8505;
-								input(style="vertical-align: bottom;" type="checkbox").sheet-spell-info-button
-								div.sheet-spell-info
-									div.sheet-undertext Description
-									textarea(type="text" name="attr_principle_desc" style="width: 800px; height: 50%;").sheet-paragraph-box
 
 			hr
 			div
