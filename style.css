@@ -553,6 +553,75 @@ input.sheet-tab-button9:checked ~ div.sheet-tab9 {
 	border: none;
 }
 
+/* 5e composition Template */
+
+.sheet-rolltemplate-composition .sheet-container {
+	background-color: #ffffff;
+	border: 1px solid;
+	padding: 2px;
+}
+
+.sheet-rolltemplate-composition .sheet-container h1 {
+	color: rgb(126, 45, 64);
+	font-size: 1.2em;
+	font-variant: small-caps;
+	line-height: 20px;
+}
+
+.sheet-rolltemplate-composition div {
+	padding: 2px;
+};
+ 
+.sheet-rolltemplate-composition span {
+	color: rgb(126, 45, 64);
+	font-family: "Times New Roman", Times, serif;
+	font-size: 1.2em;
+	font-variant: small-caps;
+	line-height: 1.6em;
+	padding-left: 5px;
+	text-align: left;
+}
+ 
+.sheet-rolltemplate-composition .sheet-subheader {
+	color: #000;
+	font-size: 1em;
+	font-style: italic;
+}
+ 
+.sheet-rolltemplate-composition .sheet-arrow-right {
+	border-bottom: 2px solid transparent;
+	border-left: 180px solid rgb(126, 45, 64);
+	border-top: 2px solid transparent;
+}
+ 
+.sheet-rolltemplate-composition .sheet-tcat {
+	font-style: italic;
+}
+
+.sheet-rolltemplate-composition .sheet-bcat {
+	font-weight: bold;
+}
+ 
+.sheet-rolltemplate-composition .inlinerollresult	{
+	background-color: #ffffff;
+	border: none;
+}
+ 
+.sheet-rolltemplate-composition .inlinerollresult.fullcrit {
+	color: #3FB315;
+	border: none;
+}
+ 
+.sheet-rolltemplate-composition .inlinerollresult.fullfail {
+	color: #B31515;
+	border: none;
+}
+ 
+.sheet-rolltemplate-composition .inlinerollresult.importandivoll {
+	color: #4A57ED;
+	border: none;
+}
+
 /* 5e Spell Template */
 
 .sheet-rolltemplate-spell .sheet-container {
@@ -618,6 +687,75 @@ input.sheet-tab-button9:checked ~ div.sheet-tab9 {
 }
  
 .sheet-rolltemplate-spell .inlinerollresult.importandivoll {
+	color: #4A57ED;
+	border: none;
+}
+
+/* 5e Feature More Template */
+
+.sheet-rolltemplate-featuremore .sheet-container {
+	background-color: #ffffff;
+	border: 1px solid;
+	padding: 2px;
+}
+
+.sheet-rolltemplate-featuremore .sheet-container h1 {
+	color: rgb(126, 45, 64);
+	font-size: 1.2em;
+	font-variant: small-caps;
+	line-height: 20px;
+}
+
+.sheet-rolltemplate-featuremore div {
+	padding: 2px;
+};
+ 
+.sheet-rolltemplate-featuremore span {
+	color: rgb(126, 45, 64);
+	font-family: "Times New Roman", Times, serif;
+	font-size: 1.2em;
+	font-variant: small-caps;
+	line-height: 1.6em;
+	padding-left: 5px;
+	text-align: left;
+}
+ 
+.sheet-rolltemplate-featuremore .sheet-subheader {
+	color: #000;
+	font-size: 1em;
+	font-style: italic;
+}
+ 
+.sheet-rolltemplate-featuremore .sheet-arrow-right {
+	border-bottom: 2px solid transparent;
+	border-left: 180px solid rgb(126, 45, 64);
+	border-top: 2px solid transparent;
+}
+ 
+.sheet-rolltemplate-featuremore .sheet-tcat {
+	font-style: italic;
+}
+
+.sheet-rolltemplate-featuremore .sheet-bcat {
+	font-weight: bold;
+}
+ 
+.sheet-rolltemplate-featuremore .inlinerollresult	{
+	background-color: #ffffff;
+	border: none;
+}
+ 
+.sheet-rolltemplate-featuremore .inlinerollresult.fullcrit {
+	color: #3FB315;
+	border: none;
+}
+ 
+.sheet-rolltemplate-featuremore .inlinerollresult.fullfail {
+	color: #B31515;
+	border: none;
+}
+ 
+.sheet-rolltemplate-featuremore .inlinerollresult.importandivoll {
 	color: #4A57ED;
 	border: none;
 }
